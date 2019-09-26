@@ -1,0 +1,31 @@
+Name     ESDL1 ;
+PartNo   P1 ;
+Date     06-Sep-19 ;
+Revision 01 ;
+Designer Sharan ;
+Company  University of Colorado boulder ;
+Assembly None ;
+Location None ;
+Device   g16v8a ;
+
+/* *************** INPUT PINS *********************/
+PIN  2   = A15                        ; /*  Address pins A12-a15                               */ 
+PIN  3   = A14                        ; /*      */ 
+PIN  5   =  A13                       ; 
+/*Pin Description from    https://www.electronicshub.org/8051-microcontroller pin-diagram */ 
+PIN  6   =  A12                       ; /*                                 */ 
+PIN  7   =  !RD                       ; /*  Reads External memory           */            
+PIN  8   =  !PSEN                       ; /*   Program store enable pin    */                         
+
+/* *************** OUTPUT PINS *********************/
+PIN    19 =       !READ                  ; 
+PIN    18 =       !CSPERIPH                  ;
+PIN	17 =	NVRAMCE                ;
+
+/* Logic Equations **/
+!READ     =          !RD & !PSEN          ; 
+!CSPERIPH =  !(A15 & A14 &A13 &A12) ;
+NVRAMCE =   A15;
+
+
+
