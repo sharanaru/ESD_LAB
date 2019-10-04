@@ -21,11 +21,12 @@ PIN  8   =  !PSEN                       ; /*   Program store enable pin    */
 PIN    19 =       !READ                  ; 
 PIN    18 =       !CSPERIPH                  ;
 PIN	17 =	NVRAMCE                ;
-
+PIN	16 = !PS ;
 /* Logic Equations **/
 !READ     =          !RD & !PSEN          ; 
 !CSPERIPH =  !(A15 & A14 &A13 &A12) ;
 NVRAMCE =   A15;
+!PS=!PSEN;
 
 
 
