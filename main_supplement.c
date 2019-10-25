@@ -4,7 +4,7 @@
 #include<stdlib.h>
 #include<stdio.h>
 #include<stdint.h>
-#include<stdbool.h>
+
 #include <at89c51ed2.h>
 
 int putchar (int c)//serial outps char value
@@ -52,7 +52,7 @@ void changeperiphclock(int a)
     else
         CKRL=0x00;//setting to zero  for minimum frequency
 }
-void PWM_on(uint8_t duty)
+void PWM_on()
 {
 // This program generates a pulse by comparing the CL register with the
 // value stored in CCAP0L. If CL >= CCAP0L then the output is HIGH.
@@ -61,8 +61,8 @@ void PWM_on(uint8_t duty)
 CMOD |= 0x02; // Setup PCA timer to use clockperiphal/2
 CL  = 0x00; //timer counter
 CH  = 0x00; //timer counter
-CCAP0L = duty; // Set the initial value same as CCAP0H
-CCAP0H = duty; // 75% Duty Cycle
+CCAP0L = 0x30; // Set the initial value same as CCAP0H
+CCAP0H = 0x30;
 CCAPM0 |= 0x42; // Setup PCA module 0 in PWM mode.
 CR = 1; // Start PCA Timer.
 }
@@ -73,7 +73,7 @@ void PWM_off()
 
 void idle()
 {
-   CMOD |=
+
 PCON|=0x1;//setting pcon idl bit to put into idle. can be woken up by isrs
 }
 void poweroff()
@@ -86,7 +86,8 @@ void watchdog_init()
 CCAP4L = 0xFF; // Setup PCA module 4 for Watchdog Timer
 CCAP4H = 0xFF;
 CCAPM4 = 0x4C;
-CMOD = CMOD | 0x40;CR=1;
+CMOD = CMOD | 0x40;
+CR=1;
 static int watchdogflag=1;
 }
 
@@ -99,15 +100,64 @@ CCAP4L = 0;
 CCAP4H = CH;
 EA = 1;
 }
+void timerinit()
+{
+CMOD |= 0x01; // Setup PCA timer mode.
+CH = 0x00; // Init values
+CL = 0x00;
+CCAP0L = 0x20; // Set compare limit
+CCAP0H = 0x4E;
+CCAPM0 = 0x49; // Set Modules zero for 16bit Timer mode.
+IE = 0xC0; // Enable Interrupts
+CR = 1;
+} // Start PCA timer
+void PCA_ISR()__interrupt(6)__using(1)
+{
+unsigned int temp;
+putstr("entered isr\n");
+IE = IE & 0xBF; // Stop Interrupts
+CCF0 = 0; // Clear Int flag
+temp = CCAP0L | (CCAP0H << 8); // The following four lines
+temp += 0x4E20; // of code increase the
+CCAP0L = temp; // compare value in CCAP0
+CCAP0H = temp >> 8; // by 20000, effectively
+// refreshing the timer.
+IE = IE | 0x40; // Start interrupts
+}
 
 
 void main(void)
 {
-uint16_t i=0;
-while(i!=65500)
+    while(1)
+    {
+
+
+putstr("User menu\r\n+PRESS P TO TURN ON PWM PIN AT P1.3\r\n+PRESS L TO STOP PWM\r\n+PRESS H TO SET MAX FREQUENCY AT FCLCK PERIPH\r\n+PRESS J TO LOWER FCLK PERIPH TO MIN FREQUENCY\r\n+PRESS I TO ENTER IDLE\r\n+PRESS A TO ENTER POWER DOWN\r\n");
+putstr("Additonal Features O- Watchdog T-software timer\r\n");
+char x=getchar();
+switch(x)
 {
-    i++;
+case 'p':
+    PWM_on();break;
+case 'l':
+    PWM_off();break;
+case 'h':
+    changeperiphclock(1);break;
+case 'j':
+    changeperiphclock(0);break;
+case 'i':
+    idle();
+    break;
+case 'a':
+    poweroff();break;
+case 'o':
+    watchdog_init();break;
+case 't':
+    timerinit();break;
+
+
 }
-watchdog_init();
+    }
+
 
 }
