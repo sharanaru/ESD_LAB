@@ -170,30 +170,33 @@ int main(void)
             }// For debugger
             nflag=0;
         }
-        if(receive=='c'||receive=='C')
+       if(receive=='c'||receive=='C')
         {
             int k;
-            char msg_temp[]="\r\nTemperature in Celsius is ";
+            char msg_temp[]="\r\n Celsius is ";
             char temperature[20];
-            snprintf(temperature,20, "%f \r\n", IntDegC);
+            snprintf(temperature,20, "%0.2f", IntDegC);
             for(k=0;msg_temp[k]!='\0';k++)
             {
                 while(!(EUSCI_A0->IFG & EUSCI_A_IFG_TXIFG));
                 EUSCI_A0->TXBUF=msg_temp[k];
             }
+            //clearing txbuf
             for(k=0;msg_temp[k]!='\0';k++)
             {
                 while(!(EUSCI_A0->IFG & EUSCI_A_IFG_TXIFG));
                 EUSCI_A0->TXBUF=temperature[k];
             }
+            while(!(EUSCI_A0->IFG & EUSCI_A_IFG_TXIFG));
+
             receive=NULL;
         }
         if(receive=='f'||receive=='F')
         {
             int k;
-            char msg_tempf[]="\r\nTemperature in Fahrenheit is ";
+            char msg_tempf[]="\r\nFahrenheit is ";
             char temperaturef[20];
-            snprintf(temperaturef,20, "%f \r\n", IntDegF);
+            snprintf(temperaturef,20, "%0.2f", IntDegF);
             for(k=0;msg_tempf[k]!='\0';k++)
             {
                 while(!(EUSCI_A0->IFG & EUSCI_A_IFG_TXIFG));
@@ -204,6 +207,8 @@ int main(void)
                 while(!(EUSCI_A0->IFG & EUSCI_A_IFG_TXIFG));
                 EUSCI_A0->TXBUF=temperaturef[k];
             }
+            while(!(EUSCI_A0->IFG & EUSCI_A_IFG_TXIFG));
+
             receive=NULL;
         }
     }
@@ -279,4 +284,3 @@ void ADC14_IRQHandler(void)
         temp = ADC14->MEM[0];
     }
 }
-
