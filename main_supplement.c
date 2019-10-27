@@ -1,4 +1,4 @@
-/*
+/*Sharan Arumugam- supplemental 8051 pca. Code sourced from http://ww1.microchip.com/downloads/en/appnotes/s72052.pdf
  */
 
 #include<stdlib.h>
@@ -61,11 +61,12 @@ void PWM_on()
 CMOD |= 0x02; // Setup PCA timer to use clockperiphal/2
 CL  = 0x00; //timer counter
 CH  = 0x00; //timer counter
-CCAP0L = 0x30; // Set the initial value same as CCAP0H
-CCAP0H = 0x30;
+CCAP0L = 140; // Set the initial value same as CCAP0H
+CCAP0H = 140;
 CCAPM0 |= 0x42; // Setup PCA module 0 in PWM mode.
 CR = 1; // Start PCA Timer.
 }
+
 void PWM_off()
 {
    CCAPM0 &= 0;
@@ -91,8 +92,6 @@ CR=1;
 static int watchdogflag=1;
 }
 
-
-/**********WATCH DOG REFRESH*********/
 void manage_watchdog()
 {
 EA = 0;
@@ -109,8 +108,9 @@ CCAP0L = 0x20; // Set compare limit
 CCAP0H = 0x4E;
 CCAPM0 = 0x49; // Set Modules zero for 16bit Timer mode.
 IE = 0xC0; // Enable Interrupts
-CR = 1;
-} // Start PCA timer
+CR = 1;// Start PCA timer
+}
+
 void PCA_ISR()__interrupt(6)__using(1)
 {
 unsigned int temp;
@@ -138,25 +138,38 @@ char x=getchar();
 switch(x)
 {
 case 'p':
-    PWM_on();break;
+    PWM_on(); putstr("P pressed\n\r");
+                     break;
 case 'l':
-    PWM_off();break;
+    PWM_off();
+    putstr("L pressed\n\r");
+    break;
 case 'h':
-    changeperiphclock(1);break;
+    changeperiphclock(1);
+    putstr("H pressed\n\r");
+    break;
 case 'j':
-    changeperiphclock(0);break;
+    putstr("J pressed\n\r");
+    changeperiphclock(0);
+
+    break;
 case 'i':
+    putstr("I pressed\n\r");
     idle();
     break;
 case 'a':
+    putstr("A pressed\n\r");
     poweroff();break;
 case 'o':
+    putstr("O pressed\n\r");
     watchdog_init();break;
 case 't':
+    putstr("T pressed\n\r");
     timerinit();break;
 
 
 }
+putstr("Function processed\n\r");
     }
 
 
