@@ -1,7 +1,7 @@
 # depslib dependency file v1.0
 1573270258 source:c:\users\shara\documents\courses\pes\project 3\i2c_eeprom_8051\i2c.c
 
-1573277447 source:c:\users\shara\documents\courses\pes\project 3\i2c_eeprom_8051\main.c
+1573538130 source:c:\users\shara\documents\courses\pes\project 3\i2c_eeprom_8051\main.c
 	<stdlib.h>
 	<stdio.h>
 	<stdint.h>
