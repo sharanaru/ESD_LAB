@@ -90,6 +90,20 @@ void i2c_stop()
     delay();
 
 }
+void long_delay()
+{
+    for(uint16_t i=800;i!=0;i--)
+        {
+            delay();
+        }
+}
+void restart_i2c()
+{
+     setSCL;
+        clearSDA;
+        delay();
+        clearSCL;
+}
 
 int i2c_write(int k)
 {
@@ -137,6 +151,23 @@ int i2c_write(int k)
     clearSCL;
     return ack_check;
 }
+void i2c_ack()
+{
+clearSDA;
+delay();
+setSCL;
+delay();
+clearSCL;
+setSDA;
+}
+void i2c_nack()
+{
+    setSCL;
+            delay();
+            setSDA;
+            clearSCL;
+            delay();
+}
 int i2c_read()
 {
     int reader=0;
@@ -154,77 +185,72 @@ int i2c_read()
 
             }
 //creating nack after read
-            setSCL;
-            delay();
-            setSDA;
-            clearSCL;
-            delay();
+
             return reader;
 
 }
-
-
-void main(void)
+void byte_write(uint8_t controlcode,uint8_t byte_address,char writedata)
 {
-
-
-
-
-    while(1)
-    {
-        i2c_reset();
-
-
-        i2c_start();
-        i2c_write(0xA0);
+        restart_i2c();
+        i2c_write(controlcode);
         delay();
-        i2c_write(0x01);
+        i2c_write(byte_address);
         delay();
-        i2c_write('a');
+        i2c_write(writedata);
         delay();
         i2c_stop();
-        for(uint16_t i=1000;i!=0;i--)
-        {
-            delay();
-        }
+        long_delay();
 
         int t=1;
         while(t) //ack polling
         {
-        setSCL;
 
-
-        clearSDA;
-        delay();
-        clearSCL;
-        t=i2c_write(0xA0);
+        restart_i2c();
+        t=i2c_write(controlcode);
         delay();
         }
         i2c_stop();
-        setSCL;
-        clearSDA;
-        delay();
-        clearSCL;
-
-        i2c_write(0xA0);delay();
-        i2c_write(0x01);delay();
+}
 
 
-        setSCL;
-        clearSDA;
-        delay();
-        clearSCL;
-        i2c_write(0xA1);
+void random_read(uint8_t controlcode,uint8_t byte_address)
+{
+    restart_i2c();
+    i2c_write(controlcode);delay();
+    i2c_write(byte_address);delay();
+    restart_i2c();
+    i2c_write((controlcode+1)); //change to read operation
+    int s;
+    s=i2c_read();
+    i2c_nack();
+    putchar(s);
+    i2c_stop();
+    putchar('\n');
+    putchar('\r'); long_delay();
+
+}
+void main(void)
+{
+while(1)
+{
+i2c_reset();
+byte_write(0xA0,0x01,'b');
+byte_write(0xA0,0x02,'c');
+restart_i2c();
+i2c_write(0xA0);delay();
+i2c_write(0x01);delay();
+restart_i2c();
+i2c_write((0xA1)); //change to read operation
+int s;
+s=i2c_read();
+i2c_ack();
+putchar(s);
+s=i2c_read();
+i2c_nack();
+putchar(s);
+i2c_stop();
 
 
-        int s;
-        s=i2c_read();
-        putchar(s);
-        i2c_stop();
-        for(uint16_t ww=1000;ww!=0;ww--)
-        {
-            delay();
-        }
 
 
 

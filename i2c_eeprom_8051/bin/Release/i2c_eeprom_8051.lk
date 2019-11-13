@@ -5,7 +5,7 @@
 -I 0x0100
 -X 0x1000
 -C 0x10000
--b HOME = 0x2564
+-b HOME = 0x0000
 -b XSEG = 0x0001
 -b PSEG = 0x0001
 -b ISEG = 0x0000
@@ -17,7 +17,6 @@
 -l libint
 -l liblong
 -l libfloat
-obj\Release\i2c.rel
 obj\Release\main.rel
 
 -e

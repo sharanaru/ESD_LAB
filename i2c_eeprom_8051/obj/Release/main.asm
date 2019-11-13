@@ -9,8 +9,14 @@
 ; Public variables in this module
 ;--------------------------------------------------------
 	.globl _main
+	.globl _random_read
+	.globl _byte_write
 	.globl _i2c_read
+	.globl _i2c_nack
+	.globl _i2c_ack
 	.globl _i2c_write
+	.globl _restart_i2c
+	.globl _long_delay
 	.globl _i2c_stop
 	.globl _i2c_start
 	.globl _i2c_reset
@@ -215,6 +221,9 @@
 	.globl _DPL
 	.globl _SP
 	.globl _P0
+	.globl _random_read_PARM_2
+	.globl _byte_write_PARM_3
+	.globl _byte_write_PARM_2
 	.globl _putchar
 	.globl _getchar
 ;--------------------------------------------------------
@@ -467,12 +476,22 @@ _putchar_c_65536_63:
 	.ds 2
 _putstr_s_65536_67:
 	.ds 3
-_i2c_write_k_65536_76:
+_i2c_write_k_65536_80:
 	.ds 2
-_i2c_read_reader_65536_83:
+_i2c_read_reader_65536_89:
 	.ds 2
-_main_t_131073_91:
+_byte_write_PARM_2:
+	.ds 1
+_byte_write_PARM_3:
+	.ds 1
+_byte_write_controlcode_65536_92:
+	.ds 1
+_byte_write_t_65537_94:
 	.ds 2
+_random_read_PARM_2:
+	.ds 1
+_random_read_controlcode_65536_96:
+	.ds 1
 ;--------------------------------------------------------
 ; absolute external ram data
 ;--------------------------------------------------------
@@ -797,25 +816,78 @@ _i2c_stop:
 ;	main.c:92: }
 	ljmp	_delay
 ;------------------------------------------------------------
+;Allocation info for local variables in function 'long_delay'
+;------------------------------------------------------------
+;i                         Allocated with name '_long_delay_i_131072_77'
+;------------------------------------------------------------
+;	main.c:93: void long_delay()
+;	-----------------------------------------
+;	 function long_delay
+;	-----------------------------------------
+_long_delay:
+;	main.c:95: for(uint16_t i=800;i!=0;i--)
+	mov	r6,#0x20
+	mov	r7,#0x03
+00103$:
+	mov	a,r6
+	orl	a,r7
+	jz	00105$
+;	main.c:97: delay();
+	push	ar7
+	push	ar6
+	lcall	_delay
+	pop	ar6
+	pop	ar7
+;	main.c:95: for(uint16_t i=800;i!=0;i--)
+	dec	r6
+	cjne	r6,#0xff,00117$
+	dec	r7
+00117$:
+	sjmp	00103$
+00105$:
+;	main.c:99: }
+	ret
+;------------------------------------------------------------
+;Allocation info for local variables in function 'restart_i2c'
+;------------------------------------------------------------
+;	main.c:100: void restart_i2c()
+;	-----------------------------------------
+;	 function restart_i2c
+;	-----------------------------------------
+_restart_i2c:
+;	main.c:102: setSCL;
+;	assignBit
+	setb	_P1_4
+;	main.c:103: clearSDA;
+;	assignBit
+	clr	_P1_5
+;	main.c:104: delay();
+	lcall	_delay
+;	main.c:105: clearSCL;
+;	assignBit
+	clr	_P1_4
+;	main.c:106: }
+	ret
+;------------------------------------------------------------
 ;Allocation info for local variables in function 'i2c_write'
 ;------------------------------------------------------------
-;k                         Allocated with name '_i2c_write_k_65536_76'
-;i                         Allocated with name '_i2c_write_i_131072_78'
-;ack_check                 Allocated with name '_i2c_write_ack_check_65537_82'
+;k                         Allocated with name '_i2c_write_k_65536_80'
+;i                         Allocated with name '_i2c_write_i_131072_82'
+;ack_check                 Allocated with name '_i2c_write_ack_check_65537_86'
 ;------------------------------------------------------------
-;	main.c:94: int i2c_write(int k)
+;	main.c:108: int i2c_write(int k)
 ;	-----------------------------------------
 ;	 function i2c_write
 ;	-----------------------------------------
 _i2c_write:
 	mov	r7,dph
 	mov	a,dpl
-	mov	dptr,#_i2c_write_k_65536_76
+	mov	dptr,#_i2c_write_k_65536_80
 	movx	@dptr,a
 	mov	a,r7
 	inc	dptr
 	movx	@dptr,a
-;	main.c:98: for(int i=0; i<8; i++)
+;	main.c:112: for(int i=0; i<8; i++)
 	mov	r6,#0x00
 	mov	r7,#0x00
 00106$:
@@ -826,55 +898,55 @@ _i2c_write:
 	xrl	a,#0x80
 	subb	a,#0x80
 	jnc	00104$
-;	main.c:101: if(k & 128)
-	mov	dptr,#_i2c_write_k_65536_76
+;	main.c:115: if(k & 128)
+	mov	dptr,#_i2c_write_k_65536_80
 	movx	a,@dptr
 	mov	r4,a
 	inc	dptr
 	movx	a,@dptr
 	mov	a,r4
 	jnb	acc.7,00102$
-;	main.c:103: setSDA;
+;	main.c:117: setSDA;
 ;	assignBit
 	setb	_P1_5
-;	main.c:104: setSCL;
+;	main.c:118: setSCL;
 ;	assignBit
 	setb	_P1_4
-;	main.c:105: delay();
+;	main.c:119: delay();
 	push	ar7
 	push	ar6
 	lcall	_delay
 	pop	ar6
 	pop	ar7
-;	main.c:106: clearSCL;
+;	main.c:120: clearSCL;
 ;	assignBit
 	clr	_P1_4
 	sjmp	00103$
 00102$:
-;	main.c:113: clearSDA;
+;	main.c:127: clearSDA;
 ;	assignBit
 	clr	_P1_5
-;	main.c:114: setSCL;
+;	main.c:128: setSCL;
 ;	assignBit
 	setb	_P1_4
-;	main.c:115: delay();
+;	main.c:129: delay();
 	push	ar7
 	push	ar6
 	lcall	_delay
 	pop	ar6
 	pop	ar7
-;	main.c:116: clearSCL;
+;	main.c:130: clearSCL;
 ;	assignBit
 	clr	_P1_4
 00103$:
-;	main.c:124: delay();
+;	main.c:138: delay();
 	push	ar7
 	push	ar6
 	lcall	_delay
 	pop	ar6
 	pop	ar7
-;	main.c:125: k<<=1;
-	mov	dptr,#_i2c_write_k_65536_76
+;	main.c:139: k<<=1;
+	mov	dptr,#_i2c_write_k_65536_80
 	movx	a,@dptr
 	mov	r4,a
 	inc	dptr
@@ -886,67 +958,115 @@ _i2c_write:
 	mov	a,r5
 	rlc	a
 	mov	r5,a
-	mov	dptr,#_i2c_write_k_65536_76
+	mov	dptr,#_i2c_write_k_65536_80
 	mov	a,r4
 	movx	@dptr,a
 	mov	a,r5
 	inc	dptr
 	movx	@dptr,a
-;	main.c:98: for(int i=0; i<8; i++)
+;	main.c:112: for(int i=0; i<8; i++)
 	inc	r6
 	cjne	r6,#0x00,00106$
 	inc	r7
 	sjmp	00106$
 00104$:
-;	main.c:128: setSDA;
+;	main.c:142: setSDA;
 ;	assignBit
 	setb	_P1_5
-;	main.c:131: __endasm;
+;	main.c:145: __endasm;
 	nop
-;	main.c:132: setSCL;
+;	main.c:146: setSCL;
 ;	assignBit
 	setb	_P1_4
-;	main.c:134: ack_check |=P1_5;
+;	main.c:148: ack_check |=P1_5;
 	mov	c,_P1_5
 	clr	a
 	rlc	a
 	mov	r6,a
 	mov	r7,#0x00
-;	main.c:136: delay();
+;	main.c:150: delay();
 	push	ar7
 	push	ar6
 	lcall	_delay
 	pop	ar6
 	pop	ar7
-;	main.c:137: clearSCL;
+;	main.c:151: clearSCL;
 ;	assignBit
 	clr	_P1_4
-;	main.c:138: return ack_check;
+;	main.c:152: return ack_check;
 	mov	dpl,r6
 	mov	dph,r7
-;	main.c:139: }
+;	main.c:153: }
 	ret
+;------------------------------------------------------------
+;Allocation info for local variables in function 'i2c_ack'
+;------------------------------------------------------------
+;	main.c:154: void i2c_ack()
+;	-----------------------------------------
+;	 function i2c_ack
+;	-----------------------------------------
+_i2c_ack:
+;	main.c:156: clearSDA;
+;	assignBit
+	clr	_P1_5
+;	main.c:157: delay();
+	lcall	_delay
+;	main.c:158: setSCL;
+;	assignBit
+	setb	_P1_4
+;	main.c:159: delay();
+	lcall	_delay
+;	main.c:160: clearSCL;
+;	assignBit
+	clr	_P1_4
+;	main.c:161: setSDA;
+;	assignBit
+	setb	_P1_5
+;	main.c:162: }
+	ret
+;------------------------------------------------------------
+;Allocation info for local variables in function 'i2c_nack'
+;------------------------------------------------------------
+;	main.c:163: void i2c_nack()
+;	-----------------------------------------
+;	 function i2c_nack
+;	-----------------------------------------
+_i2c_nack:
+;	main.c:165: setSCL;
+;	assignBit
+	setb	_P1_4
+;	main.c:166: delay();
+	lcall	_delay
+;	main.c:167: setSDA;
+;	assignBit
+	setb	_P1_5
+;	main.c:168: clearSCL;
+;	assignBit
+	clr	_P1_4
+;	main.c:169: delay();
+;	main.c:170: }
+	ljmp	_delay
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'i2c_read'
 ;------------------------------------------------------------
-;reader                    Allocated with name '_i2c_read_reader_65536_83'
-;i                         Allocated with name '_i2c_read_i_131072_84'
+;reader                    Allocated with name '_i2c_read_reader_65536_89'
+;i                         Allocated with name '_i2c_read_i_131072_90'
 ;------------------------------------------------------------
-;	main.c:140: int i2c_read()
+;	main.c:171: int i2c_read()
 ;	-----------------------------------------
 ;	 function i2c_read
 ;	-----------------------------------------
 _i2c_read:
-;	main.c:142: int reader=0;
-	mov	dptr,#_i2c_read_reader_65536_83
+;	main.c:173: int reader=0;
+	mov	dptr,#_i2c_read_reader_65536_89
 	clr	a
 	movx	@dptr,a
 	inc	dptr
 	movx	@dptr,a
-;	main.c:143: setSDA;
+;	main.c:174: setSDA;
 ;	assignBit
 	setb	_P1_5
-;	main.c:145: for (int i=0; i<8; i++)
+;	main.c:176: for (int i=0; i<8; i++)
 	mov	r6,#0x00
 	mov	r7,#0x00
 00103$:
@@ -957,8 +1077,8 @@ _i2c_read:
 	xrl	a,#0x80
 	subb	a,#0x80
 	jnc	00101$
-;	main.c:147: reader<<=1;
-	mov	dptr,#_i2c_read_reader_65536_83
+;	main.c:178: reader<<=1;
+	mov	dptr,#_i2c_read_reader_65536_89
 	movx	a,@dptr
 	mov	r4,a
 	inc	dptr
@@ -970,21 +1090,21 @@ _i2c_read:
 	mov	a,r5
 	rlc	a
 	mov	r5,a
-	mov	dptr,#_i2c_read_reader_65536_83
+	mov	dptr,#_i2c_read_reader_65536_89
 	mov	a,r4
 	movx	@dptr,a
 	mov	a,r5
 	inc	dptr
 	movx	@dptr,a
-;	main.c:148: setSCL;
+;	main.c:179: setSCL;
 ;	assignBit
 	setb	_P1_4
-;	main.c:149: delay();
+;	main.c:180: delay();
 	push	ar7
 	push	ar6
 	lcall	_delay
-;	main.c:150: reader |=P1_5;
-	mov	dptr,#_i2c_read_reader_65536_83
+;	main.c:181: reader |=P1_5;
+	mov	dptr,#_i2c_read_reader_65536_89
 	movx	a,@dptr
 	mov	r4,a
 	inc	dptr
@@ -995,7 +1115,7 @@ _i2c_read:
 	rlc	a
 	mov	r2,a
 	mov	r3,#0x00
-	mov	dptr,#_i2c_read_reader_65536_83
+	mov	dptr,#_i2c_read_reader_65536_89
 	mov	a,r2
 	orl	a,r4
 	movx	@dptr,a
@@ -1003,202 +1123,281 @@ _i2c_read:
 	orl	a,r5
 	inc	dptr
 	movx	@dptr,a
-;	main.c:151: clearSCL;
+;	main.c:182: clearSCL;
 ;	assignBit
 	clr	_P1_4
-;	main.c:152: delay();
+;	main.c:183: delay();
 	lcall	_delay
 	pop	ar6
 	pop	ar7
-;	main.c:145: for (int i=0; i<8; i++)
+;	main.c:176: for (int i=0; i<8; i++)
 	inc	r6
 	cjne	r6,#0x00,00103$
 	inc	r7
 	sjmp	00103$
 00101$:
-;	main.c:157: setSCL;
-;	assignBit
-	setb	_P1_4
-;	main.c:158: delay();
-	lcall	_delay
-;	main.c:159: setSDA;
-;	assignBit
-	setb	_P1_5
-;	main.c:160: clearSCL;
-;	assignBit
-	clr	_P1_4
-;	main.c:161: delay();
-	lcall	_delay
-;	main.c:162: return reader;
-	mov	dptr,#_i2c_read_reader_65536_83
+;	main.c:189: return reader;
+	mov	dptr,#_i2c_read_reader_65536_89
 	movx	a,@dptr
 	mov	r6,a
 	inc	dptr
 	movx	a,@dptr
-;	main.c:164: }
+;	main.c:191: }
 	mov	dpl,r6
 	mov	dph,a
 	ret
 ;------------------------------------------------------------
-;Allocation info for local variables in function 'main'
+;Allocation info for local variables in function 'byte_write'
 ;------------------------------------------------------------
-;i                         Allocated with name '_main_i_196608_89'
-;t                         Allocated with name '_main_t_131073_91'
-;s                         Allocated with name '_main_s_131074_93'
-;ww                        Allocated with name '_main_ww_196610_94'
+;byte_address              Allocated with name '_byte_write_PARM_2'
+;writedata                 Allocated with name '_byte_write_PARM_3'
+;controlcode               Allocated with name '_byte_write_controlcode_65536_92'
+;t                         Allocated with name '_byte_write_t_65537_94'
 ;------------------------------------------------------------
-;	main.c:167: void main(void)
+;	main.c:192: void byte_write(uint8_t controlcode,uint8_t byte_address,char writedata)
 ;	-----------------------------------------
-;	 function main
+;	 function byte_write
 ;	-----------------------------------------
-_main:
-;	main.c:173: while(1)
-00107$:
-;	main.c:175: i2c_reset();
-	lcall	_i2c_reset
-;	main.c:178: i2c_start();
-	lcall	_i2c_start
-;	main.c:179: i2c_write(0xA0);
-	mov	dptr,#0x00a0
-	lcall	_i2c_write
-;	main.c:180: delay();
-	lcall	_delay
-;	main.c:181: i2c_write(0x01);
-	mov	dptr,#0x0001
-	lcall	_i2c_write
-;	main.c:182: delay();
-	lcall	_delay
-;	main.c:183: i2c_write('a');
-	mov	dptr,#0x0061
-	lcall	_i2c_write
-;	main.c:184: delay();
-	lcall	_delay
-;	main.c:185: i2c_stop();
-	lcall	_i2c_stop
-;	main.c:186: for(uint16_t i=1000;i!=0;i--)
-	mov	r6,#0xe8
-	mov	r7,#0x03
-00110$:
-	mov	a,r6
-	orl	a,r7
-	jz	00101$
-;	main.c:188: delay();
+_byte_write:
+	mov	a,dpl
+	mov	dptr,#_byte_write_controlcode_65536_92
+	movx	@dptr,a
+;	main.c:194: restart_i2c();
+	lcall	_restart_i2c
+;	main.c:195: i2c_write(controlcode);
+	mov	dptr,#_byte_write_controlcode_65536_92
+	movx	a,@dptr
+	mov	r6,a
+	mov	r7,#0x00
+	mov	dpl,r6
+	mov	dph,r7
 	push	ar7
 	push	ar6
+	lcall	_i2c_write
+;	main.c:196: delay();
 	lcall	_delay
+;	main.c:197: i2c_write(byte_address);
+	mov	dptr,#_byte_write_PARM_2
+	movx	a,@dptr
+	mov	r5,a
+	mov	r4,#0x00
+	mov	dpl,r5
+	mov	dph,r4
+	lcall	_i2c_write
+;	main.c:198: delay();
+	lcall	_delay
+;	main.c:199: i2c_write(writedata);
+	mov	dptr,#_byte_write_PARM_3
+	movx	a,@dptr
+	mov	r5,a
+	mov	r4,#0x00
+	mov	dpl,r5
+	mov	dph,r4
+	lcall	_i2c_write
+;	main.c:200: delay();
+	lcall	_delay
+;	main.c:201: i2c_stop();
+	lcall	_i2c_stop
+;	main.c:202: long_delay();
+	lcall	_long_delay
 	pop	ar6
 	pop	ar7
-;	main.c:186: for(uint16_t i=1000;i!=0;i--)
-	dec	r6
-	cjne	r6,#0xff,00147$
-	dec	r7
-00147$:
-	sjmp	00110$
-00101$:
-;	main.c:191: int t=1;
-	mov	dptr,#_main_t_131073_91
+;	main.c:204: int t=1;
+	mov	dptr,#_byte_write_t_65537_94
 	mov	a,#0x01
 	movx	@dptr,a
 	clr	a
 	inc	dptr
 	movx	@dptr,a
-;	main.c:192: while(t) //ack polling
-00102$:
-	mov	dptr,#_main_t_131073_91
+;	main.c:205: while(t) //ack polling
+00101$:
+	mov	dptr,#_byte_write_t_65537_94
 	movx	a,@dptr
 	mov	b,a
 	inc	dptr
 	movx	a,@dptr
 	orl	a,b
-	jz	00104$
-;	main.c:194: setSCL;
-;	assignBit
-	setb	_P1_4
-;	main.c:197: clearSDA;
-;	assignBit
-	clr	_P1_5
-;	main.c:198: delay();
-	lcall	_delay
-;	main.c:199: clearSCL;
-;	assignBit
-	clr	_P1_4
-;	main.c:200: t=i2c_write(0xA0);
-	mov	dptr,#0x00a0
+	jz	00103$
+;	main.c:208: restart_i2c();
+	push	ar7
+	push	ar6
+	lcall	_restart_i2c
+	pop	ar6
+	pop	ar7
+;	main.c:209: t=i2c_write(controlcode);
+	mov	dpl,r6
+	mov	dph,r7
+	push	ar7
+	push	ar6
 	lcall	_i2c_write
 	mov	a,dpl
 	mov	b,dph
-	mov	dptr,#_main_t_131073_91
+	mov	dptr,#_byte_write_t_65537_94
 	movx	@dptr,a
 	mov	a,b
 	inc	dptr
 	movx	@dptr,a
-;	main.c:201: delay();
-	lcall	_delay
-	sjmp	00102$
-00104$:
-;	main.c:203: i2c_stop();
-	lcall	_i2c_stop
-;	main.c:204: setSCL;
-;	assignBit
-	setb	_P1_4
-;	main.c:205: clearSDA;
-;	assignBit
-	clr	_P1_5
-;	main.c:206: delay();
-	lcall	_delay
-;	main.c:207: clearSCL;
-;	assignBit
-	clr	_P1_4
-;	main.c:209: i2c_write(0xA0);delay();
-	mov	dptr,#0x00a0
-	lcall	_i2c_write
-	lcall	_delay
-;	main.c:210: i2c_write(0x01);delay();
-	mov	dptr,#0x0001
-	lcall	_i2c_write
-	lcall	_delay
-;	main.c:213: setSCL;
-;	assignBit
-	setb	_P1_4
-;	main.c:214: clearSDA;
-;	assignBit
-	clr	_P1_5
-;	main.c:215: delay();
-	lcall	_delay
-;	main.c:216: clearSCL;
-;	assignBit
-	clr	_P1_4
-;	main.c:217: i2c_write(0xA1);
-	mov	dptr,#0x00a1
-	lcall	_i2c_write
-;	main.c:221: s=i2c_read();
-	lcall	_i2c_read
-;	main.c:222: putchar(s);
-	lcall	_putchar
-;	main.c:223: i2c_stop();
-	lcall	_i2c_stop
-;	main.c:224: for(uint16_t ww=1000;ww!=0;ww--)
-	mov	r6,#0xe8
-	mov	r7,#0x03
-00113$:
-	mov	a,r6
-	orl	a,r7
-	jnz	00149$
-	ljmp	00107$
-00149$:
-;	main.c:226: delay();
-	push	ar7
-	push	ar6
+;	main.c:210: delay();
 	lcall	_delay
 	pop	ar6
 	pop	ar7
-;	main.c:224: for(uint16_t ww=1000;ww!=0;ww--)
-	dec	r6
-	cjne	r6,#0xff,00150$
-	dec	r7
-00150$:
-;	main.c:237: }
-	sjmp	00113$
+	sjmp	00101$
+00103$:
+;	main.c:212: i2c_stop();
+;	main.c:213: }
+	ljmp	_i2c_stop
+;------------------------------------------------------------
+;Allocation info for local variables in function 'random_read'
+;------------------------------------------------------------
+;byte_address              Allocated with name '_random_read_PARM_2'
+;controlcode               Allocated with name '_random_read_controlcode_65536_96'
+;s                         Allocated with name '_random_read_s_65537_98'
+;------------------------------------------------------------
+;	main.c:216: void random_read(uint8_t controlcode,uint8_t byte_address)
+;	-----------------------------------------
+;	 function random_read
+;	-----------------------------------------
+_random_read:
+	mov	a,dpl
+	mov	dptr,#_random_read_controlcode_65536_96
+	movx	@dptr,a
+;	main.c:218: restart_i2c();
+	lcall	_restart_i2c
+;	main.c:219: i2c_write(controlcode);delay();
+	mov	dptr,#_random_read_controlcode_65536_96
+	movx	a,@dptr
+	mov	r7,a
+	mov	r6,#0x00
+	mov	dpl,r7
+	mov	dph,r6
+	push	ar7
+	push	ar6
+	lcall	_i2c_write
+	lcall	_delay
+;	main.c:220: i2c_write(byte_address);delay();
+	mov	dptr,#_random_read_PARM_2
+	movx	a,@dptr
+	mov	r5,a
+	mov	r4,#0x00
+	mov	dpl,r5
+	mov	dph,r4
+	lcall	_i2c_write
+	lcall	_delay
+;	main.c:221: restart_i2c();
+	lcall	_restart_i2c
+	pop	ar6
+	pop	ar7
+;	main.c:222: i2c_write((controlcode+1)); //change to read operation
+	inc	r7
+	cjne	r7,#0x00,00103$
+	inc	r6
+00103$:
+	mov	dpl,r7
+	mov	dph,r6
+	lcall	_i2c_write
+;	main.c:224: s=i2c_read();
+	lcall	_i2c_read
+	mov	r6,dpl
+	mov	r7,dph
+;	main.c:225: i2c_nack();
+	push	ar7
+	push	ar6
+	lcall	_i2c_nack
+	pop	ar6
+	pop	ar7
+;	main.c:226: putchar(s);
+	mov	dpl,r6
+	mov	dph,r7
+	lcall	_putchar
+;	main.c:227: i2c_stop();
+	lcall	_i2c_stop
+;	main.c:228: putchar('\n');
+	mov	dptr,#0x000a
+	lcall	_putchar
+;	main.c:229: putchar('\r'); long_delay();
+	mov	dptr,#0x000d
+	lcall	_putchar
+;	main.c:231: }
+	ljmp	_long_delay
+;------------------------------------------------------------
+;Allocation info for local variables in function 'main'
+;------------------------------------------------------------
+;s                         Allocated with name '_main_s_131073_102'
+;------------------------------------------------------------
+;	main.c:232: void main(void)
+;	-----------------------------------------
+;	 function main
+;	-----------------------------------------
+_main:
+;	main.c:234: while(1)
+00102$:
+;	main.c:236: i2c_reset();
+	lcall	_i2c_reset
+;	main.c:237: byte_write(0xA0,0x01,'b');
+	mov	dptr,#_byte_write_PARM_2
+	mov	a,#0x01
+	movx	@dptr,a
+	mov	dptr,#_byte_write_PARM_3
+	mov	a,#0x62
+	movx	@dptr,a
+	mov	dpl,#0xa0
+	lcall	_byte_write
+;	main.c:238: byte_write(0xA0,0x02,'c');
+	mov	dptr,#_byte_write_PARM_2
+	mov	a,#0x02
+	movx	@dptr,a
+	mov	dptr,#_byte_write_PARM_3
+	mov	a,#0x63
+	movx	@dptr,a
+	mov	dpl,#0xa0
+	lcall	_byte_write
+;	main.c:239: restart_i2c();
+	lcall	_restart_i2c
+;	main.c:240: i2c_write(0xA0);delay();
+	mov	dptr,#0x00a0
+	lcall	_i2c_write
+	lcall	_delay
+;	main.c:241: i2c_write(0x01);delay();
+	mov	dptr,#0x0001
+	lcall	_i2c_write
+	lcall	_delay
+;	main.c:242: restart_i2c();
+	lcall	_restart_i2c
+;	main.c:243: i2c_write((0xA1)); //change to read operation
+	mov	dptr,#0x00a1
+	lcall	_i2c_write
+;	main.c:245: s=i2c_read();
+	lcall	_i2c_read
+	mov	r6,dpl
+	mov	r7,dph
+;	main.c:246: i2c_ack();
+	push	ar7
+	push	ar6
+	lcall	_i2c_ack
+	pop	ar6
+	pop	ar7
+;	main.c:247: putchar(s);
+	mov	dpl,r6
+	mov	dph,r7
+	lcall	_putchar
+;	main.c:248: s=i2c_read();
+	lcall	_i2c_read
+	mov	r6,dpl
+	mov	r7,dph
+;	main.c:249: i2c_nack();
+	push	ar7
+	push	ar6
+	lcall	_i2c_nack
+	pop	ar6
+	pop	ar7
+;	main.c:250: putchar(s);
+	mov	dpl,r6
+	mov	dph,r7
+	lcall	_putchar
+;	main.c:251: i2c_stop();
+	lcall	_i2c_stop
+;	main.c:263: }
+	ljmp	00102$
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 	.area XINIT   (CODE)
