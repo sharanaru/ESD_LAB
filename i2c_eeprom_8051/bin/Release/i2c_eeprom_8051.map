@@ -11,13 +11,11 @@ C:   00000000  l_BIT_BANK
 C:   00000000  l_BSEG                          
 C:   00000000  l_BSEG_BYTES                    
 C:   00000000  l_CABS                          
-C:   00000000  l_CONST                         
 C:   00000000  l_GSINIT                        
 C:   00000000  l_GSINIT1                       
 C:   00000000  l_GSINIT5                       
 C:   00000000  l_IABS                          
 C:   00000000  l_ISEG                          
-C:   00000000  l_OSEG                          
 C:   00000000  l_PSEG                          
 C:   00000000  l_REG_BANK_1                    
 C:   00000000  l_REG_BANK_2                    
@@ -26,13 +24,10 @@ C:   00000000  l_RSEG
 C:   00000000  l_RSEG0                         
 C:   00000000  l_RSEG1                         
 C:   00000000  l_XABS                          
-C:   00000000  l_XINIT                         
-C:   00000000  l_XISEG                         
 C:   00000000  l__CODE                         
 C:   00000000  s_BSEG                          
 C:   00000000  s_CABS                          
 C:   00000000  s_DSEG                          
-C:   00000000  s_HOME                          
 C:   00000000  s_IABS                          
 C:   00000000  s_ISEG                          
 C:   00000000  s_REG_BANK_0                    
@@ -40,23 +35,28 @@ C:   00000000  s_RSEG
 C:   00000000  s_RSEG0                         
 C:   00000000  s_RSEG1                         
 C:   00000000  s_XABS                          
+C:   00000001  l_OSEG                          
 C:   00000001  s_PSEG                          
 C:   00000001  s_XSEG                          
 C:   00000003  l_GSFINAL                       
 C:   00000003  l_GSINIT0                       
+C:   00000005  l_XINIT                         
+C:   00000005  l_XISEG                         
 C:   00000006  l_HOME                          
-C:   00000006  s_GSINIT0                       
 C:   00000008  l_REG_BANK_0                    
 C:   00000008  s_REG_BANK_1                    
-C:   00000008  s_SSEG                          
-C:   00000009  s_GSINIT1                       
-C:   00000009  s_GSINIT2                       
 C:   0000000A  l_GSINIT2                       
 C:   00000010  s_REG_BANK_2                    
-C:   00000013  s_GSINIT3                       
+C:   00000013  s_OSEG                          
+C:   00000014  s_SSEG                          
 C:   00000018  s_BIT_BANK                      
-C:   00000018  s_OSEG                          
 C:   00000018  s_REG_BANK_3                    
+C:   00000020  s_BSEG_BYTES                    
+C:   00000020  s__CODE                         
+C:   00000022  l_GSINIT3                       
+C:   0000002A  l_GSINIT4                       
+C:   0000006E  l_XSEG                          
+C:   0000006F  s_XISEG                         
 ASxxxx Linker V03.00 + NoICE + sdld,  page 2.
 Hexadecimal  [32-Bits]
 
@@ -66,23 +66,23 @@ CABS                                00000000    00000000 =           0. bytes (A
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-C:   0000001E  l_XSEG                          
-C:   0000001F  s_XISEG                         
-C:   00000020  s_BSEG_BYTES                    
-C:   00000020  s__CODE                         
-C:   00000022  l_GSINIT3                       
-C:   0000002A  l_GSINIT4                       
-C:   00000035  s_GSINIT4                       
-C:   0000005F  s_GSFINAL                       
-C:   0000005F  s_GSINIT                        
-C:   0000005F  s_GSINIT5                       
-C:   00000062  s_CSEG                          
 C:   00000080  l_DSEG                          
-C:   000000F8  l_SSEG                          
+C:   000000EC  l_SSEG                          
 C:   00000100  l_IRAM                          
-C:   00000603  l_CSEG                          
-C:   00000665  s_CONST                         
-C:   00000665  s_XINIT                         
+C:   0000025D  l_CONST                         
+C:   00001BEC  l_CSEG                          
+C:   00002564  s_HOME                          
+C:   0000256A  s_GSINIT0                       
+C:   0000256D  s_GSINIT1                       
+C:   0000256D  s_GSINIT2                       
+C:   00002577  s_GSINIT3                       
+C:   00002599  s_GSINIT4                       
+C:   000025C3  s_GSFINAL                       
+C:   000025C3  s_GSINIT                        
+C:   000025C3  s_GSINIT5                       
+C:   000025C6  s_CSEG                          
+C:   000041B2  s_CONST                         
+C:   0000440F  s_XINIT                         
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
 Hexadecimal  [32-Bits]
@@ -93,7 +93,7 @@ Area                                    Addr        Size        Decimal Bytes (A
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00000000  .__.ABS.                           _startup
+     00000000  .__.ABS.                           _bp
      00000080  _P0                                main
      00000080  _P0_0                              main
      00000081  _P0_1                              main
@@ -339,132 +339,194 @@ DSEG                                00000000    00000080 =         128. bytes (R
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
+     00000012  _bp                                _bp
+
 ASxxxx Linker V03.00 + NoICE + sdld,  page 9.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-SSEG                                00000008    000000F8 =         248. bytes (REL,OVR)
+OSEG                                00000013    00000001 =           1. bytes (REL,OVR)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00000008  __start__stack                     main
-
 ASxxxx Linker V03.00 + NoICE + sdld,  page 10.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-XSEG                                00000001    0000001E =          30. bytes (REL,CON,XDATA)
+SSEG                                00000014    000000EC =         236. bytes (REL,OVR)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-D:   0000000A  _byte_write_PARM_2                 main
-D:   0000000B  _byte_write_PARM_3                 main
-D:   0000000F  _random_read_PARM_2                main
-D:   0000001C  __gptrput_PARM_2                   _gptrput
-D:   0000001D  __mulint_PARM_2                    _mulint
+     00000014  __start__stack                     main
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 11.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-HOME                                00000000    00000006 =           6. bytes (REL,CON,CODE)
+XSEG                                00000001    0000006E =         110. bytes (REL,CON,XDATA)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-C:   00000003  __sdcc_program_startup             main
-
+D:   0000000A  _byte_write_PARM_2                 eeprom
+D:   0000000B  _byte_write_PARM_3                 eeprom
+D:   0000000F  _random_read_PARM_2                eeprom
+D:   00000011  _seq_read_PARM_2                   eeprom
+D:   00000012  _seq_read_PARM_3                   eeprom
+D:   00000013  _seq_read_PARM_4                   eeprom
+D:   00000014  _seq_read_PARM_5                   eeprom
+D:   0000001F  _menuselect                        main
+D:   00000027  _output                            main
+D:   00000033  __gptrput_PARM_2                   _gptrput
+D:   00000034  __mulint_PARM_2                    _mulint
+D:   00000038  _vprintf_PARM_2                    vprintf
+D:   0000004D  __print_format_PARM_2              printf_large
+D:   00000050  __print_format_PARM_3              printf_large
+D:   00000053  __print_format_PARM_4              printf_large
 ASxxxx Linker V03.00 + NoICE + sdld,  page 12.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-GSINIT0                             00000006    00000003 =           3. bytes (REL,CON,CODE)
+XISEG                               0000006F    00000005 =           5. bytes (REL,CON,XDATA)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-C:   00000006  __sdcc_gsinit_startup              
-
+D:   0000006F  _control                           main
+D:   00000070  _errorflag                         main
+D:   00000071  _addressreceiver                   main
 ASxxxx Linker V03.00 + NoICE + sdld,  page 13.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-GSINIT2                             00000009    0000000A =          10. bytes (REL,CON,CODE)
+HOME                                00002564    00000006 =           6. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
+C:   00002567  __sdcc_program_startup             main
+
 ASxxxx Linker V03.00 + NoICE + sdld,  page 14.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-GSINIT3                             00000013    00000022 =          34. bytes (REL,CON,CODE)
+GSINIT0                             0000256A    00000003 =           3. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-C:   00000013  __mcs51_genXINIT                   
+C:   0000256A  __sdcc_gsinit_startup              
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 15.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-GSINIT4                             00000035    0000002A =          42. bytes (REL,CON,CODE)
+GSINIT2                             0000256D    0000000A =          10. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-C:   00000035  __mcs51_genRAMCLEAR                
-C:   0000003B  __mcs51_genXRAMCLEAR               
-
 ASxxxx Linker V03.00 + NoICE + sdld,  page 16.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-GSFINAL                             0000005F    00000003 =           3. bytes (REL,CON,CODE)
+GSINIT3                             00002577    00000022 =          34. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
+C:   00002577  __mcs51_genXINIT                   
+
 ASxxxx Linker V03.00 + NoICE + sdld,  page 17.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CSEG                                00000062    00000603 =        1539. bytes (REL,CON,CODE)
+GSINIT4                             00002599    0000002A =          42. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-C:   00000062  _putchar                           main
-C:   00000087  _getchar                           main
-C:   0000009D  _putstr                            main
-C:   00000113  _readint                           main
-C:   00000125  _delay                             main
-C:   0000012C  _i2c_reset                         main
-C:   00000137  _i2c_start                         main
-C:   00000141  _i2c_stop                          main
-C:   0000014D  _long_delay                        main
-C:   00000168  _restart_i2c                       main
-C:   00000172  _i2c_write                         main
-C:   00000201  _i2c_ack                           main
-C:   00000210  _i2c_nack                          main
-C:   0000021C  _i2c_read                          main
-C:   00000288  _byte_write                        main
-C:   00000316  _random_read                       main
-C:   00000383  _main                              main
-C:   00000400  _atoi                              atoi
-C:   00000520  _gets                              gets
-C:   0000060A  __gptrput                          _gptrput
-C:   00000625  __mulint                           _mulint
-C:   00000645  __gptrget                          _gptrget
-C:   00000661  __sdcc_external_startup            _startup
+C:   00002599  __mcs51_genRAMCLEAR                
+C:   0000259F  __mcs51_genXRAMCLEAR               
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 18.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+GSFINAL                             000025C3    00000003 =           3. bytes (REL,CON,CODE)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+ASxxxx Linker V03.00 + NoICE + sdld,  page 19.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+CSEG                                000025C6    00001BEC =        7148. bytes (REL,CON,CODE)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+C:   000025C6  _strtohex                          converter
+C:   00002C4D  _byte_write                        eeprom
+C:   00002CDB  _random_read                       eeprom
+C:   00002D3A  _seq_read                          eeprom
+C:   00002F7A  _delay                             i2c
+C:   00002F81  _i2c_reset                         i2c
+C:   00002F8C  _i2c_start                         i2c
+C:   00002F96  _i2c_stop                          i2c
+C:   00002FA2  _long_delay                        i2c
+C:   00002FBD  _restart_i2c                       i2c
+C:   00002FC7  _i2c_write                         i2c
+C:   00003056  _i2c_ack                           i2c
+C:   00003065  _i2c_nack                          i2c
+C:   00003071  _i2c_read                          i2c
+C:   000030DD  _putchar                           main
+C:   00003102  _getchar                           main
+C:   00003118  _putstr                            main
+C:   0000318E  _readint                           main
+C:   000031A0  _writebytehandler                  main
+C:   00003261  _randomread_handler                main
+C:   000032D0  _main                              main
+C:   000034A2  _atoi                              atoi
+C:   000035C2  _gets                              gets
+C:   000036AC  __gptrput                          _gptrput
+C:   000036C7  __mulint                           _mulint
+C:   000036E7  _toupper                           toupper
+C:   00003731  _vprintf                           vprintf
+C:   00003770  _printf                            vprintf
+C:   00003879  __print_format                     printf_large
+C:   0000417A  _strlen                            _strlen
+C:   00004192  __gptrget                          _gptrget
+C:   000041AE  __sdcc_external_startup            _startup
+
+ASxxxx Linker V03.00 + NoICE + sdld,  page 20.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+CONST                               000041B2    0000025D =         605. bytes (REL,CON,CODE)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+ASxxxx Linker V03.00 + NoICE + sdld,  page 21.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+XINIT                               0000440F    00000005 =           5. bytes (REL,CON,CODE)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+ASxxxx Linker V03.00 + NoICE + sdld,  page 22.
 
 Files Linked                              [ module(s) ]
 
+obj\Release\converter.rel                 [  ]
+obj\Release\eeprom.rel                    [  ]
+obj\Release\i2c.rel                       [  ]
 obj\Release\main.rel                      [  ]
 
 
@@ -484,20 +546,30 @@ C:\Program Files\SDCC\bin\..\lib\large/libint.lib
                                           [ _mulint.rel ]
 C:\Program Files\SDCC\bin\..\lib\large/mcs51.lib
                                           [ crtxclear.rel ]
+C:\Program Files\SDCC\bin\..\lib\large/libsdcc.lib
+                                          [ toupper.rel ]
+C:\Program Files\SDCC\bin\..\lib\large/libsdcc.lib
+                                          [ vprintf.rel ]
+C:\Program Files\SDCC\bin\..\lib\large/libsdcc.lib
+                                          [ printf_large.rel ]
 C:\Program Files\SDCC\bin\..\lib\large/mcs51.lib
                                           [ crtpagesfr.rel ]
+C:\Program Files\SDCC\bin\..\lib\large/libsdcc.lib
+                                          [ _strlen.rel ]
 C:\Program Files\SDCC\bin\..\lib\large/mcs51.lib
                                           [ crtstart.rel ]
 C:\Program Files\SDCC\bin\..\lib\large/libsdcc.lib
                                           [ _gptrget.rel ]
 C:\Program Files\SDCC\bin\..\lib\large/libsdcc.lib
                                           [ _startup.rel ]
+C:\Program Files\SDCC\bin\..\lib\large/libsdcc.lib
+                                          [ _bp.rel ]
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 19.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 23.
 
 User Base Address Definitions
 
-HOME = 0x0000
+HOME = 0x2564
 XSEG = 0x0001
 PSEG = 0x0001
 ISEG = 0x0000

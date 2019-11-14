@@ -18,18 +18,31 @@
 			</Target>
 		</Build>
 		<Compiler>
-			<Add option="-mmcs51" />
 			<Add option="--model-large" />
+			<Add option="-mmcs51" />
 		</Compiler>
 		<Linker>
 			<Add option="--xram-size 4096" />
 			<Add option="--iram-size 256" />
 			<Add option="--code-size 65536" />
 			<Add option="--out-fmt-ihx" />
+			<Add option="--code-loc 0x2564" />
 		</Linker>
 		<ExtraCommands>
 			<Add after='cmd /c &quot;packihx &lt;$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).ihx &gt;$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).hex&quot;' />
 		</ExtraCommands>
+		<Unit filename="converter.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="converter.h" />
+		<Unit filename="eeprom.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="eeprom.h" />
+		<Unit filename="i2c.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="i2c.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>

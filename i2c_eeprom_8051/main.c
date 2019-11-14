@@ -1,17 +1,19 @@
 /*
  */
-
+#define newl "\n\r"
 #include<stdlib.h>
 #include<stdio.h>
 #include<stdint.h>
 #include<ctype.h>
 #include "at89c51ed2.h"
-#define setSDA P1_5 = 1
-#define clearSCL  P1_4 = 0
-#define setSCL  P1_4=1
-#define clearSDA  P1_5=0
+#include "string.h"
+#include "i2c.h"
+#include "eeprom.h"
+#include "converter.h"
+
 //sda-p1.5 scl p1.4
-//http://codinglab.blogspot.com/2008/10/i2c-on-avr-using-bit-banging.html - Used for reference
+//http://codinglab.blogspot.com/2008/10/i2c-on-avr-using-bit-banging.html - Used for reference (Adruino serial library reference
+
 int putchar (int c)//serial outps char value
 {
     while (!TI);				// compare asm code generated for these three lines
@@ -44,9 +46,6 @@ int putstr (char *s)//outputs string to serial
     return i+1;
 }
 
-
-
-
 int readint()//reads  char string as integer
 {
     char *reader=NULL;
@@ -55,200 +54,164 @@ int readint()//reads  char string as integer
     return number;
 }
 
-void delay()
-{
-    __asm
-    mov a,#3
-    l1:
-    dec a
-    cjne a,#0,l1
-    __endasm;
-}
-void i2c_reset() //setting both lines to high to go into normal condition
-{
-    clearSCL;
-    clearSDA;
 
-    setSDA;
-    setSCL;
-    delay();
-}
-void i2c_start()
-{
-    clearSDA;
-    delay();
-    clearSCL;
-    delay();
+uint8_t control=0xA0;
 
-}
-void i2c_stop()
-{
-    clearSDA;
-    setSCL;
-    delay();
-    setSDA; //low to high transition of sda marks stop
-    delay();
-
-}
-void long_delay()
-{
-    for(uint16_t i=800;i!=0;i--)
-        {
-            delay();
-        }
-}
-void restart_i2c()
-{
-     setSCL;
-        clearSDA;
-        delay();
-        clearSCL;
-}
-
-int i2c_write(int k)
-{
+int menuselect;
+uint8_t errorflag=0;
 
 
-    for(int i=0; i<8; i++)
+void writebytehandler(char *receiver)
+{
+    uint16_t t=strtohex(receiver);
+    uint8_t blockno=(t & 0xE00)>>8;
+
+    printf("block no. is %d\n\r",blockno);
+    if(blockno<8)
     {
-//masking everything except msb
-        if(k & 128)
-        {
-            setSDA;
-            setSCL;
-            delay();
-            clearSCL;
 
-        }
-        else
-        {
+        control |=blockno;
+        printf("control %X\n\r",control);
 
-
-            clearSDA;
-            setSCL;
-            delay();
-            clearSCL;
-
-        }
-//        if (k > 0)
-//        {
-//            clearSDA;
-//        }
-
-        delay();
-        k<<=1;
 
     }
-    setSDA;
-    __asm
-    nop
-    __endasm;
-    setSCL;
-    int ack_check=0;
-    ack_check |=P1_5;
-
-    delay();
-    clearSCL;
-    return ack_check;
-}
-void i2c_ack()
-{
-clearSDA;
-delay();
-setSCL;
-delay();
-clearSCL;
-setSDA;
-}
-void i2c_nack()
-{
-    setSCL;
-            delay();
-            setSDA;
-            clearSCL;
-            delay();
-}
-int i2c_read()
-{
-    int reader=0;
-    setSDA;
-
-            for (int i=0; i<8; i++)
-            {
-              reader<<=1;
-                setSCL;
-                delay();
-                reader |=P1_5;
-                clearSCL;
-                delay();
-
-
-            }
-//creating nack after read
-
-            return reader;
-
-}
-void byte_write(uint8_t controlcode,uint8_t byte_address,char writedata)
-{
-        restart_i2c();
-        i2c_write(controlcode);
-        delay();
-        i2c_write(byte_address);
-        delay();
-        i2c_write(writedata);
-        delay();
-        i2c_stop();
-        long_delay();
-
-        int t=1;
-        while(t) //ack polling
+    else
         {
-
-        restart_i2c();
-        t=i2c_write(controlcode);
-        delay();
+            putstr("\n\rInvalid block no.\n\r");
+            return;
         }
-        i2c_stop();
+        return;
+    uint8_t address=(t&0x0FF);
+    if(address>0xFF)
+        return;
+    putstr("Enter data to be written\n\r");
+    uint8_t data=0; char *dataentry=NULL;
+    gets(dataentry);
+    data=strtohex(dataentry);
+    byte_write(control,address,data);
 }
-
-
-void random_read(uint8_t controlcode,uint8_t byte_address)
+char *addressreceiver=NULL;
+int randomread_handler(char *receiver)
 {
-    restart_i2c();
-    i2c_write(controlcode);delay();
-    i2c_write(byte_address);delay();
-    restart_i2c();
-    i2c_write((controlcode+1)); //change to read operation
-    int s;
-    s=i2c_read();
-    i2c_nack();
-    putchar(s);
-    i2c_stop();
-    putchar('\n');
-    putchar('\r'); long_delay();
+    uint16_t t=strtohex(receiver);
+    uint8_t blockno=(t & 0xE00)>>8;
+    if(blockno<7)
+    {
 
+        control |=blockno;
+
+
+    }
+    else
+        errorflag=1;
+    if(errorflag)
+    {
+        putstr("Wrong block number. \n\r");
+        return -1;
+    }
+    else
+    {
+
+        uint8_t address=(t&0x0FF);
+        int result =random_read(control,address);
+        errorflag=0;
+        return result;
+
+    }
 }
+volatile uint8_t output;
 void main(void)
 {
-while(1)
-{
-i2c_reset();
-byte_write(0xA0,0x01,'b');
-byte_write(0xA0,0x02,'c');
-restart_i2c();
-i2c_write(0xA0);delay();
-i2c_write(0x01);delay();
-restart_i2c();
-i2c_write((0xA1)); //change to read operation
-int s;
-s=i2c_read();
-i2c_ack();
-putchar(s);
-s=i2c_read();
-i2c_nack();
-putchar(s);
-i2c_stop();
+    i2c_reset();
+    while(1)
+    {
+        errorflag=0;
+        putstr("*****************\n\rMENU FOR TESTING I2C FUNCTIONS\n\rPRESS W FOR WRITE BYTE\n\rPRESS R FOR RANDOM READ\n\rPRESS S FOR HEX DUMP\n\r\n\rPRESS X FOR EEPROM RESET\n\r");
+        menuselect=getchar();
+
+        putchar(menuselect);
+        putstr("\n\r");
+
+        switch(toupper(menuselect))
+        {
+
+        case 'W':
+            putstr("ENTER ADDRESS TO BE WRITTEN ,ADDRESS INCLUDES BLOCK NUMBER AND WORD ADRRESS TOGETHER SEPERATED BY 0 in HEX\n\r");
+
+            gets(addressreceiver);
+            writebytehandler(addressreceiver);
+            control=0xA0;
+            break;
+
+        case 'R':
+            putstr("ENTER ADDRESS TO BE READ,ADDRESS INCLUDES BLOCK NUMBER AND WORD ADRRESS TOGETHER SEPERATED BY 0 in HEX\n\r");
+            gets(addressreceiver);
+            output=randomread_handler(addressreceiver);
+            if(errorflag==0)
+                printf("Read value is 0x%X\n\r",output);
+            control=0xA0;
+            break;
+        case 'S':
+            putstr("ENTER ADDRESS TO BE READ,ADDRESS INCLUDES BLOCK NUMBER AND WORD ADRRESS TOGETHER SEPERATED BY 0 in HEX\n\r");
+            char *addressreceiver1=NULL;
+
+            putstr("Enter first address\n\r");
+            gets(addressreceiver1);
+            uint16_t address1=strtohex(addressreceiver1);
+
+                   uint8_t block1=(address1 & 0xE00)>>8;
+                   uint8_t startaddress=(address1&0x0FF);
+                   char *addressreceiver2=NULL;
+                   putstr("Enter second address\n\r");
+                   gets(addressreceiver2);
+
+                   uint16_t address2=strtohex(addressreceiver2);
+                   uint8_t block2=(address2 & 0xE00)>>8;
+                   uint8_t endaddress=(address2&0x0FF);
+
+                   printf("\n\rADDS are %d %d \n\r",startaddress,endaddress);
+                   //int *k=NULL;
+                   seq_read(control,startaddress,endaddress,block1,block2);
+                   control=0xA0;
+
+            break;
+        case 'X':
+            restart_i2c();
+    i2c_write(0xFF);
+    i2c_nack();
+    restart_i2c();
+    i2c_stop();
+    break;
+//    if(block1==block2)
+//    {
+//        if(block1<7)
+//        {
+//
+//        control |=block1;
+//
+//
+//        }
+//    else
+//        errorflag=1;
+////    if(errorflag)
+////    {
+////        putstr("Wrong block number. \n\r");
+////        return ;
+////    }
+////    else
+////    {
+//
+//    uint8_t startaddress=(address1&0x0FF);
+//    uint8_t endaddress=(address2&0x0FF);
+//    int *k=NULL;
+//    k=seq_read(control,startaddress,endaddress);
+//    for(int i=0;i<((endaddress-startaddress)+1);i++)
+//
+//       {
+//
+//        printf("%D\n\r",k[i]);
+//
+//    }
 
 
 
@@ -258,9 +221,164 @@ i2c_stop();
 
 
 
-
+        }
     }
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//void delay()
+//{
+//    __asm
+//    mov a,#3
+//    l1:
+//    dec a
+//    cjne a,#0,l1
+//    __endasm;
+//}
+//void i2c_reset() //setting both lines to high to go into normal condition
+//{
+//    clearSCL;
+//    clearSDA;
+//
+//    setSDA;
+//    setSCL;
+//    delay();
+//}
+//void i2c_start()
+//{
+//    clearSDA;
+//    delay();
+//    clearSCL;
+//    delay();
+//
+//}
+//void i2c_stop()
+//{
+//    clearSDA;
+//    setSCL;
+//    delay();
+//    setSDA; //low to high transition of sda marks stop
+//    delay();
+//
+//}
+//void long_delay()
+//{
+//    for(uint16_t i=800;i!=0;i--)
+//        {
+//            delay();
+//        }
+//}
+//void restart_i2c()
+//{
+//     setSCL;
+//        clearSDA;
+//        delay();
+//        clearSCL;
+//}
+//
+//int i2c_write(int k)
+//{
+//
+//
+//    for(int i=0; i<8; i++)
+//    {
+////masking everything except msb
+//        if(k & 128)
+//        {
+//            setSDA;
+//            setSCL;
+//            delay();
+//            clearSCL;
+//
+//        }
+//        else
+//        {
+//
+//
+//            clearSDA;
+//            setSCL;
+//            delay();
+//            clearSCL;
+//
+//        }
+////        if (k > 0)
+////        {
+////            clearSDA;
+////        }
+//
+//        delay();
+//        k<<=1;
+//
+//    }
+//    setSDA;
+//    __asm
+//    nop
+//    __endasm;
+//    setSCL;
+//    int ack_check=0;
+//    ack_check |=P1_5;
+//
+//    delay();
+//    clearSCL;
+//    return ack_check;
+//}
+//void i2c_ack()
+//{
+//clearSDA;
+//delay();
+//setSCL;
+//delay();
+//clearSCL;
+//setSDA;
+//}
+//void i2c_nack()
+//{
+//    setSCL;
+//            delay();
+//            setSDA;
+//            clearSCL;
+//            delay();
+//}
+//int i2c_read()
+//{
+//    int reader=0;
+//    setSDA;
+//
+//            for (int i=0; i<8; i++)
+//            {
+//              reader<<=1;
+//                setSCL;
+//                delay();
+//                reader |=P1_5;
+//                clearSCL;
+//                delay();
+//
+//
+//            }
+////creating nack after read
+//
+//            return reader;
+//
+//}
 
 
 

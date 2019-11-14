@@ -1,0 +1,1404 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ANSI-C Compiler
+                                      3 ; Version 3.9.0 #11195 (MINGW64)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module converter
+                                      6 	.optsdcc -mmcs51 --model-large
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _toupper
+                                     12 	.globl _strlen
+                                     13 	.globl _strtohex
+                                     14 ;--------------------------------------------------------
+                                     15 ; special function registers
+                                     16 ;--------------------------------------------------------
+                                     17 	.area RSEG    (ABS,DATA)
+      000000                         18 	.org 0x0000
+                                     19 ;--------------------------------------------------------
+                                     20 ; special function bits
+                                     21 ;--------------------------------------------------------
+                                     22 	.area RSEG    (ABS,DATA)
+      000000                         23 	.org 0x0000
+                                     24 ;--------------------------------------------------------
+                                     25 ; overlayable register banks
+                                     26 ;--------------------------------------------------------
+                                     27 	.area REG_BANK_0	(REL,OVR,DATA)
+      000000                         28 	.ds 8
+                                     29 ;--------------------------------------------------------
+                                     30 ; internal ram data
+                                     31 ;--------------------------------------------------------
+                                     32 	.area DSEG    (DATA)
+                                     33 ;--------------------------------------------------------
+                                     34 ; overlayable items in internal ram 
+                                     35 ;--------------------------------------------------------
+                                     36 ;--------------------------------------------------------
+                                     37 ; indirectly addressable internal ram data
+                                     38 ;--------------------------------------------------------
+                                     39 	.area ISEG    (DATA)
+                                     40 ;--------------------------------------------------------
+                                     41 ; absolute internal ram data
+                                     42 ;--------------------------------------------------------
+                                     43 	.area IABS    (ABS,DATA)
+                                     44 	.area IABS    (ABS,DATA)
+                                     45 ;--------------------------------------------------------
+                                     46 ; bit data
+                                     47 ;--------------------------------------------------------
+                                     48 	.area BSEG    (BIT)
+                                     49 ;--------------------------------------------------------
+                                     50 ; paged external ram data
+                                     51 ;--------------------------------------------------------
+                                     52 	.area PSEG    (PAG,XDATA)
+                                     53 ;--------------------------------------------------------
+                                     54 ; external ram data
+                                     55 ;--------------------------------------------------------
+                                     56 	.area XSEG    (XDATA)
+      000000                         57 _strtohex_l_65536_43:
+      000000                         58 	.ds 3
+      000003                         59 _strtohex_f_65536_44:
+      000003                         60 	.ds 4
+      000007                         61 _strtohex_i_65537_46:
+      000007                         62 	.ds 2
+                                     63 ;--------------------------------------------------------
+                                     64 ; absolute external ram data
+                                     65 ;--------------------------------------------------------
+                                     66 	.area XABS    (ABS,XDATA)
+                                     67 ;--------------------------------------------------------
+                                     68 ; external initialized ram data
+                                     69 ;--------------------------------------------------------
+                                     70 	.area XISEG   (XDATA)
+                                     71 	.area HOME    (CODE)
+                                     72 	.area GSINIT0 (CODE)
+                                     73 	.area GSINIT1 (CODE)
+                                     74 	.area GSINIT2 (CODE)
+                                     75 	.area GSINIT3 (CODE)
+                                     76 	.area GSINIT4 (CODE)
+                                     77 	.area GSINIT5 (CODE)
+                                     78 	.area GSINIT  (CODE)
+                                     79 	.area GSFINAL (CODE)
+                                     80 	.area CSEG    (CODE)
+                                     81 ;--------------------------------------------------------
+                                     82 ; global & static initialisations
+                                     83 ;--------------------------------------------------------
+                                     84 	.area HOME    (CODE)
+                                     85 	.area GSINIT  (CODE)
+                                     86 	.area GSFINAL (CODE)
+                                     87 	.area GSINIT  (CODE)
+                                     88 ;--------------------------------------------------------
+                                     89 ; Home
+                                     90 ;--------------------------------------------------------
+                                     91 	.area HOME    (CODE)
+                                     92 	.area HOME    (CODE)
+                                     93 ;--------------------------------------------------------
+                                     94 ; code
+                                     95 ;--------------------------------------------------------
+                                     96 	.area CSEG    (CODE)
+                                     97 ;------------------------------------------------------------
+                                     98 ;Allocation info for local variables in function 'strtohex'
+                                     99 ;------------------------------------------------------------
+                                    100 ;l                         Allocated with name '_strtohex_l_65536_43'
+                                    101 ;length                    Allocated with name '_strtohex_length_65536_44'
+                                    102 ;f                         Allocated with name '_strtohex_f_65536_44'
+                                    103 ;i                         Allocated with name '_strtohex_i_65537_46'
+                                    104 ;k                         Allocated with name '_strtohex_k_131073_47'
+                                    105 ;------------------------------------------------------------
+                                    106 ;	converter.c:2: uint16_t strtohex(char *l)
+                                    107 ;	-----------------------------------------
+                                    108 ;	 function strtohex
+                                    109 ;	-----------------------------------------
+      000000                        110 _strtohex:
+                           000007   111 	ar7 = 0x07
+                           000006   112 	ar6 = 0x06
+                           000005   113 	ar5 = 0x05
+                           000004   114 	ar4 = 0x04
+                           000003   115 	ar3 = 0x03
+                           000002   116 	ar2 = 0x02
+                           000001   117 	ar1 = 0x01
+                           000000   118 	ar0 = 0x00
+      000000 AF F0            [24]  119 	mov	r7,b
+      000002 AE 83            [24]  120 	mov	r6,dph
+      000004 E5 82            [12]  121 	mov	a,dpl
+      000006 90r00r00         [24]  122 	mov	dptr,#_strtohex_l_65536_43
+      000009 F0               [24]  123 	movx	@dptr,a
+      00000A EE               [12]  124 	mov	a,r6
+      00000B A3               [24]  125 	inc	dptr
+      00000C F0               [24]  126 	movx	@dptr,a
+      00000D EF               [12]  127 	mov	a,r7
+      00000E A3               [24]  128 	inc	dptr
+      00000F F0               [24]  129 	movx	@dptr,a
+                                    130 ;	converter.c:6: int length=strlen(l);
+      000010 90r00r00         [24]  131 	mov	dptr,#_strtohex_l_65536_43
+      000013 E0               [24]  132 	movx	a,@dptr
+      000014 FD               [12]  133 	mov	r5,a
+      000015 A3               [24]  134 	inc	dptr
+      000016 E0               [24]  135 	movx	a,@dptr
+      000017 FE               [12]  136 	mov	r6,a
+      000018 A3               [24]  137 	inc	dptr
+      000019 E0               [24]  138 	movx	a,@dptr
+      00001A FF               [12]  139 	mov	r7,a
+      00001B 8D 82            [24]  140 	mov	dpl,r5
+      00001D 8E 83            [24]  141 	mov	dph,r6
+      00001F 8F F0            [24]  142 	mov	b,r7
+      000021 12r00r00         [24]  143 	lcall	_strlen
+      000024 AE 82            [24]  144 	mov	r6,dpl
+      000026 AF 83            [24]  145 	mov	r7,dph
+                                    146 ;	converter.c:9: switch(length){
+      000028 BE 01 05         [24]  147 	cjne	r6,#0x01,00433$
+      00002B BF 00 02         [24]  148 	cjne	r7,#0x00,00433$
+      00002E 80 13            [24]  149 	sjmp	00101$
+      000030                        150 00433$:
+      000030 BE 02 05         [24]  151 	cjne	r6,#0x02,00434$
+      000033 BF 00 02         [24]  152 	cjne	r7,#0x00,00434$
+      000036 80 30            [24]  153 	sjmp	00102$
+      000038                        154 00434$:
+      000038 BE 03 05         [24]  155 	cjne	r6,#0x03,00435$
+      00003B BF 00 02         [24]  156 	cjne	r7,#0x00,00435$
+      00003E 80 5C            [24]  157 	sjmp	00103$
+      000040                        158 00435$:
+      000040 02r00rE0         [24]  159 	ljmp	00104$
+                                    160 ;	converter.c:10: case 1:
+      000043                        161 00101$:
+                                    162 ;	converter.c:13: f[0]='0';f[1]='0';f[2]=l[0];
+      000043 90r00r03         [24]  163 	mov	dptr,#_strtohex_f_65536_44
+      000046 74 30            [12]  164 	mov	a,#0x30
+      000048 F0               [24]  165 	movx	@dptr,a
+      000049 90r00r04         [24]  166 	mov	dptr,#(_strtohex_f_65536_44 + 0x0001)
+      00004C F0               [24]  167 	movx	@dptr,a
+      00004D 90r00r00         [24]  168 	mov	dptr,#_strtohex_l_65536_43
+      000050 E0               [24]  169 	movx	a,@dptr
+      000051 FB               [12]  170 	mov	r3,a
+      000052 A3               [24]  171 	inc	dptr
+      000053 E0               [24]  172 	movx	a,@dptr
+      000054 FC               [12]  173 	mov	r4,a
+      000055 A3               [24]  174 	inc	dptr
+      000056 E0               [24]  175 	movx	a,@dptr
+      000057 FD               [12]  176 	mov	r5,a
+      000058 8B 82            [24]  177 	mov	dpl,r3
+      00005A 8C 83            [24]  178 	mov	dph,r4
+      00005C 8D F0            [24]  179 	mov	b,r5
+      00005E 12r00r00         [24]  180 	lcall	__gptrget
+      000061 FB               [12]  181 	mov	r3,a
+      000062 90r00r05         [24]  182 	mov	dptr,#(_strtohex_f_65536_44 + 0x0002)
+      000065 F0               [24]  183 	movx	@dptr,a
+                                    184 ;	converter.c:14: break;
+                                    185 ;	converter.c:15: case 2:
+      000066 80 78            [24]  186 	sjmp	00104$
+      000068                        187 00102$:
+                                    188 ;	converter.c:16: f[0]='0';f[1]=l[0];f[2]=l[1];break;
+      000068 90r00r03         [24]  189 	mov	dptr,#_strtohex_f_65536_44
+      00006B 74 30            [12]  190 	mov	a,#0x30
+      00006D F0               [24]  191 	movx	@dptr,a
+      00006E 90r00r00         [24]  192 	mov	dptr,#_strtohex_l_65536_43
+      000071 E0               [24]  193 	movx	a,@dptr
+      000072 FB               [12]  194 	mov	r3,a
+      000073 A3               [24]  195 	inc	dptr
+      000074 E0               [24]  196 	movx	a,@dptr
+      000075 FC               [12]  197 	mov	r4,a
+      000076 A3               [24]  198 	inc	dptr
+      000077 E0               [24]  199 	movx	a,@dptr
+      000078 FD               [12]  200 	mov	r5,a
+      000079 8B 82            [24]  201 	mov	dpl,r3
+      00007B 8C 83            [24]  202 	mov	dph,r4
+      00007D 8D F0            [24]  203 	mov	b,r5
+      00007F 12r00r00         [24]  204 	lcall	__gptrget
+      000082 FA               [12]  205 	mov	r2,a
+      000083 90r00r04         [24]  206 	mov	dptr,#(_strtohex_f_65536_44 + 0x0001)
+      000086 F0               [24]  207 	movx	@dptr,a
+      000087 0B               [12]  208 	inc	r3
+      000088 BB 00 01         [24]  209 	cjne	r3,#0x00,00436$
+      00008B 0C               [12]  210 	inc	r4
+      00008C                        211 00436$:
+      00008C 8B 82            [24]  212 	mov	dpl,r3
+      00008E 8C 83            [24]  213 	mov	dph,r4
+      000090 8D F0            [24]  214 	mov	b,r5
+      000092 12r00r00         [24]  215 	lcall	__gptrget
+      000095 FB               [12]  216 	mov	r3,a
+      000096 90r00r05         [24]  217 	mov	dptr,#(_strtohex_f_65536_44 + 0x0002)
+      000099 F0               [24]  218 	movx	@dptr,a
+                                    219 ;	converter.c:17: case 3:
+      00009A 80 44            [24]  220 	sjmp	00104$
+      00009C                        221 00103$:
+                                    222 ;	converter.c:18: f[0]=l[0];f[1]=l[1];f[2]=l[2];break;
+      00009C 90r00r00         [24]  223 	mov	dptr,#_strtohex_l_65536_43
+      00009F E0               [24]  224 	movx	a,@dptr
+      0000A0 FB               [12]  225 	mov	r3,a
+      0000A1 A3               [24]  226 	inc	dptr
+      0000A2 E0               [24]  227 	movx	a,@dptr
+      0000A3 FC               [12]  228 	mov	r4,a
+      0000A4 A3               [24]  229 	inc	dptr
+      0000A5 E0               [24]  230 	movx	a,@dptr
+      0000A6 FD               [12]  231 	mov	r5,a
+      0000A7 8B 82            [24]  232 	mov	dpl,r3
+      0000A9 8C 83            [24]  233 	mov	dph,r4
+      0000AB 8D F0            [24]  234 	mov	b,r5
+      0000AD 12r00r00         [24]  235 	lcall	__gptrget
+      0000B0 90r00r03         [24]  236 	mov	dptr,#_strtohex_f_65536_44
+      0000B3 F0               [24]  237 	movx	@dptr,a
+      0000B4 74 01            [12]  238 	mov	a,#0x01
+      0000B6 2B               [12]  239 	add	a,r3
+      0000B7 F8               [12]  240 	mov	r0,a
+      0000B8 E4               [12]  241 	clr	a
+      0000B9 3C               [12]  242 	addc	a,r4
+      0000BA F9               [12]  243 	mov	r1,a
+      0000BB 8D 02            [24]  244 	mov	ar2,r5
+      0000BD 88 82            [24]  245 	mov	dpl,r0
+      0000BF 89 83            [24]  246 	mov	dph,r1
+      0000C1 8A F0            [24]  247 	mov	b,r2
+      0000C3 12r00r00         [24]  248 	lcall	__gptrget
+      0000C6 F8               [12]  249 	mov	r0,a
+      0000C7 90r00r04         [24]  250 	mov	dptr,#(_strtohex_f_65536_44 + 0x0001)
+      0000CA F0               [24]  251 	movx	@dptr,a
+      0000CB 74 02            [12]  252 	mov	a,#0x02
+      0000CD 2B               [12]  253 	add	a,r3
+      0000CE FB               [12]  254 	mov	r3,a
+      0000CF E4               [12]  255 	clr	a
+      0000D0 3C               [12]  256 	addc	a,r4
+      0000D1 FC               [12]  257 	mov	r4,a
+      0000D2 8B 82            [24]  258 	mov	dpl,r3
+      0000D4 8C 83            [24]  259 	mov	dph,r4
+      0000D6 8D F0            [24]  260 	mov	b,r5
+      0000D8 12r00r00         [24]  261 	lcall	__gptrget
+      0000DB FB               [12]  262 	mov	r3,a
+      0000DC 90r00r05         [24]  263 	mov	dptr,#(_strtohex_f_65536_44 + 0x0002)
+      0000DF F0               [24]  264 	movx	@dptr,a
+                                    265 ;	converter.c:19: }
+      0000E0                        266 00104$:
+                                    267 ;	converter.c:21: uint16_t i=0;
+      0000E0 90r00r07         [24]  268 	mov	dptr,#_strtohex_i_65537_46
+      0000E3 E4               [12]  269 	clr	a
+      0000E4 F0               [24]  270 	movx	@dptr,a
+      0000E5 A3               [24]  271 	inc	dptr
+      0000E6 F0               [24]  272 	movx	@dptr,a
+                                    273 ;	converter.c:23: for(int k=0; k<3; k++)
+      0000E7 7C 00            [12]  274 	mov	r4,#0x00
+      0000E9 7D 00            [12]  275 	mov	r5,#0x00
+      0000EB                        276 00216$:
+      0000EB C3               [12]  277 	clr	c
+      0000EC EC               [12]  278 	mov	a,r4
+      0000ED 94 03            [12]  279 	subb	a,#0x03
+      0000EF ED               [12]  280 	mov	a,r5
+      0000F0 64 80            [12]  281 	xrl	a,#0x80
+      0000F2 94 80            [12]  282 	subb	a,#0x80
+      0000F4 40 03            [24]  283 	jc	00437$
+      0000F6 02r06r65         [24]  284 	ljmp	00211$
+      0000F9                        285 00437$:
+                                    286 ;	converter.c:26: switch(toupper(f[k]))
+      0000F9 EC               [12]  287 	mov	a,r4
+      0000FA 24r03            [12]  288 	add	a,#_strtohex_f_65536_44
+      0000FC F5 82            [12]  289 	mov	dpl,a
+      0000FE ED               [12]  290 	mov	a,r5
+      0000FF 34s00            [12]  291 	addc	a,#(_strtohex_f_65536_44 >> 8)
+      000101 F5 83            [12]  292 	mov	dph,a
+      000103 E0               [24]  293 	movx	a,@dptr
+      000104 FB               [12]  294 	mov	r3,a
+      000105 7A 00            [12]  295 	mov	r2,#0x00
+      000107 8B 82            [24]  296 	mov	dpl,r3
+      000109 8A 83            [24]  297 	mov	dph,r2
+      00010B C0 07            [24]  298 	push	ar7
+      00010D C0 06            [24]  299 	push	ar6
+      00010F C0 05            [24]  300 	push	ar5
+      000111 C0 04            [24]  301 	push	ar4
+      000113 12r00r00         [24]  302 	lcall	_toupper
+      000116 AA 82            [24]  303 	mov	r2,dpl
+      000118 AB 83            [24]  304 	mov	r3,dph
+      00011A D0 04            [24]  305 	pop	ar4
+      00011C D0 05            [24]  306 	pop	ar5
+      00011E D0 06            [24]  307 	pop	ar6
+      000120 D0 07            [24]  308 	pop	ar7
+      000122 C3               [12]  309 	clr	c
+      000123 EA               [12]  310 	mov	a,r2
+      000124 94 31            [12]  311 	subb	a,#0x31
+      000126 EB               [12]  312 	mov	a,r3
+      000127 64 80            [12]  313 	xrl	a,#0x80
+      000129 94 80            [12]  314 	subb	a,#0x80
+      00012B 50 03            [24]  315 	jnc	00438$
+      00012D 02r06r5D         [24]  316 	ljmp	00217$
+      000130                        317 00438$:
+      000130 C3               [12]  318 	clr	c
+      000131 74 46            [12]  319 	mov	a,#0x46
+      000133 9A               [12]  320 	subb	a,r2
+      000134 74 80            [12]  321 	mov	a,#(0x00 ^ 0x80)
+      000136 8B F0            [24]  322 	mov	b,r3
+      000138 63 F0 80         [24]  323 	xrl	b,#0x80
+      00013B 95 F0            [12]  324 	subb	a,b
+      00013D 50 03            [24]  325 	jnc	00439$
+      00013F 02r06r5D         [24]  326 	ljmp	00217$
+      000142                        327 00439$:
+      000142 EA               [12]  328 	mov	a,r2
+      000143 24 CF            [12]  329 	add	a,#0xcf
+      000145 FA               [12]  330 	mov	r2,a
+      000146 24 0A            [12]  331 	add	a,#(00440$-3-.)
+      000148 83               [24]  332 	movc	a,@a+pc
+      000149 F5 82            [12]  333 	mov	dpl,a
+      00014B EA               [12]  334 	mov	a,r2
+      00014C 24 1A            [12]  335 	add	a,#(00441$-3-.)
+      00014E 83               [24]  336 	movc	a,@a+pc
+      00014F F5 83            [12]  337 	mov	dph,a
+      000151 E4               [12]  338 	clr	a
+      000152 73               [24]  339 	jmp	@a+dptr
+      000153                        340 00440$:
+      000153r7F                     341 	.db	00105$
+      000154rD3                     342 	.db	00112$
+      000155r27                     343 	.db	00119$
+      000156r7B                     344 	.db	00126$
+      000157rCF                     345 	.db	00133$
+      000158r23                     346 	.db	00140$
+      000159r77                     347 	.db	00147$
+      00015ArCB                     348 	.db	00154$
+      00015Br1F                     349 	.db	00161$
+      00015Cr5D                     350 	.db	00217$
+      00015Dr5D                     351 	.db	00217$
+      00015Er5D                     352 	.db	00217$
+      00015Fr5D                     353 	.db	00217$
+      000160r5D                     354 	.db	00217$
+      000161r5D                     355 	.db	00217$
+      000162r5D                     356 	.db	00217$
+      000163r73                     357 	.db	00168$
+      000164rC7                     358 	.db	00175$
+      000165r1B                     359 	.db	00182$
+      000166r6F                     360 	.db	00189$
+      000167rC3                     361 	.db	00196$
+      000168r11                     362 	.db	00203$
+      000169                        363 00441$:
+      000169s01                     364 	.db	00105$>>8
+      00016As01                     365 	.db	00112$>>8
+      00016Bs02                     366 	.db	00119$>>8
+      00016Cs02                     367 	.db	00126$>>8
+      00016Ds02                     368 	.db	00133$>>8
+      00016Es03                     369 	.db	00140$>>8
+      00016Fs03                     370 	.db	00147$>>8
+      000170s03                     371 	.db	00154$>>8
+      000171s04                     372 	.db	00161$>>8
+      000172s06                     373 	.db	00217$>>8
+      000173s06                     374 	.db	00217$>>8
+      000174s06                     375 	.db	00217$>>8
+      000175s06                     376 	.db	00217$>>8
+      000176s06                     377 	.db	00217$>>8
+      000177s06                     378 	.db	00217$>>8
+      000178s06                     379 	.db	00217$>>8
+      000179s04                     380 	.db	00168$>>8
+      00017As04                     381 	.db	00175$>>8
+      00017Bs05                     382 	.db	00182$>>8
+      00017Cs05                     383 	.db	00189$>>8
+      00017Ds05                     384 	.db	00196$>>8
+      00017Es06                     385 	.db	00203$>>8
+                                    386 ;	converter.c:29: case '1'://1
+      00017F                        387 00105$:
+                                    388 ;	converter.c:30: if(k==0)
+      00017F EC               [12]  389 	mov	a,r4
+      000180 4D               [12]  390 	orl	a,r5
+      000181 70 12            [24]  391 	jnz	00107$
+                                    392 ;	converter.c:31: i+=0x100;
+      000183 90r00r07         [24]  393 	mov	dptr,#_strtohex_i_65537_46
+      000186 E0               [24]  394 	movx	a,@dptr
+      000187 FA               [12]  395 	mov	r2,a
+      000188 A3               [24]  396 	inc	dptr
+      000189 E0               [24]  397 	movx	a,@dptr
+      00018A FB               [12]  398 	mov	r3,a
+      00018B 90r00r07         [24]  399 	mov	dptr,#_strtohex_i_65537_46
+      00018E EA               [12]  400 	mov	a,r2
+      00018F F0               [24]  401 	movx	@dptr,a
+      000190 74 01            [12]  402 	mov	a,#0x01
+      000192 2B               [12]  403 	add	a,r3
+      000193 A3               [24]  404 	inc	dptr
+      000194 F0               [24]  405 	movx	@dptr,a
+      000195                        406 00107$:
+                                    407 ;	converter.c:32: if(k==1)
+      000195 8C 02            [24]  408 	mov	ar2,r4
+      000197 8D 03            [24]  409 	mov	ar3,r5
+      000199 BC 01 16         [24]  410 	cjne	r4,#0x01,00109$
+      00019C BD 00 13         [24]  411 	cjne	r5,#0x00,00109$
+                                    412 ;	converter.c:33: i+=0x010;
+      00019F 90r00r07         [24]  413 	mov	dptr,#_strtohex_i_65537_46
+      0001A2 E0               [24]  414 	movx	a,@dptr
+      0001A3 F8               [12]  415 	mov	r0,a
+      0001A4 A3               [24]  416 	inc	dptr
+      0001A5 E0               [24]  417 	movx	a,@dptr
+      0001A6 F9               [12]  418 	mov	r1,a
+      0001A7 90r00r07         [24]  419 	mov	dptr,#_strtohex_i_65537_46
+      0001AA 74 10            [12]  420 	mov	a,#0x10
+      0001AC 28               [12]  421 	add	a,r0
+      0001AD F0               [24]  422 	movx	@dptr,a
+      0001AE E4               [12]  423 	clr	a
+      0001AF 39               [12]  424 	addc	a,r1
+      0001B0 A3               [24]  425 	inc	dptr
+      0001B1 F0               [24]  426 	movx	@dptr,a
+      0001B2                        427 00109$:
+                                    428 ;	converter.c:34: if(k==2)
+      0001B2 BA 02 05         [24]  429 	cjne	r2,#0x02,00445$
+      0001B5 BB 00 02         [24]  430 	cjne	r3,#0x00,00445$
+      0001B8 80 03            [24]  431 	sjmp	00446$
+      0001BA                        432 00445$:
+      0001BA 02r06r5D         [24]  433 	ljmp	00217$
+      0001BD                        434 00446$:
+                                    435 ;	converter.c:35: i+=0x001;
+      0001BD 90r00r07         [24]  436 	mov	dptr,#_strtohex_i_65537_46
+      0001C0 E0               [24]  437 	movx	a,@dptr
+      0001C1 FA               [12]  438 	mov	r2,a
+      0001C2 A3               [24]  439 	inc	dptr
+      0001C3 E0               [24]  440 	movx	a,@dptr
+      0001C4 FB               [12]  441 	mov	r3,a
+      0001C5 90r00r07         [24]  442 	mov	dptr,#_strtohex_i_65537_46
+      0001C8 74 01            [12]  443 	mov	a,#0x01
+      0001CA 2A               [12]  444 	add	a,r2
+      0001CB F0               [24]  445 	movx	@dptr,a
+      0001CC E4               [12]  446 	clr	a
+      0001CD 3B               [12]  447 	addc	a,r3
+      0001CE A3               [24]  448 	inc	dptr
+      0001CF F0               [24]  449 	movx	@dptr,a
+                                    450 ;	converter.c:36: break;
+      0001D0 02r06r5D         [24]  451 	ljmp	00217$
+                                    452 ;	converter.c:37: case 50://2
+      0001D3                        453 00112$:
+                                    454 ;	converter.c:38: if(k==0)
+      0001D3 EC               [12]  455 	mov	a,r4
+      0001D4 4D               [12]  456 	orl	a,r5
+      0001D5 70 12            [24]  457 	jnz	00114$
+                                    458 ;	converter.c:39: i+=0x200;
+      0001D7 90r00r07         [24]  459 	mov	dptr,#_strtohex_i_65537_46
+      0001DA E0               [24]  460 	movx	a,@dptr
+      0001DB FA               [12]  461 	mov	r2,a
+      0001DC A3               [24]  462 	inc	dptr
+      0001DD E0               [24]  463 	movx	a,@dptr
+      0001DE FB               [12]  464 	mov	r3,a
+      0001DF 90r00r07         [24]  465 	mov	dptr,#_strtohex_i_65537_46
+      0001E2 EA               [12]  466 	mov	a,r2
+      0001E3 F0               [24]  467 	movx	@dptr,a
+      0001E4 74 02            [12]  468 	mov	a,#0x02
+      0001E6 2B               [12]  469 	add	a,r3
+      0001E7 A3               [24]  470 	inc	dptr
+      0001E8 F0               [24]  471 	movx	@dptr,a
+      0001E9                        472 00114$:
+                                    473 ;	converter.c:40: if(k==1)
+      0001E9 8C 02            [24]  474 	mov	ar2,r4
+      0001EB 8D 03            [24]  475 	mov	ar3,r5
+      0001ED BC 01 16         [24]  476 	cjne	r4,#0x01,00116$
+      0001F0 BD 00 13         [24]  477 	cjne	r5,#0x00,00116$
+                                    478 ;	converter.c:41: i+=0x020;
+      0001F3 90r00r07         [24]  479 	mov	dptr,#_strtohex_i_65537_46
+      0001F6 E0               [24]  480 	movx	a,@dptr
+      0001F7 F8               [12]  481 	mov	r0,a
+      0001F8 A3               [24]  482 	inc	dptr
+      0001F9 E0               [24]  483 	movx	a,@dptr
+      0001FA F9               [12]  484 	mov	r1,a
+      0001FB 90r00r07         [24]  485 	mov	dptr,#_strtohex_i_65537_46
+      0001FE 74 20            [12]  486 	mov	a,#0x20
+      000200 28               [12]  487 	add	a,r0
+      000201 F0               [24]  488 	movx	@dptr,a
+      000202 E4               [12]  489 	clr	a
+      000203 39               [12]  490 	addc	a,r1
+      000204 A3               [24]  491 	inc	dptr
+      000205 F0               [24]  492 	movx	@dptr,a
+      000206                        493 00116$:
+                                    494 ;	converter.c:42: if(k==2)
+      000206 BA 02 05         [24]  495 	cjne	r2,#0x02,00450$
+      000209 BB 00 02         [24]  496 	cjne	r3,#0x00,00450$
+      00020C 80 03            [24]  497 	sjmp	00451$
+      00020E                        498 00450$:
+      00020E 02r06r5D         [24]  499 	ljmp	00217$
+      000211                        500 00451$:
+                                    501 ;	converter.c:43: i+=0x002;
+      000211 90r00r07         [24]  502 	mov	dptr,#_strtohex_i_65537_46
+      000214 E0               [24]  503 	movx	a,@dptr
+      000215 FA               [12]  504 	mov	r2,a
+      000216 A3               [24]  505 	inc	dptr
+      000217 E0               [24]  506 	movx	a,@dptr
+      000218 FB               [12]  507 	mov	r3,a
+      000219 90r00r07         [24]  508 	mov	dptr,#_strtohex_i_65537_46
+      00021C 74 02            [12]  509 	mov	a,#0x02
+      00021E 2A               [12]  510 	add	a,r2
+      00021F F0               [24]  511 	movx	@dptr,a
+      000220 E4               [12]  512 	clr	a
+      000221 3B               [12]  513 	addc	a,r3
+      000222 A3               [24]  514 	inc	dptr
+      000223 F0               [24]  515 	movx	@dptr,a
+                                    516 ;	converter.c:44: break;
+      000224 02r06r5D         [24]  517 	ljmp	00217$
+                                    518 ;	converter.c:45: case 51://3
+      000227                        519 00119$:
+                                    520 ;	converter.c:46: if(k==0)
+      000227 EC               [12]  521 	mov	a,r4
+      000228 4D               [12]  522 	orl	a,r5
+      000229 70 12            [24]  523 	jnz	00121$
+                                    524 ;	converter.c:47: i+=0x300;
+      00022B 90r00r07         [24]  525 	mov	dptr,#_strtohex_i_65537_46
+      00022E E0               [24]  526 	movx	a,@dptr
+      00022F FA               [12]  527 	mov	r2,a
+      000230 A3               [24]  528 	inc	dptr
+      000231 E0               [24]  529 	movx	a,@dptr
+      000232 FB               [12]  530 	mov	r3,a
+      000233 90r00r07         [24]  531 	mov	dptr,#_strtohex_i_65537_46
+      000236 EA               [12]  532 	mov	a,r2
+      000237 F0               [24]  533 	movx	@dptr,a
+      000238 74 03            [12]  534 	mov	a,#0x03
+      00023A 2B               [12]  535 	add	a,r3
+      00023B A3               [24]  536 	inc	dptr
+      00023C F0               [24]  537 	movx	@dptr,a
+      00023D                        538 00121$:
+                                    539 ;	converter.c:48: if(k==1)
+      00023D 8C 02            [24]  540 	mov	ar2,r4
+      00023F 8D 03            [24]  541 	mov	ar3,r5
+      000241 BC 01 16         [24]  542 	cjne	r4,#0x01,00123$
+      000244 BD 00 13         [24]  543 	cjne	r5,#0x00,00123$
+                                    544 ;	converter.c:49: i+=0x030;
+      000247 90r00r07         [24]  545 	mov	dptr,#_strtohex_i_65537_46
+      00024A E0               [24]  546 	movx	a,@dptr
+      00024B F8               [12]  547 	mov	r0,a
+      00024C A3               [24]  548 	inc	dptr
+      00024D E0               [24]  549 	movx	a,@dptr
+      00024E F9               [12]  550 	mov	r1,a
+      00024F 90r00r07         [24]  551 	mov	dptr,#_strtohex_i_65537_46
+      000252 74 30            [12]  552 	mov	a,#0x30
+      000254 28               [12]  553 	add	a,r0
+      000255 F0               [24]  554 	movx	@dptr,a
+      000256 E4               [12]  555 	clr	a
+      000257 39               [12]  556 	addc	a,r1
+      000258 A3               [24]  557 	inc	dptr
+      000259 F0               [24]  558 	movx	@dptr,a
+      00025A                        559 00123$:
+                                    560 ;	converter.c:50: if(k==2)
+      00025A BA 02 05         [24]  561 	cjne	r2,#0x02,00455$
+      00025D BB 00 02         [24]  562 	cjne	r3,#0x00,00455$
+      000260 80 03            [24]  563 	sjmp	00456$
+      000262                        564 00455$:
+      000262 02r06r5D         [24]  565 	ljmp	00217$
+      000265                        566 00456$:
+                                    567 ;	converter.c:51: i+=0x003;
+      000265 90r00r07         [24]  568 	mov	dptr,#_strtohex_i_65537_46
+      000268 E0               [24]  569 	movx	a,@dptr
+      000269 FA               [12]  570 	mov	r2,a
+      00026A A3               [24]  571 	inc	dptr
+      00026B E0               [24]  572 	movx	a,@dptr
+      00026C FB               [12]  573 	mov	r3,a
+      00026D 90r00r07         [24]  574 	mov	dptr,#_strtohex_i_65537_46
+      000270 74 03            [12]  575 	mov	a,#0x03
+      000272 2A               [12]  576 	add	a,r2
+      000273 F0               [24]  577 	movx	@dptr,a
+      000274 E4               [12]  578 	clr	a
+      000275 3B               [12]  579 	addc	a,r3
+      000276 A3               [24]  580 	inc	dptr
+      000277 F0               [24]  581 	movx	@dptr,a
+                                    582 ;	converter.c:52: break;
+      000278 02r06r5D         [24]  583 	ljmp	00217$
+                                    584 ;	converter.c:53: case 52://4
+      00027B                        585 00126$:
+                                    586 ;	converter.c:54: if(k==0)
+      00027B EC               [12]  587 	mov	a,r4
+      00027C 4D               [12]  588 	orl	a,r5
+      00027D 70 12            [24]  589 	jnz	00128$
+                                    590 ;	converter.c:55: i+=0x400;
+      00027F 90r00r07         [24]  591 	mov	dptr,#_strtohex_i_65537_46
+      000282 E0               [24]  592 	movx	a,@dptr
+      000283 FA               [12]  593 	mov	r2,a
+      000284 A3               [24]  594 	inc	dptr
+      000285 E0               [24]  595 	movx	a,@dptr
+      000286 FB               [12]  596 	mov	r3,a
+      000287 90r00r07         [24]  597 	mov	dptr,#_strtohex_i_65537_46
+      00028A EA               [12]  598 	mov	a,r2
+      00028B F0               [24]  599 	movx	@dptr,a
+      00028C 74 04            [12]  600 	mov	a,#0x04
+      00028E 2B               [12]  601 	add	a,r3
+      00028F A3               [24]  602 	inc	dptr
+      000290 F0               [24]  603 	movx	@dptr,a
+      000291                        604 00128$:
+                                    605 ;	converter.c:56: if(k==1)
+      000291 8C 02            [24]  606 	mov	ar2,r4
+      000293 8D 03            [24]  607 	mov	ar3,r5
+      000295 BC 01 16         [24]  608 	cjne	r4,#0x01,00130$
+      000298 BD 00 13         [24]  609 	cjne	r5,#0x00,00130$
+                                    610 ;	converter.c:57: i+=0x040;
+      00029B 90r00r07         [24]  611 	mov	dptr,#_strtohex_i_65537_46
+      00029E E0               [24]  612 	movx	a,@dptr
+      00029F F8               [12]  613 	mov	r0,a
+      0002A0 A3               [24]  614 	inc	dptr
+      0002A1 E0               [24]  615 	movx	a,@dptr
+      0002A2 F9               [12]  616 	mov	r1,a
+      0002A3 90r00r07         [24]  617 	mov	dptr,#_strtohex_i_65537_46
+      0002A6 74 40            [12]  618 	mov	a,#0x40
+      0002A8 28               [12]  619 	add	a,r0
+      0002A9 F0               [24]  620 	movx	@dptr,a
+      0002AA E4               [12]  621 	clr	a
+      0002AB 39               [12]  622 	addc	a,r1
+      0002AC A3               [24]  623 	inc	dptr
+      0002AD F0               [24]  624 	movx	@dptr,a
+      0002AE                        625 00130$:
+                                    626 ;	converter.c:58: if(k==2)
+      0002AE BA 02 05         [24]  627 	cjne	r2,#0x02,00460$
+      0002B1 BB 00 02         [24]  628 	cjne	r3,#0x00,00460$
+      0002B4 80 03            [24]  629 	sjmp	00461$
+      0002B6                        630 00460$:
+      0002B6 02r06r5D         [24]  631 	ljmp	00217$
+      0002B9                        632 00461$:
+                                    633 ;	converter.c:59: i+=0x004;
+      0002B9 90r00r07         [24]  634 	mov	dptr,#_strtohex_i_65537_46
+      0002BC E0               [24]  635 	movx	a,@dptr
+      0002BD FA               [12]  636 	mov	r2,a
+      0002BE A3               [24]  637 	inc	dptr
+      0002BF E0               [24]  638 	movx	a,@dptr
+      0002C0 FB               [12]  639 	mov	r3,a
+      0002C1 90r00r07         [24]  640 	mov	dptr,#_strtohex_i_65537_46
+      0002C4 74 04            [12]  641 	mov	a,#0x04
+      0002C6 2A               [12]  642 	add	a,r2
+      0002C7 F0               [24]  643 	movx	@dptr,a
+      0002C8 E4               [12]  644 	clr	a
+      0002C9 3B               [12]  645 	addc	a,r3
+      0002CA A3               [24]  646 	inc	dptr
+      0002CB F0               [24]  647 	movx	@dptr,a
+                                    648 ;	converter.c:60: break;
+      0002CC 02r06r5D         [24]  649 	ljmp	00217$
+                                    650 ;	converter.c:61: case 53://5
+      0002CF                        651 00133$:
+                                    652 ;	converter.c:62: if(k==0)
+      0002CF EC               [12]  653 	mov	a,r4
+      0002D0 4D               [12]  654 	orl	a,r5
+      0002D1 70 12            [24]  655 	jnz	00135$
+                                    656 ;	converter.c:63: i+=0x500;
+      0002D3 90r00r07         [24]  657 	mov	dptr,#_strtohex_i_65537_46
+      0002D6 E0               [24]  658 	movx	a,@dptr
+      0002D7 FA               [12]  659 	mov	r2,a
+      0002D8 A3               [24]  660 	inc	dptr
+      0002D9 E0               [24]  661 	movx	a,@dptr
+      0002DA FB               [12]  662 	mov	r3,a
+      0002DB 90r00r07         [24]  663 	mov	dptr,#_strtohex_i_65537_46
+      0002DE EA               [12]  664 	mov	a,r2
+      0002DF F0               [24]  665 	movx	@dptr,a
+      0002E0 74 05            [12]  666 	mov	a,#0x05
+      0002E2 2B               [12]  667 	add	a,r3
+      0002E3 A3               [24]  668 	inc	dptr
+      0002E4 F0               [24]  669 	movx	@dptr,a
+      0002E5                        670 00135$:
+                                    671 ;	converter.c:64: if(k==1)
+      0002E5 8C 02            [24]  672 	mov	ar2,r4
+      0002E7 8D 03            [24]  673 	mov	ar3,r5
+      0002E9 BC 01 16         [24]  674 	cjne	r4,#0x01,00137$
+      0002EC BD 00 13         [24]  675 	cjne	r5,#0x00,00137$
+                                    676 ;	converter.c:65: i+=0x050;
+      0002EF 90r00r07         [24]  677 	mov	dptr,#_strtohex_i_65537_46
+      0002F2 E0               [24]  678 	movx	a,@dptr
+      0002F3 F8               [12]  679 	mov	r0,a
+      0002F4 A3               [24]  680 	inc	dptr
+      0002F5 E0               [24]  681 	movx	a,@dptr
+      0002F6 F9               [12]  682 	mov	r1,a
+      0002F7 90r00r07         [24]  683 	mov	dptr,#_strtohex_i_65537_46
+      0002FA 74 50            [12]  684 	mov	a,#0x50
+      0002FC 28               [12]  685 	add	a,r0
+      0002FD F0               [24]  686 	movx	@dptr,a
+      0002FE E4               [12]  687 	clr	a
+      0002FF 39               [12]  688 	addc	a,r1
+      000300 A3               [24]  689 	inc	dptr
+      000301 F0               [24]  690 	movx	@dptr,a
+      000302                        691 00137$:
+                                    692 ;	converter.c:66: if(k==2)
+      000302 BA 02 05         [24]  693 	cjne	r2,#0x02,00465$
+      000305 BB 00 02         [24]  694 	cjne	r3,#0x00,00465$
+      000308 80 03            [24]  695 	sjmp	00466$
+      00030A                        696 00465$:
+      00030A 02r06r5D         [24]  697 	ljmp	00217$
+      00030D                        698 00466$:
+                                    699 ;	converter.c:67: i+=0x005;
+      00030D 90r00r07         [24]  700 	mov	dptr,#_strtohex_i_65537_46
+      000310 E0               [24]  701 	movx	a,@dptr
+      000311 FA               [12]  702 	mov	r2,a
+      000312 A3               [24]  703 	inc	dptr
+      000313 E0               [24]  704 	movx	a,@dptr
+      000314 FB               [12]  705 	mov	r3,a
+      000315 90r00r07         [24]  706 	mov	dptr,#_strtohex_i_65537_46
+      000318 74 05            [12]  707 	mov	a,#0x05
+      00031A 2A               [12]  708 	add	a,r2
+      00031B F0               [24]  709 	movx	@dptr,a
+      00031C E4               [12]  710 	clr	a
+      00031D 3B               [12]  711 	addc	a,r3
+      00031E A3               [24]  712 	inc	dptr
+      00031F F0               [24]  713 	movx	@dptr,a
+                                    714 ;	converter.c:68: break;
+      000320 02r06r5D         [24]  715 	ljmp	00217$
+                                    716 ;	converter.c:69: case 54://6
+      000323                        717 00140$:
+                                    718 ;	converter.c:70: if(k==0)
+      000323 EC               [12]  719 	mov	a,r4
+      000324 4D               [12]  720 	orl	a,r5
+      000325 70 12            [24]  721 	jnz	00142$
+                                    722 ;	converter.c:71: i+=0x600;
+      000327 90r00r07         [24]  723 	mov	dptr,#_strtohex_i_65537_46
+      00032A E0               [24]  724 	movx	a,@dptr
+      00032B FA               [12]  725 	mov	r2,a
+      00032C A3               [24]  726 	inc	dptr
+      00032D E0               [24]  727 	movx	a,@dptr
+      00032E FB               [12]  728 	mov	r3,a
+      00032F 90r00r07         [24]  729 	mov	dptr,#_strtohex_i_65537_46
+      000332 EA               [12]  730 	mov	a,r2
+      000333 F0               [24]  731 	movx	@dptr,a
+      000334 74 06            [12]  732 	mov	a,#0x06
+      000336 2B               [12]  733 	add	a,r3
+      000337 A3               [24]  734 	inc	dptr
+      000338 F0               [24]  735 	movx	@dptr,a
+      000339                        736 00142$:
+                                    737 ;	converter.c:72: if(k==1)
+      000339 8C 02            [24]  738 	mov	ar2,r4
+      00033B 8D 03            [24]  739 	mov	ar3,r5
+      00033D BC 01 16         [24]  740 	cjne	r4,#0x01,00144$
+      000340 BD 00 13         [24]  741 	cjne	r5,#0x00,00144$
+                                    742 ;	converter.c:73: i+=0x060;
+      000343 90r00r07         [24]  743 	mov	dptr,#_strtohex_i_65537_46
+      000346 E0               [24]  744 	movx	a,@dptr
+      000347 F8               [12]  745 	mov	r0,a
+      000348 A3               [24]  746 	inc	dptr
+      000349 E0               [24]  747 	movx	a,@dptr
+      00034A F9               [12]  748 	mov	r1,a
+      00034B 90r00r07         [24]  749 	mov	dptr,#_strtohex_i_65537_46
+      00034E 74 60            [12]  750 	mov	a,#0x60
+      000350 28               [12]  751 	add	a,r0
+      000351 F0               [24]  752 	movx	@dptr,a
+      000352 E4               [12]  753 	clr	a
+      000353 39               [12]  754 	addc	a,r1
+      000354 A3               [24]  755 	inc	dptr
+      000355 F0               [24]  756 	movx	@dptr,a
+      000356                        757 00144$:
+                                    758 ;	converter.c:74: if(k==2)
+      000356 BA 02 05         [24]  759 	cjne	r2,#0x02,00470$
+      000359 BB 00 02         [24]  760 	cjne	r3,#0x00,00470$
+      00035C 80 03            [24]  761 	sjmp	00471$
+      00035E                        762 00470$:
+      00035E 02r06r5D         [24]  763 	ljmp	00217$
+      000361                        764 00471$:
+                                    765 ;	converter.c:75: i+=0x006;
+      000361 90r00r07         [24]  766 	mov	dptr,#_strtohex_i_65537_46
+      000364 E0               [24]  767 	movx	a,@dptr
+      000365 FA               [12]  768 	mov	r2,a
+      000366 A3               [24]  769 	inc	dptr
+      000367 E0               [24]  770 	movx	a,@dptr
+      000368 FB               [12]  771 	mov	r3,a
+      000369 90r00r07         [24]  772 	mov	dptr,#_strtohex_i_65537_46
+      00036C 74 06            [12]  773 	mov	a,#0x06
+      00036E 2A               [12]  774 	add	a,r2
+      00036F F0               [24]  775 	movx	@dptr,a
+      000370 E4               [12]  776 	clr	a
+      000371 3B               [12]  777 	addc	a,r3
+      000372 A3               [24]  778 	inc	dptr
+      000373 F0               [24]  779 	movx	@dptr,a
+                                    780 ;	converter.c:76: break;
+      000374 02r06r5D         [24]  781 	ljmp	00217$
+                                    782 ;	converter.c:77: case 55://7
+      000377                        783 00147$:
+                                    784 ;	converter.c:78: if(k==0)
+      000377 EC               [12]  785 	mov	a,r4
+      000378 4D               [12]  786 	orl	a,r5
+      000379 70 12            [24]  787 	jnz	00149$
+                                    788 ;	converter.c:79: i+=0x700;
+      00037B 90r00r07         [24]  789 	mov	dptr,#_strtohex_i_65537_46
+      00037E E0               [24]  790 	movx	a,@dptr
+      00037F FA               [12]  791 	mov	r2,a
+      000380 A3               [24]  792 	inc	dptr
+      000381 E0               [24]  793 	movx	a,@dptr
+      000382 FB               [12]  794 	mov	r3,a
+      000383 90r00r07         [24]  795 	mov	dptr,#_strtohex_i_65537_46
+      000386 EA               [12]  796 	mov	a,r2
+      000387 F0               [24]  797 	movx	@dptr,a
+      000388 74 07            [12]  798 	mov	a,#0x07
+      00038A 2B               [12]  799 	add	a,r3
+      00038B A3               [24]  800 	inc	dptr
+      00038C F0               [24]  801 	movx	@dptr,a
+      00038D                        802 00149$:
+                                    803 ;	converter.c:80: if(k==1)
+      00038D 8C 02            [24]  804 	mov	ar2,r4
+      00038F 8D 03            [24]  805 	mov	ar3,r5
+      000391 BC 01 16         [24]  806 	cjne	r4,#0x01,00151$
+      000394 BD 00 13         [24]  807 	cjne	r5,#0x00,00151$
+                                    808 ;	converter.c:81: i+=0x070;
+      000397 90r00r07         [24]  809 	mov	dptr,#_strtohex_i_65537_46
+      00039A E0               [24]  810 	movx	a,@dptr
+      00039B F8               [12]  811 	mov	r0,a
+      00039C A3               [24]  812 	inc	dptr
+      00039D E0               [24]  813 	movx	a,@dptr
+      00039E F9               [12]  814 	mov	r1,a
+      00039F 90r00r07         [24]  815 	mov	dptr,#_strtohex_i_65537_46
+      0003A2 74 70            [12]  816 	mov	a,#0x70
+      0003A4 28               [12]  817 	add	a,r0
+      0003A5 F0               [24]  818 	movx	@dptr,a
+      0003A6 E4               [12]  819 	clr	a
+      0003A7 39               [12]  820 	addc	a,r1
+      0003A8 A3               [24]  821 	inc	dptr
+      0003A9 F0               [24]  822 	movx	@dptr,a
+      0003AA                        823 00151$:
+                                    824 ;	converter.c:82: if(k==2)
+      0003AA BA 02 05         [24]  825 	cjne	r2,#0x02,00475$
+      0003AD BB 00 02         [24]  826 	cjne	r3,#0x00,00475$
+      0003B0 80 03            [24]  827 	sjmp	00476$
+      0003B2                        828 00475$:
+      0003B2 02r06r5D         [24]  829 	ljmp	00217$
+      0003B5                        830 00476$:
+                                    831 ;	converter.c:83: i+=0x007;
+      0003B5 90r00r07         [24]  832 	mov	dptr,#_strtohex_i_65537_46
+      0003B8 E0               [24]  833 	movx	a,@dptr
+      0003B9 FA               [12]  834 	mov	r2,a
+      0003BA A3               [24]  835 	inc	dptr
+      0003BB E0               [24]  836 	movx	a,@dptr
+      0003BC FB               [12]  837 	mov	r3,a
+      0003BD 90r00r07         [24]  838 	mov	dptr,#_strtohex_i_65537_46
+      0003C0 74 07            [12]  839 	mov	a,#0x07
+      0003C2 2A               [12]  840 	add	a,r2
+      0003C3 F0               [24]  841 	movx	@dptr,a
+      0003C4 E4               [12]  842 	clr	a
+      0003C5 3B               [12]  843 	addc	a,r3
+      0003C6 A3               [24]  844 	inc	dptr
+      0003C7 F0               [24]  845 	movx	@dptr,a
+                                    846 ;	converter.c:84: break;
+      0003C8 02r06r5D         [24]  847 	ljmp	00217$
+                                    848 ;	converter.c:85: case 56://8
+      0003CB                        849 00154$:
+                                    850 ;	converter.c:86: if(k==0)
+      0003CB EC               [12]  851 	mov	a,r4
+      0003CC 4D               [12]  852 	orl	a,r5
+      0003CD 70 12            [24]  853 	jnz	00156$
+                                    854 ;	converter.c:87: i+=0x800;
+      0003CF 90r00r07         [24]  855 	mov	dptr,#_strtohex_i_65537_46
+      0003D2 E0               [24]  856 	movx	a,@dptr
+      0003D3 FA               [12]  857 	mov	r2,a
+      0003D4 A3               [24]  858 	inc	dptr
+      0003D5 E0               [24]  859 	movx	a,@dptr
+      0003D6 FB               [12]  860 	mov	r3,a
+      0003D7 90r00r07         [24]  861 	mov	dptr,#_strtohex_i_65537_46
+      0003DA EA               [12]  862 	mov	a,r2
+      0003DB F0               [24]  863 	movx	@dptr,a
+      0003DC 74 08            [12]  864 	mov	a,#0x08
+      0003DE 2B               [12]  865 	add	a,r3
+      0003DF A3               [24]  866 	inc	dptr
+      0003E0 F0               [24]  867 	movx	@dptr,a
+      0003E1                        868 00156$:
+                                    869 ;	converter.c:88: if(k==1)
+      0003E1 8C 02            [24]  870 	mov	ar2,r4
+      0003E3 8D 03            [24]  871 	mov	ar3,r5
+      0003E5 BC 01 16         [24]  872 	cjne	r4,#0x01,00158$
+      0003E8 BD 00 13         [24]  873 	cjne	r5,#0x00,00158$
+                                    874 ;	converter.c:89: i+=0x080;
+      0003EB 90r00r07         [24]  875 	mov	dptr,#_strtohex_i_65537_46
+      0003EE E0               [24]  876 	movx	a,@dptr
+      0003EF F8               [12]  877 	mov	r0,a
+      0003F0 A3               [24]  878 	inc	dptr
+      0003F1 E0               [24]  879 	movx	a,@dptr
+      0003F2 F9               [12]  880 	mov	r1,a
+      0003F3 90r00r07         [24]  881 	mov	dptr,#_strtohex_i_65537_46
+      0003F6 74 80            [12]  882 	mov	a,#0x80
+      0003F8 28               [12]  883 	add	a,r0
+      0003F9 F0               [24]  884 	movx	@dptr,a
+      0003FA E4               [12]  885 	clr	a
+      0003FB 39               [12]  886 	addc	a,r1
+      0003FC A3               [24]  887 	inc	dptr
+      0003FD F0               [24]  888 	movx	@dptr,a
+      0003FE                        889 00158$:
+                                    890 ;	converter.c:90: if(k==2)
+      0003FE BA 02 05         [24]  891 	cjne	r2,#0x02,00480$
+      000401 BB 00 02         [24]  892 	cjne	r3,#0x00,00480$
+      000404 80 03            [24]  893 	sjmp	00481$
+      000406                        894 00480$:
+      000406 02r06r5D         [24]  895 	ljmp	00217$
+      000409                        896 00481$:
+                                    897 ;	converter.c:91: i+=0x008;
+      000409 90r00r07         [24]  898 	mov	dptr,#_strtohex_i_65537_46
+      00040C E0               [24]  899 	movx	a,@dptr
+      00040D FA               [12]  900 	mov	r2,a
+      00040E A3               [24]  901 	inc	dptr
+      00040F E0               [24]  902 	movx	a,@dptr
+      000410 FB               [12]  903 	mov	r3,a
+      000411 90r00r07         [24]  904 	mov	dptr,#_strtohex_i_65537_46
+      000414 74 08            [12]  905 	mov	a,#0x08
+      000416 2A               [12]  906 	add	a,r2
+      000417 F0               [24]  907 	movx	@dptr,a
+      000418 E4               [12]  908 	clr	a
+      000419 3B               [12]  909 	addc	a,r3
+      00041A A3               [24]  910 	inc	dptr
+      00041B F0               [24]  911 	movx	@dptr,a
+                                    912 ;	converter.c:92: break;
+      00041C 02r06r5D         [24]  913 	ljmp	00217$
+                                    914 ;	converter.c:93: case 57://9
+      00041F                        915 00161$:
+                                    916 ;	converter.c:94: if(k==0)
+      00041F EC               [12]  917 	mov	a,r4
+      000420 4D               [12]  918 	orl	a,r5
+      000421 70 12            [24]  919 	jnz	00163$
+                                    920 ;	converter.c:95: i+=0x900;
+      000423 90r00r07         [24]  921 	mov	dptr,#_strtohex_i_65537_46
+      000426 E0               [24]  922 	movx	a,@dptr
+      000427 FA               [12]  923 	mov	r2,a
+      000428 A3               [24]  924 	inc	dptr
+      000429 E0               [24]  925 	movx	a,@dptr
+      00042A FB               [12]  926 	mov	r3,a
+      00042B 90r00r07         [24]  927 	mov	dptr,#_strtohex_i_65537_46
+      00042E EA               [12]  928 	mov	a,r2
+      00042F F0               [24]  929 	movx	@dptr,a
+      000430 74 09            [12]  930 	mov	a,#0x09
+      000432 2B               [12]  931 	add	a,r3
+      000433 A3               [24]  932 	inc	dptr
+      000434 F0               [24]  933 	movx	@dptr,a
+      000435                        934 00163$:
+                                    935 ;	converter.c:96: if(k==1)
+      000435 8C 02            [24]  936 	mov	ar2,r4
+      000437 8D 03            [24]  937 	mov	ar3,r5
+      000439 BC 01 16         [24]  938 	cjne	r4,#0x01,00165$
+      00043C BD 00 13         [24]  939 	cjne	r5,#0x00,00165$
+                                    940 ;	converter.c:97: i+=0x090;
+      00043F 90r00r07         [24]  941 	mov	dptr,#_strtohex_i_65537_46
+      000442 E0               [24]  942 	movx	a,@dptr
+      000443 F8               [12]  943 	mov	r0,a
+      000444 A3               [24]  944 	inc	dptr
+      000445 E0               [24]  945 	movx	a,@dptr
+      000446 F9               [12]  946 	mov	r1,a
+      000447 90r00r07         [24]  947 	mov	dptr,#_strtohex_i_65537_46
+      00044A 74 90            [12]  948 	mov	a,#0x90
+      00044C 28               [12]  949 	add	a,r0
+      00044D F0               [24]  950 	movx	@dptr,a
+      00044E E4               [12]  951 	clr	a
+      00044F 39               [12]  952 	addc	a,r1
+      000450 A3               [24]  953 	inc	dptr
+      000451 F0               [24]  954 	movx	@dptr,a
+      000452                        955 00165$:
+                                    956 ;	converter.c:98: if(k==2)
+      000452 BA 02 05         [24]  957 	cjne	r2,#0x02,00485$
+      000455 BB 00 02         [24]  958 	cjne	r3,#0x00,00485$
+      000458 80 03            [24]  959 	sjmp	00486$
+      00045A                        960 00485$:
+      00045A 02r06r5D         [24]  961 	ljmp	00217$
+      00045D                        962 00486$:
+                                    963 ;	converter.c:99: i+=0x009;
+      00045D 90r00r07         [24]  964 	mov	dptr,#_strtohex_i_65537_46
+      000460 E0               [24]  965 	movx	a,@dptr
+      000461 FA               [12]  966 	mov	r2,a
+      000462 A3               [24]  967 	inc	dptr
+      000463 E0               [24]  968 	movx	a,@dptr
+      000464 FB               [12]  969 	mov	r3,a
+      000465 90r00r07         [24]  970 	mov	dptr,#_strtohex_i_65537_46
+      000468 74 09            [12]  971 	mov	a,#0x09
+      00046A 2A               [12]  972 	add	a,r2
+      00046B F0               [24]  973 	movx	@dptr,a
+      00046C E4               [12]  974 	clr	a
+      00046D 3B               [12]  975 	addc	a,r3
+      00046E A3               [24]  976 	inc	dptr
+      00046F F0               [24]  977 	movx	@dptr,a
+                                    978 ;	converter.c:100: break;
+      000470 02r06r5D         [24]  979 	ljmp	00217$
+                                    980 ;	converter.c:101: case 65://A
+      000473                        981 00168$:
+                                    982 ;	converter.c:102: if(k==0)
+      000473 EC               [12]  983 	mov	a,r4
+      000474 4D               [12]  984 	orl	a,r5
+      000475 70 12            [24]  985 	jnz	00170$
+                                    986 ;	converter.c:103: i+=0xA00;
+      000477 90r00r07         [24]  987 	mov	dptr,#_strtohex_i_65537_46
+      00047A E0               [24]  988 	movx	a,@dptr
+      00047B FA               [12]  989 	mov	r2,a
+      00047C A3               [24]  990 	inc	dptr
+      00047D E0               [24]  991 	movx	a,@dptr
+      00047E FB               [12]  992 	mov	r3,a
+      00047F 90r00r07         [24]  993 	mov	dptr,#_strtohex_i_65537_46
+      000482 EA               [12]  994 	mov	a,r2
+      000483 F0               [24]  995 	movx	@dptr,a
+      000484 74 0A            [12]  996 	mov	a,#0x0a
+      000486 2B               [12]  997 	add	a,r3
+      000487 A3               [24]  998 	inc	dptr
+      000488 F0               [24]  999 	movx	@dptr,a
+      000489                       1000 00170$:
+                                   1001 ;	converter.c:104: if(k==1)
+      000489 8C 02            [24] 1002 	mov	ar2,r4
+      00048B 8D 03            [24] 1003 	mov	ar3,r5
+      00048D BC 01 16         [24] 1004 	cjne	r4,#0x01,00172$
+      000490 BD 00 13         [24] 1005 	cjne	r5,#0x00,00172$
+                                   1006 ;	converter.c:105: i+=0x0A0;
+      000493 90r00r07         [24] 1007 	mov	dptr,#_strtohex_i_65537_46
+      000496 E0               [24] 1008 	movx	a,@dptr
+      000497 F8               [12] 1009 	mov	r0,a
+      000498 A3               [24] 1010 	inc	dptr
+      000499 E0               [24] 1011 	movx	a,@dptr
+      00049A F9               [12] 1012 	mov	r1,a
+      00049B 90r00r07         [24] 1013 	mov	dptr,#_strtohex_i_65537_46
+      00049E 74 A0            [12] 1014 	mov	a,#0xa0
+      0004A0 28               [12] 1015 	add	a,r0
+      0004A1 F0               [24] 1016 	movx	@dptr,a
+      0004A2 E4               [12] 1017 	clr	a
+      0004A3 39               [12] 1018 	addc	a,r1
+      0004A4 A3               [24] 1019 	inc	dptr
+      0004A5 F0               [24] 1020 	movx	@dptr,a
+      0004A6                       1021 00172$:
+                                   1022 ;	converter.c:106: if(k==2)
+      0004A6 BA 02 05         [24] 1023 	cjne	r2,#0x02,00490$
+      0004A9 BB 00 02         [24] 1024 	cjne	r3,#0x00,00490$
+      0004AC 80 03            [24] 1025 	sjmp	00491$
+      0004AE                       1026 00490$:
+      0004AE 02r06r5D         [24] 1027 	ljmp	00217$
+      0004B1                       1028 00491$:
+                                   1029 ;	converter.c:107: i+=0x00A;
+      0004B1 90r00r07         [24] 1030 	mov	dptr,#_strtohex_i_65537_46
+      0004B4 E0               [24] 1031 	movx	a,@dptr
+      0004B5 FA               [12] 1032 	mov	r2,a
+      0004B6 A3               [24] 1033 	inc	dptr
+      0004B7 E0               [24] 1034 	movx	a,@dptr
+      0004B8 FB               [12] 1035 	mov	r3,a
+      0004B9 90r00r07         [24] 1036 	mov	dptr,#_strtohex_i_65537_46
+      0004BC 74 0A            [12] 1037 	mov	a,#0x0a
+      0004BE 2A               [12] 1038 	add	a,r2
+      0004BF F0               [24] 1039 	movx	@dptr,a
+      0004C0 E4               [12] 1040 	clr	a
+      0004C1 3B               [12] 1041 	addc	a,r3
+      0004C2 A3               [24] 1042 	inc	dptr
+      0004C3 F0               [24] 1043 	movx	@dptr,a
+                                   1044 ;	converter.c:108: break;
+      0004C4 02r06r5D         [24] 1045 	ljmp	00217$
+                                   1046 ;	converter.c:109: case 66://B
+      0004C7                       1047 00175$:
+                                   1048 ;	converter.c:110: if(k==0)
+      0004C7 EC               [12] 1049 	mov	a,r4
+      0004C8 4D               [12] 1050 	orl	a,r5
+      0004C9 70 12            [24] 1051 	jnz	00177$
+                                   1052 ;	converter.c:111: i+=0xB00;
+      0004CB 90r00r07         [24] 1053 	mov	dptr,#_strtohex_i_65537_46
+      0004CE E0               [24] 1054 	movx	a,@dptr
+      0004CF FA               [12] 1055 	mov	r2,a
+      0004D0 A3               [24] 1056 	inc	dptr
+      0004D1 E0               [24] 1057 	movx	a,@dptr
+      0004D2 FB               [12] 1058 	mov	r3,a
+      0004D3 90r00r07         [24] 1059 	mov	dptr,#_strtohex_i_65537_46
+      0004D6 EA               [12] 1060 	mov	a,r2
+      0004D7 F0               [24] 1061 	movx	@dptr,a
+      0004D8 74 0B            [12] 1062 	mov	a,#0x0b
+      0004DA 2B               [12] 1063 	add	a,r3
+      0004DB A3               [24] 1064 	inc	dptr
+      0004DC F0               [24] 1065 	movx	@dptr,a
+      0004DD                       1066 00177$:
+                                   1067 ;	converter.c:112: if(k==1)
+      0004DD 8C 02            [24] 1068 	mov	ar2,r4
+      0004DF 8D 03            [24] 1069 	mov	ar3,r5
+      0004E1 BC 01 16         [24] 1070 	cjne	r4,#0x01,00179$
+      0004E4 BD 00 13         [24] 1071 	cjne	r5,#0x00,00179$
+                                   1072 ;	converter.c:113: i+=0x0B0;
+      0004E7 90r00r07         [24] 1073 	mov	dptr,#_strtohex_i_65537_46
+      0004EA E0               [24] 1074 	movx	a,@dptr
+      0004EB F8               [12] 1075 	mov	r0,a
+      0004EC A3               [24] 1076 	inc	dptr
+      0004ED E0               [24] 1077 	movx	a,@dptr
+      0004EE F9               [12] 1078 	mov	r1,a
+      0004EF 90r00r07         [24] 1079 	mov	dptr,#_strtohex_i_65537_46
+      0004F2 74 B0            [12] 1080 	mov	a,#0xb0
+      0004F4 28               [12] 1081 	add	a,r0
+      0004F5 F0               [24] 1082 	movx	@dptr,a
+      0004F6 E4               [12] 1083 	clr	a
+      0004F7 39               [12] 1084 	addc	a,r1
+      0004F8 A3               [24] 1085 	inc	dptr
+      0004F9 F0               [24] 1086 	movx	@dptr,a
+      0004FA                       1087 00179$:
+                                   1088 ;	converter.c:114: if(k==2)
+      0004FA BA 02 05         [24] 1089 	cjne	r2,#0x02,00495$
+      0004FD BB 00 02         [24] 1090 	cjne	r3,#0x00,00495$
+      000500 80 03            [24] 1091 	sjmp	00496$
+      000502                       1092 00495$:
+      000502 02r06r5D         [24] 1093 	ljmp	00217$
+      000505                       1094 00496$:
+                                   1095 ;	converter.c:115: i+=0x00B;
+      000505 90r00r07         [24] 1096 	mov	dptr,#_strtohex_i_65537_46
+      000508 E0               [24] 1097 	movx	a,@dptr
+      000509 FA               [12] 1098 	mov	r2,a
+      00050A A3               [24] 1099 	inc	dptr
+      00050B E0               [24] 1100 	movx	a,@dptr
+      00050C FB               [12] 1101 	mov	r3,a
+      00050D 90r00r07         [24] 1102 	mov	dptr,#_strtohex_i_65537_46
+      000510 74 0B            [12] 1103 	mov	a,#0x0b
+      000512 2A               [12] 1104 	add	a,r2
+      000513 F0               [24] 1105 	movx	@dptr,a
+      000514 E4               [12] 1106 	clr	a
+      000515 3B               [12] 1107 	addc	a,r3
+      000516 A3               [24] 1108 	inc	dptr
+      000517 F0               [24] 1109 	movx	@dptr,a
+                                   1110 ;	converter.c:116: break;
+      000518 02r06r5D         [24] 1111 	ljmp	00217$
+                                   1112 ;	converter.c:117: case 67://C
+      00051B                       1113 00182$:
+                                   1114 ;	converter.c:118: if(k==0)
+      00051B EC               [12] 1115 	mov	a,r4
+      00051C 4D               [12] 1116 	orl	a,r5
+      00051D 70 12            [24] 1117 	jnz	00184$
+                                   1118 ;	converter.c:119: i+=0xC00;
+      00051F 90r00r07         [24] 1119 	mov	dptr,#_strtohex_i_65537_46
+      000522 E0               [24] 1120 	movx	a,@dptr
+      000523 FA               [12] 1121 	mov	r2,a
+      000524 A3               [24] 1122 	inc	dptr
+      000525 E0               [24] 1123 	movx	a,@dptr
+      000526 FB               [12] 1124 	mov	r3,a
+      000527 90r00r07         [24] 1125 	mov	dptr,#_strtohex_i_65537_46
+      00052A EA               [12] 1126 	mov	a,r2
+      00052B F0               [24] 1127 	movx	@dptr,a
+      00052C 74 0C            [12] 1128 	mov	a,#0x0c
+      00052E 2B               [12] 1129 	add	a,r3
+      00052F A3               [24] 1130 	inc	dptr
+      000530 F0               [24] 1131 	movx	@dptr,a
+      000531                       1132 00184$:
+                                   1133 ;	converter.c:120: if(k==1)
+      000531 8C 02            [24] 1134 	mov	ar2,r4
+      000533 8D 03            [24] 1135 	mov	ar3,r5
+      000535 BC 01 16         [24] 1136 	cjne	r4,#0x01,00186$
+      000538 BD 00 13         [24] 1137 	cjne	r5,#0x00,00186$
+                                   1138 ;	converter.c:121: i+=0x0C0;
+      00053B 90r00r07         [24] 1139 	mov	dptr,#_strtohex_i_65537_46
+      00053E E0               [24] 1140 	movx	a,@dptr
+      00053F F8               [12] 1141 	mov	r0,a
+      000540 A3               [24] 1142 	inc	dptr
+      000541 E0               [24] 1143 	movx	a,@dptr
+      000542 F9               [12] 1144 	mov	r1,a
+      000543 90r00r07         [24] 1145 	mov	dptr,#_strtohex_i_65537_46
+      000546 74 C0            [12] 1146 	mov	a,#0xc0
+      000548 28               [12] 1147 	add	a,r0
+      000549 F0               [24] 1148 	movx	@dptr,a
+      00054A E4               [12] 1149 	clr	a
+      00054B 39               [12] 1150 	addc	a,r1
+      00054C A3               [24] 1151 	inc	dptr
+      00054D F0               [24] 1152 	movx	@dptr,a
+      00054E                       1153 00186$:
+                                   1154 ;	converter.c:122: if(k==2)
+      00054E BA 02 05         [24] 1155 	cjne	r2,#0x02,00500$
+      000551 BB 00 02         [24] 1156 	cjne	r3,#0x00,00500$
+      000554 80 03            [24] 1157 	sjmp	00501$
+      000556                       1158 00500$:
+      000556 02r06r5D         [24] 1159 	ljmp	00217$
+      000559                       1160 00501$:
+                                   1161 ;	converter.c:123: i+=0x00C;
+      000559 90r00r07         [24] 1162 	mov	dptr,#_strtohex_i_65537_46
+      00055C E0               [24] 1163 	movx	a,@dptr
+      00055D FA               [12] 1164 	mov	r2,a
+      00055E A3               [24] 1165 	inc	dptr
+      00055F E0               [24] 1166 	movx	a,@dptr
+      000560 FB               [12] 1167 	mov	r3,a
+      000561 90r00r07         [24] 1168 	mov	dptr,#_strtohex_i_65537_46
+      000564 74 0C            [12] 1169 	mov	a,#0x0c
+      000566 2A               [12] 1170 	add	a,r2
+      000567 F0               [24] 1171 	movx	@dptr,a
+      000568 E4               [12] 1172 	clr	a
+      000569 3B               [12] 1173 	addc	a,r3
+      00056A A3               [24] 1174 	inc	dptr
+      00056B F0               [24] 1175 	movx	@dptr,a
+                                   1176 ;	converter.c:124: break;
+      00056C 02r06r5D         [24] 1177 	ljmp	00217$
+                                   1178 ;	converter.c:125: case 68://D
+      00056F                       1179 00189$:
+                                   1180 ;	converter.c:126: if(k==0)
+      00056F EC               [12] 1181 	mov	a,r4
+      000570 4D               [12] 1182 	orl	a,r5
+      000571 70 12            [24] 1183 	jnz	00191$
+                                   1184 ;	converter.c:127: i+=0xD00;
+      000573 90r00r07         [24] 1185 	mov	dptr,#_strtohex_i_65537_46
+      000576 E0               [24] 1186 	movx	a,@dptr
+      000577 FA               [12] 1187 	mov	r2,a
+      000578 A3               [24] 1188 	inc	dptr
+      000579 E0               [24] 1189 	movx	a,@dptr
+      00057A FB               [12] 1190 	mov	r3,a
+      00057B 90r00r07         [24] 1191 	mov	dptr,#_strtohex_i_65537_46
+      00057E EA               [12] 1192 	mov	a,r2
+      00057F F0               [24] 1193 	movx	@dptr,a
+      000580 74 0D            [12] 1194 	mov	a,#0x0d
+      000582 2B               [12] 1195 	add	a,r3
+      000583 A3               [24] 1196 	inc	dptr
+      000584 F0               [24] 1197 	movx	@dptr,a
+      000585                       1198 00191$:
+                                   1199 ;	converter.c:128: if(k==1)
+      000585 8C 02            [24] 1200 	mov	ar2,r4
+      000587 8D 03            [24] 1201 	mov	ar3,r5
+      000589 BC 01 16         [24] 1202 	cjne	r4,#0x01,00193$
+      00058C BD 00 13         [24] 1203 	cjne	r5,#0x00,00193$
+                                   1204 ;	converter.c:129: i+=0x0D0;
+      00058F 90r00r07         [24] 1205 	mov	dptr,#_strtohex_i_65537_46
+      000592 E0               [24] 1206 	movx	a,@dptr
+      000593 F8               [12] 1207 	mov	r0,a
+      000594 A3               [24] 1208 	inc	dptr
+      000595 E0               [24] 1209 	movx	a,@dptr
+      000596 F9               [12] 1210 	mov	r1,a
+      000597 90r00r07         [24] 1211 	mov	dptr,#_strtohex_i_65537_46
+      00059A 74 D0            [12] 1212 	mov	a,#0xd0
+      00059C 28               [12] 1213 	add	a,r0
+      00059D F0               [24] 1214 	movx	@dptr,a
+      00059E E4               [12] 1215 	clr	a
+      00059F 39               [12] 1216 	addc	a,r1
+      0005A0 A3               [24] 1217 	inc	dptr
+      0005A1 F0               [24] 1218 	movx	@dptr,a
+      0005A2                       1219 00193$:
+                                   1220 ;	converter.c:130: if(k==2)
+      0005A2 BA 02 05         [24] 1221 	cjne	r2,#0x02,00505$
+      0005A5 BB 00 02         [24] 1222 	cjne	r3,#0x00,00505$
+      0005A8 80 03            [24] 1223 	sjmp	00506$
+      0005AA                       1224 00505$:
+      0005AA 02r06r5D         [24] 1225 	ljmp	00217$
+      0005AD                       1226 00506$:
+                                   1227 ;	converter.c:131: i+=0x00D;
+      0005AD 90r00r07         [24] 1228 	mov	dptr,#_strtohex_i_65537_46
+      0005B0 E0               [24] 1229 	movx	a,@dptr
+      0005B1 FA               [12] 1230 	mov	r2,a
+      0005B2 A3               [24] 1231 	inc	dptr
+      0005B3 E0               [24] 1232 	movx	a,@dptr
+      0005B4 FB               [12] 1233 	mov	r3,a
+      0005B5 90r00r07         [24] 1234 	mov	dptr,#_strtohex_i_65537_46
+      0005B8 74 0D            [12] 1235 	mov	a,#0x0d
+      0005BA 2A               [12] 1236 	add	a,r2
+      0005BB F0               [24] 1237 	movx	@dptr,a
+      0005BC E4               [12] 1238 	clr	a
+      0005BD 3B               [12] 1239 	addc	a,r3
+      0005BE A3               [24] 1240 	inc	dptr
+      0005BF F0               [24] 1241 	movx	@dptr,a
+                                   1242 ;	converter.c:132: break;
+      0005C0 02r06r5D         [24] 1243 	ljmp	00217$
+                                   1244 ;	converter.c:133: case 69://E
+      0005C3                       1245 00196$:
+                                   1246 ;	converter.c:134: if(k==0)
+      0005C3 EC               [12] 1247 	mov	a,r4
+      0005C4 4D               [12] 1248 	orl	a,r5
+      0005C5 70 12            [24] 1249 	jnz	00198$
+                                   1250 ;	converter.c:135: i+=0xE00;
+      0005C7 90r00r07         [24] 1251 	mov	dptr,#_strtohex_i_65537_46
+      0005CA E0               [24] 1252 	movx	a,@dptr
+      0005CB FA               [12] 1253 	mov	r2,a
+      0005CC A3               [24] 1254 	inc	dptr
+      0005CD E0               [24] 1255 	movx	a,@dptr
+      0005CE FB               [12] 1256 	mov	r3,a
+      0005CF 90r00r07         [24] 1257 	mov	dptr,#_strtohex_i_65537_46
+      0005D2 EA               [12] 1258 	mov	a,r2
+      0005D3 F0               [24] 1259 	movx	@dptr,a
+      0005D4 74 0E            [12] 1260 	mov	a,#0x0e
+      0005D6 2B               [12] 1261 	add	a,r3
+      0005D7 A3               [24] 1262 	inc	dptr
+      0005D8 F0               [24] 1263 	movx	@dptr,a
+      0005D9                       1264 00198$:
+                                   1265 ;	converter.c:136: if(k==1)
+      0005D9 8C 02            [24] 1266 	mov	ar2,r4
+      0005DB 8D 03            [24] 1267 	mov	ar3,r5
+      0005DD BC 01 16         [24] 1268 	cjne	r4,#0x01,00200$
+      0005E0 BD 00 13         [24] 1269 	cjne	r5,#0x00,00200$
+                                   1270 ;	converter.c:137: i+=0x0E0;
+      0005E3 90r00r07         [24] 1271 	mov	dptr,#_strtohex_i_65537_46
+      0005E6 E0               [24] 1272 	movx	a,@dptr
+      0005E7 F8               [12] 1273 	mov	r0,a
+      0005E8 A3               [24] 1274 	inc	dptr
+      0005E9 E0               [24] 1275 	movx	a,@dptr
+      0005EA F9               [12] 1276 	mov	r1,a
+      0005EB 90r00r07         [24] 1277 	mov	dptr,#_strtohex_i_65537_46
+      0005EE 74 E0            [12] 1278 	mov	a,#0xe0
+      0005F0 28               [12] 1279 	add	a,r0
+      0005F1 F0               [24] 1280 	movx	@dptr,a
+      0005F2 E4               [12] 1281 	clr	a
+      0005F3 39               [12] 1282 	addc	a,r1
+      0005F4 A3               [24] 1283 	inc	dptr
+      0005F5 F0               [24] 1284 	movx	@dptr,a
+      0005F6                       1285 00200$:
+                                   1286 ;	converter.c:138: if(k==2)
+      0005F6 BA 02 64         [24] 1287 	cjne	r2,#0x02,00217$
+      0005F9 BB 00 61         [24] 1288 	cjne	r3,#0x00,00217$
+                                   1289 ;	converter.c:139: i+=0x00E;
+      0005FC 90r00r07         [24] 1290 	mov	dptr,#_strtohex_i_65537_46
+      0005FF E0               [24] 1291 	movx	a,@dptr
+      000600 FA               [12] 1292 	mov	r2,a
+      000601 A3               [24] 1293 	inc	dptr
+      000602 E0               [24] 1294 	movx	a,@dptr
+      000603 FB               [12] 1295 	mov	r3,a
+      000604 90r00r07         [24] 1296 	mov	dptr,#_strtohex_i_65537_46
+      000607 74 0E            [12] 1297 	mov	a,#0x0e
+      000609 2A               [12] 1298 	add	a,r2
+      00060A F0               [24] 1299 	movx	@dptr,a
+      00060B E4               [12] 1300 	clr	a
+      00060C 3B               [12] 1301 	addc	a,r3
+      00060D A3               [24] 1302 	inc	dptr
+      00060E F0               [24] 1303 	movx	@dptr,a
+                                   1304 ;	converter.c:140: break;
+                                   1305 ;	converter.c:141: case 70://F
+      00060F 80 4C            [24] 1306 	sjmp	00217$
+      000611                       1307 00203$:
+                                   1308 ;	converter.c:142: if(k==0)
+      000611 EC               [12] 1309 	mov	a,r4
+      000612 4D               [12] 1310 	orl	a,r5
+      000613 70 12            [24] 1311 	jnz	00205$
+                                   1312 ;	converter.c:143: i+=0xF00;
+      000615 90r00r07         [24] 1313 	mov	dptr,#_strtohex_i_65537_46
+      000618 E0               [24] 1314 	movx	a,@dptr
+      000619 FA               [12] 1315 	mov	r2,a
+      00061A A3               [24] 1316 	inc	dptr
+      00061B E0               [24] 1317 	movx	a,@dptr
+      00061C FB               [12] 1318 	mov	r3,a
+      00061D 90r00r07         [24] 1319 	mov	dptr,#_strtohex_i_65537_46
+      000620 EA               [12] 1320 	mov	a,r2
+      000621 F0               [24] 1321 	movx	@dptr,a
+      000622 74 0F            [12] 1322 	mov	a,#0x0f
+      000624 2B               [12] 1323 	add	a,r3
+      000625 A3               [24] 1324 	inc	dptr
+      000626 F0               [24] 1325 	movx	@dptr,a
+      000627                       1326 00205$:
+                                   1327 ;	converter.c:144: if(k==1)
+      000627 8C 02            [24] 1328 	mov	ar2,r4
+      000629 8D 03            [24] 1329 	mov	ar3,r5
+      00062B BC 01 16         [24] 1330 	cjne	r4,#0x01,00207$
+      00062E BD 00 13         [24] 1331 	cjne	r5,#0x00,00207$
+                                   1332 ;	converter.c:145: i+=0x0F0;
+      000631 90r00r07         [24] 1333 	mov	dptr,#_strtohex_i_65537_46
+      000634 E0               [24] 1334 	movx	a,@dptr
+      000635 F8               [12] 1335 	mov	r0,a
+      000636 A3               [24] 1336 	inc	dptr
+      000637 E0               [24] 1337 	movx	a,@dptr
+      000638 F9               [12] 1338 	mov	r1,a
+      000639 90r00r07         [24] 1339 	mov	dptr,#_strtohex_i_65537_46
+      00063C 74 F0            [12] 1340 	mov	a,#0xf0
+      00063E 28               [12] 1341 	add	a,r0
+      00063F F0               [24] 1342 	movx	@dptr,a
+      000640 E4               [12] 1343 	clr	a
+      000641 39               [12] 1344 	addc	a,r1
+      000642 A3               [24] 1345 	inc	dptr
+      000643 F0               [24] 1346 	movx	@dptr,a
+      000644                       1347 00207$:
+                                   1348 ;	converter.c:146: if(k==2)
+      000644 BA 02 16         [24] 1349 	cjne	r2,#0x02,00217$
+      000647 BB 00 13         [24] 1350 	cjne	r3,#0x00,00217$
+                                   1351 ;	converter.c:147: i+=0x00F;
+      00064A 90r00r07         [24] 1352 	mov	dptr,#_strtohex_i_65537_46
+      00064D E0               [24] 1353 	movx	a,@dptr
+      00064E FA               [12] 1354 	mov	r2,a
+      00064F A3               [24] 1355 	inc	dptr
+      000650 E0               [24] 1356 	movx	a,@dptr
+      000651 FB               [12] 1357 	mov	r3,a
+      000652 90r00r07         [24] 1358 	mov	dptr,#_strtohex_i_65537_46
+      000655 74 0F            [12] 1359 	mov	a,#0x0f
+      000657 2A               [12] 1360 	add	a,r2
+      000658 F0               [24] 1361 	movx	@dptr,a
+      000659 E4               [12] 1362 	clr	a
+      00065A 3B               [12] 1363 	addc	a,r3
+      00065B A3               [24] 1364 	inc	dptr
+      00065C F0               [24] 1365 	movx	@dptr,a
+                                   1366 ;	converter.c:151: }
+      00065D                       1367 00217$:
+                                   1368 ;	converter.c:23: for(int k=0; k<3; k++)
+      00065D 0C               [12] 1369 	inc	r4
+      00065E BC 00 01         [24] 1370 	cjne	r4,#0x00,00517$
+      000661 0D               [12] 1371 	inc	r5
+      000662                       1372 00517$:
+      000662 02r00rEB         [24] 1373 	ljmp	00216$
+      000665                       1374 00211$:
+                                   1375 ;	converter.c:153: if(length!=3)
+      000665 BE 03 05         [24] 1376 	cjne	r6,#0x03,00518$
+      000668 BF 00 02         [24] 1377 	cjne	r7,#0x00,00518$
+      00066B 80 0E            [24] 1378 	sjmp	00213$
+      00066D                       1379 00518$:
+                                   1380 ;	converter.c:154: return (uint8_t)i;
+      00066D 90r00r07         [24] 1381 	mov	dptr,#_strtohex_i_65537_46
+      000670 E0               [24] 1382 	movx	a,@dptr
+      000671 FE               [12] 1383 	mov	r6,a
+      000672 A3               [24] 1384 	inc	dptr
+      000673 E0               [24] 1385 	movx	a,@dptr
+      000674 7F 00            [12] 1386 	mov	r7,#0x00
+      000676 8E 82            [24] 1387 	mov	dpl,r6
+      000678 8F 83            [24] 1388 	mov	dph,r7
+      00067A 22               [24] 1389 	ret
+      00067B                       1390 00213$:
+                                   1391 ;	converter.c:156: return i;
+      00067B 90r00r07         [24] 1392 	mov	dptr,#_strtohex_i_65537_46
+      00067E E0               [24] 1393 	movx	a,@dptr
+      00067F FE               [12] 1394 	mov	r6,a
+      000680 A3               [24] 1395 	inc	dptr
+      000681 E0               [24] 1396 	movx	a,@dptr
+                                   1397 ;	converter.c:157: }
+      000682 8E 82            [24] 1398 	mov	dpl,r6
+      000684 F5 83            [12] 1399 	mov	dph,a
+      000686 22               [24] 1400 	ret
+                                   1401 	.area CSEG    (CODE)
+                                   1402 	.area CONST   (CODE)
+                                   1403 	.area XINIT   (CODE)
+                                   1404 	.area CABS    (ABS,CODE)
