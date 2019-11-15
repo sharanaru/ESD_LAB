@@ -459,9 +459,10 @@ Symbol Table
   B _inputchecker_r_65536_90                                       000000 R
   5 _inputchecker_sloc0_1_0                                        000000 R
   5 _inputchecker_sloc1_1_0                                        000003 R
- 17 _main                                                          0002B9 GR
+ 17 _main                                                          0002D7 GR
   B _main_addressreceiver1_196609_120                              000015 R
   B _main_addressreceiver2_196610_122                              000019 R
+  5 _main_sloc0_1_0                                                000004 R
   B _menuselect                                                    00000C GR
   B _output                                                        000014 GR
     _printf                                                        ****** GX
@@ -472,17 +473,17 @@ Symbol Table
   B _putstr_s_65536_98                                             000009 R
     _random_read                                                   ****** GX
     _random_read_PARM_2                                            ****** GX
- 17 _randomread_handler                                            00024A GR
+ 17 _randomread_handler                                            000258 GR
   B _randomread_handler_receiver_65536_110                         000011 R
  17 _readint                                                       00018A GR
     _restart_i2c                                                   ****** GX
     _seq_read                                                      ****** GX
-    _seq_read_PARM_2                                               ****** GX
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 9.
 Hexadecimal [24-Bits]
 
 Symbol Table
 
+    _seq_read_PARM_2                                               ****** GX
     _seq_read_PARM_3                                               ****** GX
     _seq_read_PARM_4                                               ****** GX
     _seq_read_PARM_5                                               ****** GX
@@ -537,12 +538,12 @@ Symbol Table
     et1                                                         =  0000AB L
     et2                                                         =  0000AD L
     ex0                                                         =  0000A8 L
-    ex1                                                         =  0000AA L
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 10.
 Hexadecimal [24-Bits]
 
 Symbol Table
 
+    ex1                                                         =  0000AA L
     exen2                                                       =  0000CB L
     exf2                                                        =  0000CE L
     f0                                                          =  0000D5 L
@@ -597,12 +598,12 @@ Symbol Table
     p2.6                                                        =  0000A6 L
     p2.7                                                        =  0000A7 L
     p3                                                          =  0000B0 L
-    p3.0                                                        =  0000B0 L
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 11.
 Hexadecimal [24-Bits]
 
 Symbol Table
 
+    p3.0                                                        =  0000B0 L
     p3.1                                                        =  0000B1 L
     p3.2                                                        =  0000B2 L
     p3.3                                                        =  0000B3 L
@@ -657,12 +658,12 @@ Symbol Table
     t2con.4                                                     =  0000CC L
     t2con.5                                                     =  0000CD L
     t2con.6                                                     =  0000CE L
-    t2con.7                                                     =  0000CF L
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Intel 8051), page 12.
 Hexadecimal [24-Bits]
 
 Symbol Table
 
+    t2con.7                                                     =  0000CF L
     tb8                                                         =  00009B L
     tclk                                                        =  0000CC L
     tcon                                                        =  000088 L
@@ -701,7 +702,7 @@ Area Table
    2 RSEG0                                      size      0   flags    8
    3 RSEG1                                      size      0   flags    8
    4 REG_BANK_0                                 size      8   flags    4
-   5 DSEG                                       size      4   flags    0
+   5 DSEG                                       size      5   flags    0
    6 SSEG                                       size      1   flags    0
    7 ISEG                                       size      0   flags    0
    8 IABS                                       size      0   flags    8
@@ -719,7 +720,7 @@ Area Table
   14 GSINIT5                                    size      0   flags   20
   15 GSINIT                                     size      0   flags   20
   16 GSFINAL                                    size      3   flags   20
-  17 CSEG                                       size    510   flags   20
+  17 CSEG                                       size    555   flags   20
   18 CONST                                      size    290   flags   20
   19 XINIT                                      size      4   flags   20
   1A CABS                                       size      0   flags   28

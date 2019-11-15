@@ -83,12 +83,12 @@ uint8_t errorflag=0;
 void writebytehandler(char *receiver)
 {
     uint16_t t=strtohex(receiver);
-    uint8_t blockno=(t & 0xE00)>>8;
+    uint8_t blockno=(t & 0x7ff)>>8;
 
-    if(blockno<8)
+    if(((t&0xE00)>>8)<8)
     {
 
-        control |=blockno;
+        control |=(blockno<<1);
 
 
 
@@ -120,11 +120,13 @@ void writebytehandler(char *receiver)
 int randomread_handler(char *receiver)
 {
     uint16_t t=strtohex(receiver);
-    uint8_t blockno=(t & 0xE00)>>8;
-    if(blockno<7)
+
+    uint8_t blockno=(t & 0x7ff)>>8;
+
+    if(((t&0xE00)>>8)<8)
     {
 
-        control |=blockno;
+        control |=(blockno<<1);
 
 
     }
@@ -204,7 +206,7 @@ void main(void)
 
             uint16_t address1=strtohex(addressreceiver1);
 
-            uint8_t block1=(address1 & 0xE00)>>8;
+            uint8_t block1=(address1 & 0x7FF)>>8;
             uint8_t startaddress=(address1&0x0FF);
             char addressreceiver2[4];
 
@@ -222,10 +224,10 @@ void main(void)
 
 
             uint16_t address2=strtohex(addressreceiver2);
-            uint8_t block2=(address2 & 0xE00)>>8;
+            uint8_t block2=(address2 & 0x7FF)>>8;
             uint8_t endaddress=(address2&0x0FF);
 
-            if(block1>7 || block2>7)
+            if((((address1&0xE00)>>8)>7) || (((address2&0xE00)>>8)>7))
             {
 
                 putstr("Block numbers are invalid\n\r");
@@ -237,6 +239,7 @@ void main(void)
                 break;
             }
 
+             control |=(block1<<1);
 
 
             //int *k=NULL;

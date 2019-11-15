@@ -451,6 +451,8 @@ _inputchecker_sloc0_1_0:
 	.ds 3
 _inputchecker_sloc1_1_0:
 	.ds 1
+_main_sloc0_1_0:
+	.ds 1
 ;--------------------------------------------------------
 ; overlayable items in internal ram 
 ;--------------------------------------------------------
@@ -947,18 +949,29 @@ _writebytehandler:
 	lcall	_strtohex
 	mov	r6,dpl
 	mov	r7,dph
-;	main.c:86: uint8_t blockno=(t & 0xE00)>>8;
-	mov	r4,#0x00
-	mov	a,#0x0e
+;	main.c:86: uint8_t blockno=(t & 0x7ff)>>8;
+	mov	ar4,r6
+	mov	a,#0x07
 	anl	a,r7
 	mov	r5,a
-;	main.c:88: if(blockno<8)
-	cjne	r5,#0x08,00116$
-00116$:
+;	main.c:88: if(((t&0xE00)>>8)<8)
+	mov	a,#0x0e
+	anl	a,r7
+	mov	r3,a
+	mov	r4,#0x00
+	clr	c
+	mov	a,r3
+	subb	a,#0x08
+	mov	a,r4
+	subb	a,#0x00
 	jnc	00102$
-;	main.c:91: control |=blockno;
+;	main.c:91: control |=(blockno<<1);
+	mov	a,r5
+	add	a,r5
+	mov	r5,a
 	mov	dptr,#_control
 	movx	a,@dptr
+	mov	r4,a
 	orl	a,r5
 	movx	@dptr,a
 	sjmp	00103$
@@ -1067,40 +1080,52 @@ _randomread_handler:
 	lcall	_strtohex
 	mov	r6,dpl
 	mov	r7,dph
-;	main.c:123: uint8_t blockno=(t & 0xE00)>>8;
-	mov	a,#0x0e
+;	main.c:124: uint8_t blockno=(t & 0x7ff)>>8;
+	mov	ar4,r6
+	mov	a,#0x07
 	anl	a,r7
 	mov	r5,a
-;	main.c:124: if(blockno<7)
-	cjne	r5,#0x07,00117$
-00117$:
+;	main.c:126: if(((t&0xE00)>>8)<8)
+	mov	a,#0x0e
+	anl	a,r7
+	mov	r3,a
+	mov	r4,#0x00
+	clr	c
+	mov	a,r3
+	subb	a,#0x08
+	mov	a,r4
+	subb	a,#0x00
 	jnc	00102$
-;	main.c:127: control |=blockno;
+;	main.c:129: control |=(blockno<<1);
+	mov	a,r5
+	add	a,r5
+	mov	r5,a
 	mov	dptr,#_control
 	movx	a,@dptr
+	mov	r4,a
 	orl	a,r5
 	movx	@dptr,a
 	sjmp	00103$
 00102$:
-;	main.c:132: errorflag=1;
+;	main.c:134: errorflag=1;
 	mov	dptr,#_errorflag
 	mov	a,#0x01
 	movx	@dptr,a
 00103$:
-;	main.c:133: if(errorflag)
+;	main.c:135: if(errorflag)
 	mov	dptr,#_errorflag
 	movx	a,@dptr
 	jz	00105$
-;	main.c:135: putstr("Wrong block number. \n\r");
+;	main.c:137: putstr("Wrong block number. \n\r");
 	mov	dptr,#___str_5
 	mov	b,#0x80
 	lcall	_putstr
-;	main.c:136: return -1;
+;	main.c:138: return -1;
 	mov	dptr,#0xffff
 	ret
 00105$:
-;	main.c:141: uint8_t address=(t&0x0FF);
-;	main.c:142: int result =random_read(control,address);
+;	main.c:143: uint8_t address=(t&0x0FF);
+;	main.c:144: int result =random_read(control,address);
 	mov	dptr,#_control
 	movx	a,@dptr
 	mov	r7,a
@@ -1111,18 +1136,19 @@ _randomread_handler:
 	lcall	_random_read
 	mov	r6,dpl
 	mov	r7,dph
-;	main.c:143: errorflag=0;
+;	main.c:145: errorflag=0;
 	mov	dptr,#_errorflag
 	clr	a
 	movx	@dptr,a
-;	main.c:144: return result;
+;	main.c:146: return result;
 	mov	dpl,r6
 	mov	dph,r7
-;	main.c:147: }
+;	main.c:149: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'main'
 ;------------------------------------------------------------
+;sloc0                     Allocated with name '_main_sloc0_1_0'
 ;addressreceiver1          Allocated with name '_main_addressreceiver1_196609_120'
 ;address1                  Allocated with name '_main_address1_196610_122'
 ;block1                    Allocated with name '_main_block1_196610_122'
@@ -1132,24 +1158,24 @@ _randomread_handler:
 ;block2                    Allocated with name '_main_block2_196611_124'
 ;endaddress                Allocated with name '_main_endaddress_196611_124'
 ;------------------------------------------------------------
-;	main.c:149: void main(void)
+;	main.c:151: void main(void)
 ;	-----------------------------------------
 ;	 function main
 ;	-----------------------------------------
 _main:
-;	main.c:151: i2c_reset();
+;	main.c:153: i2c_reset();
 	lcall	_i2c_reset
-;	main.c:152: while(1)
+;	main.c:154: while(1)
 00123$:
-;	main.c:156: errorflag=0;
+;	main.c:158: errorflag=0;
 	mov	dptr,#_errorflag
 	clr	a
 	movx	@dptr,a
-;	main.c:157: putstr("*************************\n\rMENU FOR TESTING I2C FUNCTIONS\n\rPRESS W FOR WRITE BYTE\n\rPRESS R FOR RANDOM READ\n\rPRESS S FOR HEX DUMP\n\rPRESS X FOR EEPROM RESET\n\r");
+;	main.c:159: putstr("*************************\n\rMENU FOR TESTING I2C FUNCTIONS\n\rPRESS W FOR WRITE BYTE\n\rPRESS R FOR RANDOM READ\n\rPRESS S FOR HEX DUMP\n\rPRESS X FOR EEPROM RESET\n\r");
 	mov	dptr,#___str_6
 	mov	b,#0x80
 	lcall	_putstr
-;	main.c:158: menuselect=getchar();
+;	main.c:160: menuselect=getchar();
 	lcall	_getchar
 	mov	r6,dpl
 	mov	r7,dph
@@ -1159,15 +1185,15 @@ _main:
 	mov	a,r7
 	inc	dptr
 	movx	@dptr,a
-;	main.c:160: putchar(menuselect);
+;	main.c:162: putchar(menuselect);
 	mov	dpl,r6
 	mov	dph,r7
 	lcall	_putchar
-;	main.c:161: putstr("\n\r");
+;	main.c:163: putstr("\n\r");
 	mov	dptr,#___str_4
 	mov	b,#0x80
 	lcall	_putstr
-;	main.c:163: switch(toupper(menuselect))
+;	main.c:165: switch(toupper(menuselect))
 	mov	dptr,#_menuselect
 	movx	a,@dptr
 	mov	r6,a
@@ -1196,61 +1222,61 @@ _main:
 	ljmp	00119$
 00178$:
 	ljmp	00120$
-;	main.c:166: case 'W':
+;	main.c:168: case 'W':
 00101$:
-;	main.c:167: putstr("ENTER ADDRESS TO BE WRITTEN ,ADDRESS INCLUDES BLOCK NUMBER AND WORD ADRRESS TOGETHER IN HEX\n\r");
+;	main.c:169: putstr("ENTER ADDRESS TO BE WRITTEN ,ADDRESS INCLUDES BLOCK NUMBER AND WORD ADRRESS TOGETHER IN HEX\n\r");
 	mov	dptr,#___str_7
 	mov	b,#0x80
 	lcall	_putstr
-;	main.c:169: gets(addressreceiver);
+;	main.c:171: gets(addressreceiver);
 	mov	dptr,#_addressreceiver
 	mov	b,#0x00
 	lcall	_gets
-;	main.c:170: inputchecker(addressreceiver);
+;	main.c:172: inputchecker(addressreceiver);
 	mov	dptr,#_addressreceiver
 	mov	b,#0x00
 	lcall	_inputchecker
-;	main.c:171: if(!flag_inputcheck)
+;	main.c:173: if(!flag_inputcheck)
 	mov	dptr,#_flag_inputcheck
 	movx	a,@dptr
 	mov	b,a
 	inc	dptr
 	movx	a,@dptr
 	orl	a,b
-;	main.c:172: writebytehandler(addressreceiver);
+;	main.c:174: writebytehandler(addressreceiver);
 	jnz	00103$
 	mov	dptr,#_addressreceiver
 	mov	b,a
 	lcall	_writebytehandler
 00103$:
-;	main.c:173: control=0xA0;
+;	main.c:175: control=0xA0;
 	mov	dptr,#_control
 	mov	a,#0xa0
 	movx	@dptr,a
-;	main.c:174: break;
+;	main.c:176: break;
 	ljmp	00123$
-;	main.c:176: case 'R':
+;	main.c:178: case 'R':
 00104$:
-;	main.c:177: putstr("ENTER ADDRESS TO BE READ,ADDRESS INCLUDES BLOCK NUMBER AND WORD ADRRESS TOGETHER in HEX\n\r");
+;	main.c:179: putstr("ENTER ADDRESS TO BE READ,ADDRESS INCLUDES BLOCK NUMBER AND WORD ADRRESS TOGETHER in HEX\n\r");
 	mov	dptr,#___str_8
 	mov	b,#0x80
 	lcall	_putstr
-;	main.c:178: gets(addressreceiver);
+;	main.c:180: gets(addressreceiver);
 	mov	dptr,#_addressreceiver
 	mov	b,#0x00
 	lcall	_gets
-;	main.c:179: inputchecker(addressreceiver);
+;	main.c:181: inputchecker(addressreceiver);
 	mov	dptr,#_addressreceiver
 	mov	b,#0x00
 	lcall	_inputchecker
-;	main.c:180: if(!flag_inputcheck)
+;	main.c:182: if(!flag_inputcheck)
 	mov	dptr,#_flag_inputcheck
 	movx	a,@dptr
 	mov	b,a
 	inc	dptr
 	movx	a,@dptr
 	orl	a,b
-;	main.c:183: output=randomread_handler(addressreceiver);
+;	main.c:185: output=randomread_handler(addressreceiver);
 	jnz	00108$
 	mov	dptr,#_addressreceiver
 	mov	b,a
@@ -1260,11 +1286,11 @@ _main:
 	mov	dptr,#_output
 	mov	a,r6
 	movx	@dptr,a
-;	main.c:184: if(errorflag==0)
+;	main.c:186: if(errorflag==0)
 	mov	dptr,#_errorflag
 	movx	a,@dptr
 	jnz	00108$
-;	main.c:185: printf("Read value is 0x%X\n\r",output);
+;	main.c:187: printf("Read value is 0x%X\n\r",output);
 	mov	dptr,#_output
 	movx	a,@dptr
 	mov	r7,a
@@ -1282,31 +1308,31 @@ _main:
 	add	a,#0xfb
 	mov	sp,a
 00108$:
-;	main.c:187: control=0xA0;
+;	main.c:189: control=0xA0;
 	mov	dptr,#_control
 	mov	a,#0xa0
 	movx	@dptr,a
-;	main.c:189: break;
+;	main.c:191: break;
 	ljmp	00123$
-;	main.c:190: case 'S':
+;	main.c:192: case 'S':
 00109$:
-;	main.c:191: putstr("\n\r");
+;	main.c:193: putstr("\n\r");
 	mov	dptr,#___str_4
 	mov	b,#0x80
 	lcall	_putstr
-;	main.c:194: putstr("Enter first address\n\r");
+;	main.c:196: putstr("Enter first address\n\r");
 	mov	dptr,#___str_10
 	mov	b,#0x80
 	lcall	_putstr
-;	main.c:195: gets(addressreceiver1);
+;	main.c:197: gets(addressreceiver1);
 	mov	dptr,#_main_addressreceiver1_196609_120
 	mov	b,#0x00
 	lcall	_gets
-;	main.c:196: inputchecker(addressreceiver1);
+;	main.c:198: inputchecker(addressreceiver1);
 	mov	dptr,#_main_addressreceiver1_196609_120
 	mov	b,#0x00
 	lcall	_inputchecker
-;	main.c:197: if(flag_inputcheck)
+;	main.c:199: if(flag_inputcheck)
 	mov	dptr,#_flag_inputcheck
 	movx	a,@dptr
 	mov	b,a
@@ -1314,30 +1340,31 @@ _main:
 	movx	a,@dptr
 	orl	a,b
 	jz	00111$
-;	main.c:199: putstr("Error in input");
+;	main.c:201: putstr("Error in input");
 	mov	dptr,#___str_11
 	mov	b,#0x80
 	lcall	_putstr
-;	main.c:200: putstr(newl);
+;	main.c:202: putstr(newl);
 	mov	dptr,#___str_4
 	mov	b,#0x80
 	lcall	_putstr
-;	main.c:201: break;
+;	main.c:203: break;
 	ljmp	00123$
 00111$:
-;	main.c:205: uint16_t address1=strtohex(addressreceiver1);
+;	main.c:207: uint16_t address1=strtohex(addressreceiver1);
 	mov	dptr,#_main_addressreceiver1_196609_120
 	mov	b,#0x00
 	lcall	_strtohex
 	mov	r6,dpl
 	mov	r7,dph
-;	main.c:207: uint8_t block1=(address1 & 0xE00)>>8;
-	mov	a,#0x0e
+;	main.c:209: uint8_t block1=(address1 & 0x7FF)>>8;
+	mov	ar4,r6
+	mov	a,#0x07
 	anl	a,r7
 	mov	r5,a
-;	main.c:208: uint8_t startaddress=(address1&0x0FF);
+;	main.c:210: uint8_t startaddress=(address1&0x0FF);
 	mov	ar4,r6
-;	main.c:213: putstr("Enter second address\n\r");
+;	main.c:215: putstr("Enter second address\n\r");
 	mov	dptr,#___str_12
 	mov	b,#0x80
 	push	ar7
@@ -1345,11 +1372,11 @@ _main:
 	push	ar5
 	push	ar4
 	lcall	_putstr
-;	main.c:214: gets(addressreceiver2);
+;	main.c:216: gets(addressreceiver2);
 	mov	dptr,#_main_addressreceiver2_196610_122
 	mov	b,#0x00
 	lcall	_gets
-;	main.c:215: inputchecker(addressreceiver2);
+;	main.c:217: inputchecker(addressreceiver2);
 	mov	dptr,#_main_addressreceiver2_196610_122
 	mov	b,#0x00
 	lcall	_inputchecker
@@ -1357,7 +1384,7 @@ _main:
 	pop	ar5
 	pop	ar6
 	pop	ar7
-;	main.c:216: if(flag_inputcheck)
+;	main.c:218: if(flag_inputcheck)
 	mov	dptr,#_flag_inputcheck
 	movx	a,@dptr
 	mov	b,a
@@ -1365,18 +1392,19 @@ _main:
 	movx	a,@dptr
 	orl	a,b
 	jz	00113$
-;	main.c:218: putstr("Error in input");
+;	main.c:220: putstr("Error in input");
 	mov	dptr,#___str_11
 	mov	b,#0x80
 	lcall	_putstr
-;	main.c:219: putstr(newl);
+;	main.c:221: putstr(newl);
 	mov	dptr,#___str_4
 	mov	b,#0x80
 	lcall	_putstr
-;	main.c:220: break;
+;	main.c:222: break;
 	ljmp	00123$
 00113$:
-;	main.c:224: uint16_t address2=strtohex(addressreceiver2);
+;	main.c:226: uint16_t address2=strtohex(addressreceiver2);
+	push	ar4
 	mov	dptr,#_main_addressreceiver2_196610_122
 	mov	b,#0x00
 	push	ar7
@@ -1390,35 +1418,53 @@ _main:
 	pop	ar5
 	pop	ar6
 	pop	ar7
-;	main.c:225: uint8_t block2=(address2 & 0xE00)>>8;
-	mov	a,#0x0e
+;	main.c:227: uint8_t block2=(address2 & 0x7FF)>>8;
+	mov	ar0,r2
+	mov	a,#0x07
 	anl	a,r3
 	mov	r1,a
-;	main.c:226: uint8_t endaddress=(address2&0x0FF);
-	mov	ar0,r2
-;	main.c:228: if(block1>7 || block2>7)
-	mov	a,r5
-	add	a,#0xff - 0x07
+;	main.c:228: uint8_t endaddress=(address2&0x0FF);
+	mov	_main_sloc0_1_0,r2
+;	main.c:230: if((((address1&0xE00)>>8)>7) || (((address2&0xE00)>>8)>7))
+	mov	a,#0x0e
+	anl	a,r7
+	mov	r0,a
+	mov	r4,#0x00
+	clr	c
+	mov	a,#0x07
+	subb	a,r0
+	clr	a
+	subb	a,r4
+	pop	ar4
 	jc	00114$
-	mov	a,r1
-	add	a,#0xff - 0x07
+	push	ar4
+	mov	a,#0x0e
+	anl	a,r3
+	mov	r0,a
+	mov	r4,#0x00
+	clr	c
+	mov	a,#0x07
+	subb	a,r0
+	clr	a
+	subb	a,r4
+	pop	ar4
 	jnc	00115$
 00114$:
-;	main.c:231: putstr("Block numbers are invalid\n\r");
+;	main.c:233: putstr("Block numbers are invalid\n\r");
 	mov	dptr,#___str_13
 	mov	b,#0x80
 	lcall	_putstr
-;	main.c:232: break;
+;	main.c:234: break;
 	ljmp	00123$
 00115$:
-;	main.c:234: if(address1>address2)
+;	main.c:236: if(address1>address2)
 	clr	c
 	mov	a,r2
 	subb	a,r6
 	mov	a,r3
 	subb	a,r7
 	jnc	00118$
-;	main.c:236: printf("Initial address is greater than Second address\n\r");
+;	main.c:238: printf("Initial address is greater than Second address\n\r");
 	mov	a,#___str_14
 	push	acc
 	mov	a,#(___str_14 >> 8)
@@ -1429,18 +1475,26 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	main.c:237: break;
+;	main.c:239: break;
 	ljmp	00123$
 00118$:
-;	main.c:243: seq_read(control,startaddress,endaddress,block1,block2);
+;	main.c:242: control |=(block1<<1);
+	mov	ar7,r5
+	mov	a,r7
+	add	a,r7
+	mov	r7,a
 	mov	dptr,#_control
+	movx	a,@dptr
+	orl	a,r7
+	movx	@dptr,a
+;	main.c:246: seq_read(control,startaddress,endaddress,block1,block2);
 	movx	a,@dptr
 	mov	r7,a
 	mov	dptr,#_seq_read_PARM_2
 	mov	a,r4
 	movx	@dptr,a
 	mov	dptr,#_seq_read_PARM_3
-	mov	a,r0
+	mov	a,_main_sloc0_1_0
 	movx	@dptr,a
 	mov	dptr,#_seq_read_PARM_4
 	mov	a,r5
@@ -1450,30 +1504,30 @@ _main:
 	movx	@dptr,a
 	mov	dpl,r7
 	lcall	_seq_read
-;	main.c:249: control=0xA0;
+;	main.c:252: control=0xA0;
 	mov	dptr,#_control
 	mov	a,#0xa0
 	movx	@dptr,a
-;	main.c:251: break;
+;	main.c:254: break;
 	ljmp	00123$
-;	main.c:252: case 'X':
+;	main.c:255: case 'X':
 00119$:
-;	main.c:253: restart_i2c();
-	lcall	_restart_i2c
-;	main.c:254: i2c_write(0xFF);
-	mov	dptr,#0x00ff
-	lcall	_i2c_write
-;	main.c:255: i2c_nack();
-	lcall	_i2c_nack
 ;	main.c:256: restart_i2c();
 	lcall	_restart_i2c
-;	main.c:257: i2c_stop();
+;	main.c:257: i2c_write(0xFF);
+	mov	dptr,#0x00ff
+	lcall	_i2c_write
+;	main.c:258: i2c_nack();
+	lcall	_i2c_nack
+;	main.c:259: restart_i2c();
+	lcall	_restart_i2c
+;	main.c:260: i2c_stop();
 	lcall	_i2c_stop
-;	main.c:258: break;
+;	main.c:261: break;
 	ljmp	00123$
-;	main.c:259: default:
+;	main.c:262: default:
 00120$:
-;	main.c:260: printf("No function attached to input\r\n");
+;	main.c:263: printf("No function attached to input\r\n");
 	mov	a,#___str_15
 	push	acc
 	mov	a,#(___str_15 >> 8)
@@ -1484,8 +1538,8 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	main.c:273: }
-;	main.c:277: }
+;	main.c:276: }
+;	main.c:280: }
 	ljmp	00123$
 	.area CSEG    (CODE)
 	.area CONST   (CODE)

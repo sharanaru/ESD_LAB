@@ -141,7 +141,7 @@
       0025E1 8D 82            [24]  141 	mov	dpl,r5
       0025E3 8E 83            [24]  142 	mov	dph,r6
       0025E5 8F F0            [24]  143 	mov	b,r7
-      0025E7 12 43 BB         [24]  144 	lcall	_strlen
+      0025E7 12 44 00         [24]  144 	lcall	_strlen
       0025EA AE 82            [24]  145 	mov	r6,dpl
       0025EC AF 83            [24]  146 	mov	r7,dph
                                     147 ;	converter.c:9: switch(length){
@@ -178,7 +178,7 @@
       00261E 8B 82            [24]  178 	mov	dpl,r3
       002620 8C 83            [24]  179 	mov	dph,r4
       002622 8D F0            [24]  180 	mov	b,r5
-      002624 12 43 D3         [24]  181 	lcall	__gptrget
+      002624 12 44 18         [24]  181 	lcall	__gptrget
       002627 FB               [12]  182 	mov	r3,a
       002628 90 00 06         [24]  183 	mov	dptr,#(_strtohex_f_65536_58 + 0x0002)
       00262B F0               [24]  184 	movx	@dptr,a
@@ -189,13 +189,13 @@
                                     189 ;	converter.c:16: printf("");f[0]='0';f[1]=l[0];f[2]=l[1];break;
       00262F C0 07            [24]  190 	push	ar7
       002631 C0 06            [24]  191 	push	ar6
-      002633 74 F3            [12]  192 	mov	a,#___str_0
+      002633 74 38            [12]  192 	mov	a,#___str_0
       002635 C0 E0            [24]  193 	push	acc
-      002637 74 43            [12]  194 	mov	a,#(___str_0 >> 8)
+      002637 74 44            [12]  194 	mov	a,#(___str_0 >> 8)
       002639 C0 E0            [24]  195 	push	acc
       00263B 74 80            [12]  196 	mov	a,#0x80
       00263D C0 E0            [24]  197 	push	acc
-      00263F 12 39 B1         [24]  198 	lcall	_printf
+      00263F 12 39 F6         [24]  198 	lcall	_printf
       002642 15 81            [12]  199 	dec	sp
       002644 15 81            [12]  200 	dec	sp
       002646 15 81            [12]  201 	dec	sp
@@ -216,7 +216,7 @@
       00265D 8B 82            [24]  216 	mov	dpl,r3
       00265F 8C 83            [24]  217 	mov	dph,r4
       002661 8D F0            [24]  218 	mov	b,r5
-      002663 12 43 D3         [24]  219 	lcall	__gptrget
+      002663 12 44 18         [24]  219 	lcall	__gptrget
       002666 FA               [12]  220 	mov	r2,a
       002667 90 00 05         [24]  221 	mov	dptr,#(_strtohex_f_65536_58 + 0x0001)
       00266A F0               [24]  222 	movx	@dptr,a
@@ -227,7 +227,7 @@
       002670 8B 82            [24]  227 	mov	dpl,r3
       002672 8C 83            [24]  228 	mov	dph,r4
       002674 8D F0            [24]  229 	mov	b,r5
-      002676 12 43 D3         [24]  230 	lcall	__gptrget
+      002676 12 44 18         [24]  230 	lcall	__gptrget
       002679 FB               [12]  231 	mov	r3,a
       00267A 90 00 06         [24]  232 	mov	dptr,#(_strtohex_f_65536_58 + 0x0002)
       00267D F0               [24]  233 	movx	@dptr,a
@@ -247,7 +247,7 @@
       00268B 8B 82            [24]  247 	mov	dpl,r3
       00268D 8C 83            [24]  248 	mov	dph,r4
       00268F 8D F0            [24]  249 	mov	b,r5
-      002691 12 43 D3         [24]  250 	lcall	__gptrget
+      002691 12 44 18         [24]  250 	lcall	__gptrget
       002694 90 00 04         [24]  251 	mov	dptr,#_strtohex_f_65536_58
       002697 F0               [24]  252 	movx	@dptr,a
       002698 74 01            [12]  253 	mov	a,#0x01
@@ -260,7 +260,7 @@
       0026A1 88 82            [24]  260 	mov	dpl,r0
       0026A3 89 83            [24]  261 	mov	dph,r1
       0026A5 8A F0            [24]  262 	mov	b,r2
-      0026A7 12 43 D3         [24]  263 	lcall	__gptrget
+      0026A7 12 44 18         [24]  263 	lcall	__gptrget
       0026AA F8               [12]  264 	mov	r0,a
       0026AB 90 00 05         [24]  265 	mov	dptr,#(_strtohex_f_65536_58 + 0x0001)
       0026AE F0               [24]  266 	movx	@dptr,a
@@ -273,7 +273,7 @@
       0026B6 8B 82            [24]  273 	mov	dpl,r3
       0026B8 8C 83            [24]  274 	mov	dph,r4
       0026BA 8D F0            [24]  275 	mov	b,r5
-      0026BC 12 43 D3         [24]  276 	lcall	__gptrget
+      0026BC 12 44 18         [24]  276 	lcall	__gptrget
       0026BF FB               [12]  277 	mov	r3,a
       0026C0 90 00 06         [24]  278 	mov	dptr,#(_strtohex_f_65536_58 + 0x0002)
       0026C3 F0               [24]  279 	movx	@dptr,a
@@ -314,7 +314,7 @@
       0026F1 C0 06            [24]  314 	push	ar6
       0026F3 C0 05            [24]  315 	push	ar5
       0026F5 C0 04            [24]  316 	push	ar4
-      0026F7 12 39 28         [24]  317 	lcall	_toupper
+      0026F7 12 39 6D         [24]  317 	lcall	_toupper
       0026FA AA 82            [24]  318 	mov	r2,dpl
       0026FC AB 83            [24]  319 	mov	r3,dph
       0026FE D0 04            [24]  320 	pop	ar4
@@ -1426,8 +1426,8 @@
                                    1426 	.area CSEG    (CODE)
                                    1427 	.area CONST   (CODE)
                                    1428 	.area CONST   (CODE)
-      0043F3                       1429 ___str_0:
-      0043F3 00                    1430 	.db 0x00
+      004438                       1429 ___str_0:
+      004438 00                    1430 	.db 0x00
                                    1431 	.area CSEG    (CODE)
                                    1432 	.area XINIT   (CODE)
                                    1433 	.area CABS    (ABS,CODE)
