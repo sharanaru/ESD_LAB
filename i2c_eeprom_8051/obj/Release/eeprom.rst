@@ -530,7 +530,7 @@
                                     530 ;	-----------------------------------------
                                     531 ;	 function byte_write
                                     532 ;	-----------------------------------------
-      002C4D                        533 _byte_write:
+      002C73                        533 _byte_write:
                            000007   534 	ar7 = 0x07
                            000006   535 	ar6 = 0x06
                            000005   536 	ar5 = 0x05
@@ -539,93 +539,93 @@
                            000002   539 	ar2 = 0x02
                            000001   540 	ar1 = 0x01
                            000000   541 	ar0 = 0x00
-      002C4D E5 82            [12]  542 	mov	a,dpl
-      002C4F 90 00 0C         [24]  543 	mov	dptr,#_byte_write_controlcode_65536_67
-      002C52 F0               [24]  544 	movx	@dptr,a
+      002C73 E5 82            [12]  542 	mov	a,dpl
+      002C75 90 00 0C         [24]  543 	mov	dptr,#_byte_write_controlcode_65536_67
+      002C78 F0               [24]  544 	movx	@dptr,a
                                     545 ;	eeprom.c:5: restart_i2c();
-      002C53 12 2F BD         [24]  546 	lcall	_restart_i2c
+      002C79 12 2F AA         [24]  546 	lcall	_restart_i2c
                                     547 ;	eeprom.c:6: i2c_write(controlcode);
-      002C56 90 00 0C         [24]  548 	mov	dptr,#_byte_write_controlcode_65536_67
-      002C59 E0               [24]  549 	movx	a,@dptr
-      002C5A FE               [12]  550 	mov	r6,a
-      002C5B 7F 00            [12]  551 	mov	r7,#0x00
-      002C5D 8E 82            [24]  552 	mov	dpl,r6
-      002C5F 8F 83            [24]  553 	mov	dph,r7
-      002C61 C0 07            [24]  554 	push	ar7
-      002C63 C0 06            [24]  555 	push	ar6
-      002C65 12 2F C7         [24]  556 	lcall	_i2c_write
+      002C7C 90 00 0C         [24]  548 	mov	dptr,#_byte_write_controlcode_65536_67
+      002C7F E0               [24]  549 	movx	a,@dptr
+      002C80 FE               [12]  550 	mov	r6,a
+      002C81 7F 00            [12]  551 	mov	r7,#0x00
+      002C83 8E 82            [24]  552 	mov	dpl,r6
+      002C85 8F 83            [24]  553 	mov	dph,r7
+      002C87 C0 07            [24]  554 	push	ar7
+      002C89 C0 06            [24]  555 	push	ar6
+      002C8B 12 2F B4         [24]  556 	lcall	_i2c_write
                                     557 ;	eeprom.c:7: delay();
-      002C68 12 2F 7A         [24]  558 	lcall	_delay
+      002C8E 12 2F 67         [24]  558 	lcall	_delay
                                     559 ;	eeprom.c:8: i2c_write(byte_address);
-      002C6B 90 00 0A         [24]  560 	mov	dptr,#_byte_write_PARM_2
-      002C6E E0               [24]  561 	movx	a,@dptr
-      002C6F FD               [12]  562 	mov	r5,a
-      002C70 7C 00            [12]  563 	mov	r4,#0x00
-      002C72 8D 82            [24]  564 	mov	dpl,r5
-      002C74 8C 83            [24]  565 	mov	dph,r4
-      002C76 12 2F C7         [24]  566 	lcall	_i2c_write
+      002C91 90 00 0A         [24]  560 	mov	dptr,#_byte_write_PARM_2
+      002C94 E0               [24]  561 	movx	a,@dptr
+      002C95 FD               [12]  562 	mov	r5,a
+      002C96 7C 00            [12]  563 	mov	r4,#0x00
+      002C98 8D 82            [24]  564 	mov	dpl,r5
+      002C9A 8C 83            [24]  565 	mov	dph,r4
+      002C9C 12 2F B4         [24]  566 	lcall	_i2c_write
                                     567 ;	eeprom.c:9: delay();
-      002C79 12 2F 7A         [24]  568 	lcall	_delay
+      002C9F 12 2F 67         [24]  568 	lcall	_delay
                                     569 ;	eeprom.c:10: i2c_write(writedata);
-      002C7C 90 00 0B         [24]  570 	mov	dptr,#_byte_write_PARM_3
-      002C7F E0               [24]  571 	movx	a,@dptr
-      002C80 FD               [12]  572 	mov	r5,a
-      002C81 7C 00            [12]  573 	mov	r4,#0x00
-      002C83 8D 82            [24]  574 	mov	dpl,r5
-      002C85 8C 83            [24]  575 	mov	dph,r4
-      002C87 12 2F C7         [24]  576 	lcall	_i2c_write
+      002CA2 90 00 0B         [24]  570 	mov	dptr,#_byte_write_PARM_3
+      002CA5 E0               [24]  571 	movx	a,@dptr
+      002CA6 FD               [12]  572 	mov	r5,a
+      002CA7 7C 00            [12]  573 	mov	r4,#0x00
+      002CA9 8D 82            [24]  574 	mov	dpl,r5
+      002CAB 8C 83            [24]  575 	mov	dph,r4
+      002CAD 12 2F B4         [24]  576 	lcall	_i2c_write
                                     577 ;	eeprom.c:11: delay();
-      002C8A 12 2F 7A         [24]  578 	lcall	_delay
+      002CB0 12 2F 67         [24]  578 	lcall	_delay
                                     579 ;	eeprom.c:12: i2c_stop();
-      002C8D 12 2F 96         [24]  580 	lcall	_i2c_stop
+      002CB3 12 2F 83         [24]  580 	lcall	_i2c_stop
                                     581 ;	eeprom.c:13: long_delay();
-      002C90 12 2F A2         [24]  582 	lcall	_long_delay
-      002C93 D0 06            [24]  583 	pop	ar6
-      002C95 D0 07            [24]  584 	pop	ar7
+      002CB6 12 2F 8F         [24]  582 	lcall	_long_delay
+      002CB9 D0 06            [24]  583 	pop	ar6
+      002CBB D0 07            [24]  584 	pop	ar7
                                     585 ;	eeprom.c:15: int t=1;
-      002C97 90 00 0D         [24]  586 	mov	dptr,#_byte_write_t_65537_69
-      002C9A 74 01            [12]  587 	mov	a,#0x01
-      002C9C F0               [24]  588 	movx	@dptr,a
-      002C9D E4               [12]  589 	clr	a
-      002C9E A3               [24]  590 	inc	dptr
-      002C9F F0               [24]  591 	movx	@dptr,a
+      002CBD 90 00 0D         [24]  586 	mov	dptr,#_byte_write_t_65537_69
+      002CC0 74 01            [12]  587 	mov	a,#0x01
+      002CC2 F0               [24]  588 	movx	@dptr,a
+      002CC3 E4               [12]  589 	clr	a
+      002CC4 A3               [24]  590 	inc	dptr
+      002CC5 F0               [24]  591 	movx	@dptr,a
                                     592 ;	eeprom.c:16: while(t) //ack polling
-      002CA0                        593 00101$:
-      002CA0 90 00 0D         [24]  594 	mov	dptr,#_byte_write_t_65537_69
-      002CA3 E0               [24]  595 	movx	a,@dptr
-      002CA4 F5 F0            [12]  596 	mov	b,a
-      002CA6 A3               [24]  597 	inc	dptr
-      002CA7 E0               [24]  598 	movx	a,@dptr
-      002CA8 45 F0            [12]  599 	orl	a,b
-      002CAA 60 2C            [24]  600 	jz	00103$
+      002CC6                        593 00101$:
+      002CC6 90 00 0D         [24]  594 	mov	dptr,#_byte_write_t_65537_69
+      002CC9 E0               [24]  595 	movx	a,@dptr
+      002CCA F5 F0            [12]  596 	mov	b,a
+      002CCC A3               [24]  597 	inc	dptr
+      002CCD E0               [24]  598 	movx	a,@dptr
+      002CCE 45 F0            [12]  599 	orl	a,b
+      002CD0 60 2C            [24]  600 	jz	00103$
                                     601 ;	eeprom.c:19: restart_i2c();
-      002CAC C0 07            [24]  602 	push	ar7
-      002CAE C0 06            [24]  603 	push	ar6
-      002CB0 12 2F BD         [24]  604 	lcall	_restart_i2c
-      002CB3 D0 06            [24]  605 	pop	ar6
-      002CB5 D0 07            [24]  606 	pop	ar7
+      002CD2 C0 07            [24]  602 	push	ar7
+      002CD4 C0 06            [24]  603 	push	ar6
+      002CD6 12 2F AA         [24]  604 	lcall	_restart_i2c
+      002CD9 D0 06            [24]  605 	pop	ar6
+      002CDB D0 07            [24]  606 	pop	ar7
                                     607 ;	eeprom.c:20: t=i2c_write(controlcode);
-      002CB7 8E 82            [24]  608 	mov	dpl,r6
-      002CB9 8F 83            [24]  609 	mov	dph,r7
-      002CBB C0 07            [24]  610 	push	ar7
-      002CBD C0 06            [24]  611 	push	ar6
-      002CBF 12 2F C7         [24]  612 	lcall	_i2c_write
-      002CC2 E5 82            [12]  613 	mov	a,dpl
-      002CC4 85 83 F0         [24]  614 	mov	b,dph
-      002CC7 90 00 0D         [24]  615 	mov	dptr,#_byte_write_t_65537_69
-      002CCA F0               [24]  616 	movx	@dptr,a
-      002CCB E5 F0            [12]  617 	mov	a,b
-      002CCD A3               [24]  618 	inc	dptr
-      002CCE F0               [24]  619 	movx	@dptr,a
+      002CDD 8E 82            [24]  608 	mov	dpl,r6
+      002CDF 8F 83            [24]  609 	mov	dph,r7
+      002CE1 C0 07            [24]  610 	push	ar7
+      002CE3 C0 06            [24]  611 	push	ar6
+      002CE5 12 2F B4         [24]  612 	lcall	_i2c_write
+      002CE8 E5 82            [12]  613 	mov	a,dpl
+      002CEA 85 83 F0         [24]  614 	mov	b,dph
+      002CED 90 00 0D         [24]  615 	mov	dptr,#_byte_write_t_65537_69
+      002CF0 F0               [24]  616 	movx	@dptr,a
+      002CF1 E5 F0            [12]  617 	mov	a,b
+      002CF3 A3               [24]  618 	inc	dptr
+      002CF4 F0               [24]  619 	movx	@dptr,a
                                     620 ;	eeprom.c:21: delay();
-      002CCF 12 2F 7A         [24]  621 	lcall	_delay
-      002CD2 D0 06            [24]  622 	pop	ar6
-      002CD4 D0 07            [24]  623 	pop	ar7
-      002CD6 80 C8            [24]  624 	sjmp	00101$
-      002CD8                        625 00103$:
+      002CF5 12 2F 67         [24]  621 	lcall	_delay
+      002CF8 D0 06            [24]  622 	pop	ar6
+      002CFA D0 07            [24]  623 	pop	ar7
+      002CFC 80 C8            [24]  624 	sjmp	00101$
+      002CFE                        625 00103$:
                                     626 ;	eeprom.c:24: i2c_stop();
                                     627 ;	eeprom.c:25: }
-      002CD8 02 2F 96         [24]  628 	ljmp	_i2c_stop
+      002CFE 02 2F 83         [24]  628 	ljmp	_i2c_stop
                                     629 ;------------------------------------------------------------
                                     630 ;Allocation info for local variables in function 'random_read'
                                     631 ;------------------------------------------------------------
@@ -637,65 +637,65 @@
                                     637 ;	-----------------------------------------
                                     638 ;	 function random_read
                                     639 ;	-----------------------------------------
-      002CDB                        640 _random_read:
-      002CDB E5 82            [12]  641 	mov	a,dpl
-      002CDD 90 00 10         [24]  642 	mov	dptr,#_random_read_controlcode_65536_71
-      002CE0 F0               [24]  643 	movx	@dptr,a
+      002D01                        640 _random_read:
+      002D01 E5 82            [12]  641 	mov	a,dpl
+      002D03 90 00 10         [24]  642 	mov	dptr,#_random_read_controlcode_65536_71
+      002D06 F0               [24]  643 	movx	@dptr,a
                                     644 ;	eeprom.c:30: restart_i2c();
-      002CE1 12 2F BD         [24]  645 	lcall	_restart_i2c
+      002D07 12 2F AA         [24]  645 	lcall	_restart_i2c
                                     646 ;	eeprom.c:31: i2c_write(controlcode);
-      002CE4 90 00 10         [24]  647 	mov	dptr,#_random_read_controlcode_65536_71
-      002CE7 E0               [24]  648 	movx	a,@dptr
-      002CE8 FF               [12]  649 	mov	r7,a
-      002CE9 7E 00            [12]  650 	mov	r6,#0x00
-      002CEB 8F 82            [24]  651 	mov	dpl,r7
-      002CED 8E 83            [24]  652 	mov	dph,r6
-      002CEF C0 07            [24]  653 	push	ar7
-      002CF1 C0 06            [24]  654 	push	ar6
-      002CF3 12 2F C7         [24]  655 	lcall	_i2c_write
+      002D0A 90 00 10         [24]  647 	mov	dptr,#_random_read_controlcode_65536_71
+      002D0D E0               [24]  648 	movx	a,@dptr
+      002D0E FF               [12]  649 	mov	r7,a
+      002D0F 7E 00            [12]  650 	mov	r6,#0x00
+      002D11 8F 82            [24]  651 	mov	dpl,r7
+      002D13 8E 83            [24]  652 	mov	dph,r6
+      002D15 C0 07            [24]  653 	push	ar7
+      002D17 C0 06            [24]  654 	push	ar6
+      002D19 12 2F B4         [24]  655 	lcall	_i2c_write
                                     656 ;	eeprom.c:32: delay();
-      002CF6 12 2F 7A         [24]  657 	lcall	_delay
+      002D1C 12 2F 67         [24]  657 	lcall	_delay
                                     658 ;	eeprom.c:33: i2c_write(byte_address);
-      002CF9 90 00 0F         [24]  659 	mov	dptr,#_random_read_PARM_2
-      002CFC E0               [24]  660 	movx	a,@dptr
-      002CFD FD               [12]  661 	mov	r5,a
-      002CFE 7C 00            [12]  662 	mov	r4,#0x00
-      002D00 8D 82            [24]  663 	mov	dpl,r5
-      002D02 8C 83            [24]  664 	mov	dph,r4
-      002D04 12 2F C7         [24]  665 	lcall	_i2c_write
+      002D1F 90 00 0F         [24]  659 	mov	dptr,#_random_read_PARM_2
+      002D22 E0               [24]  660 	movx	a,@dptr
+      002D23 FD               [12]  661 	mov	r5,a
+      002D24 7C 00            [12]  662 	mov	r4,#0x00
+      002D26 8D 82            [24]  663 	mov	dpl,r5
+      002D28 8C 83            [24]  664 	mov	dph,r4
+      002D2A 12 2F B4         [24]  665 	lcall	_i2c_write
                                     666 ;	eeprom.c:34: delay();
-      002D07 12 2F 7A         [24]  667 	lcall	_delay
+      002D2D 12 2F 67         [24]  667 	lcall	_delay
                                     668 ;	eeprom.c:35: restart_i2c();
-      002D0A 12 2F BD         [24]  669 	lcall	_restart_i2c
-      002D0D D0 06            [24]  670 	pop	ar6
-      002D0F D0 07            [24]  671 	pop	ar7
+      002D30 12 2F AA         [24]  669 	lcall	_restart_i2c
+      002D33 D0 06            [24]  670 	pop	ar6
+      002D35 D0 07            [24]  671 	pop	ar7
                                     672 ;	eeprom.c:36: i2c_write((controlcode+1)); //change to read operation
-      002D11 0F               [12]  673 	inc	r7
-      002D12 BF 00 01         [24]  674 	cjne	r7,#0x00,00103$
-      002D15 0E               [12]  675 	inc	r6
-      002D16                        676 00103$:
-      002D16 8F 82            [24]  677 	mov	dpl,r7
-      002D18 8E 83            [24]  678 	mov	dph,r6
-      002D1A 12 2F C7         [24]  679 	lcall	_i2c_write
+      002D37 0F               [12]  673 	inc	r7
+      002D38 BF 00 01         [24]  674 	cjne	r7,#0x00,00103$
+      002D3B 0E               [12]  675 	inc	r6
+      002D3C                        676 00103$:
+      002D3C 8F 82            [24]  677 	mov	dpl,r7
+      002D3E 8E 83            [24]  678 	mov	dph,r6
+      002D40 12 2F B4         [24]  679 	lcall	_i2c_write
                                     680 ;	eeprom.c:38: s=i2c_read();
-      002D1D 12 30 71         [24]  681 	lcall	_i2c_read
-      002D20 AE 82            [24]  682 	mov	r6,dpl
-      002D22 AF 83            [24]  683 	mov	r7,dph
+      002D43 12 30 5E         [24]  681 	lcall	_i2c_read
+      002D46 AE 82            [24]  682 	mov	r6,dpl
+      002D48 AF 83            [24]  683 	mov	r7,dph
                                     684 ;	eeprom.c:39: i2c_nack();
-      002D24 C0 07            [24]  685 	push	ar7
-      002D26 C0 06            [24]  686 	push	ar6
-      002D28 12 30 65         [24]  687 	lcall	_i2c_nack
+      002D4A C0 07            [24]  685 	push	ar7
+      002D4C C0 06            [24]  686 	push	ar6
+      002D4E 12 30 52         [24]  687 	lcall	_i2c_nack
                                     688 ;	eeprom.c:41: i2c_stop();
-      002D2B 12 2F 96         [24]  689 	lcall	_i2c_stop
+      002D51 12 2F 83         [24]  689 	lcall	_i2c_stop
                                     690 ;	eeprom.c:44: long_delay();
-      002D2E 12 2F A2         [24]  691 	lcall	_long_delay
-      002D31 D0 06            [24]  692 	pop	ar6
-      002D33 D0 07            [24]  693 	pop	ar7
+      002D54 12 2F 8F         [24]  691 	lcall	_long_delay
+      002D57 D0 06            [24]  692 	pop	ar6
+      002D59 D0 07            [24]  693 	pop	ar7
                                     694 ;	eeprom.c:45: return s;
-      002D35 8E 82            [24]  695 	mov	dpl,r6
-      002D37 8F 83            [24]  696 	mov	dph,r7
+      002D5B 8E 82            [24]  695 	mov	dpl,r6
+      002D5D 8F 83            [24]  696 	mov	dph,r7
                                     697 ;	eeprom.c:47: }
-      002D39 22               [24]  698 	ret
+      002D5F 22               [24]  698 	ret
                                     699 ;------------------------------------------------------------
                                     700 ;Allocation info for local variables in function 'seq_read'
                                     701 ;------------------------------------------------------------
@@ -715,382 +715,330 @@
                                     715 ;	-----------------------------------------
                                     716 ;	 function seq_read
                                     717 ;	-----------------------------------------
-      002D3A                        718 _seq_read:
-      002D3A E5 82            [12]  719 	mov	a,dpl
-      002D3C 90 00 15         [24]  720 	mov	dptr,#_seq_read_controlcode_65536_74
-      002D3F F0               [24]  721 	movx	@dptr,a
+      002D60                        718 _seq_read:
+      002D60 E5 82            [12]  719 	mov	a,dpl
+      002D62 90 00 15         [24]  720 	mov	dptr,#_seq_read_controlcode_65536_74
+      002D65 F0               [24]  721 	movx	@dptr,a
                                     722 ;	eeprom.c:50: restart_i2c();
-      002D40 12 2F BD         [24]  723 	lcall	_restart_i2c
+      002D66 12 2F AA         [24]  723 	lcall	_restart_i2c
                                     724 ;	eeprom.c:51: i2c_write(0xFF);
-      002D43 90 00 FF         [24]  725 	mov	dptr,#0x00ff
-      002D46 12 2F C7         [24]  726 	lcall	_i2c_write
+      002D69 90 00 FF         [24]  725 	mov	dptr,#0x00ff
+      002D6C 12 2F B4         [24]  726 	lcall	_i2c_write
                                     727 ;	eeprom.c:52: i2c_nack();
-      002D49 12 30 65         [24]  728 	lcall	_i2c_nack
+      002D6F 12 30 52         [24]  728 	lcall	_i2c_nack
                                     729 ;	eeprom.c:53: restart_i2c();
-      002D4C 12 2F BD         [24]  730 	lcall	_restart_i2c
+      002D72 12 2F AA         [24]  730 	lcall	_restart_i2c
                                     731 ;	eeprom.c:54: i2c_stop();
-      002D4F 12 2F 96         [24]  732 	lcall	_i2c_stop
+      002D75 12 2F 83         [24]  732 	lcall	_i2c_stop
                                     733 ;	eeprom.c:55: restart_i2c();
-      002D52 12 2F BD         [24]  734 	lcall	_restart_i2c
+      002D78 12 2F AA         [24]  734 	lcall	_restart_i2c
                                     735 ;	eeprom.c:56: i2c_write(controlcode);
-      002D55 90 00 15         [24]  736 	mov	dptr,#_seq_read_controlcode_65536_74
-      002D58 E0               [24]  737 	movx	a,@dptr
-      002D59 FF               [12]  738 	mov	r7,a
-      002D5A 7E 00            [12]  739 	mov	r6,#0x00
-      002D5C 8F 82            [24]  740 	mov	dpl,r7
-      002D5E 8E 83            [24]  741 	mov	dph,r6
-      002D60 C0 07            [24]  742 	push	ar7
-      002D62 C0 06            [24]  743 	push	ar6
-      002D64 12 2F C7         [24]  744 	lcall	_i2c_write
+      002D7B 90 00 15         [24]  736 	mov	dptr,#_seq_read_controlcode_65536_74
+      002D7E E0               [24]  737 	movx	a,@dptr
+      002D7F FF               [12]  738 	mov	r7,a
+      002D80 7E 00            [12]  739 	mov	r6,#0x00
+      002D82 8F 82            [24]  740 	mov	dpl,r7
+      002D84 8E 83            [24]  741 	mov	dph,r6
+      002D86 C0 07            [24]  742 	push	ar7
+      002D88 C0 06            [24]  743 	push	ar6
+      002D8A 12 2F B4         [24]  744 	lcall	_i2c_write
                                     745 ;	eeprom.c:57: delay();
-      002D67 12 2F 7A         [24]  746 	lcall	_delay
+      002D8D 12 2F 67         [24]  746 	lcall	_delay
                                     747 ;	eeprom.c:58: i2c_write(address1);
-      002D6A 90 00 11         [24]  748 	mov	dptr,#_seq_read_PARM_2
-      002D6D E0               [24]  749 	movx	a,@dptr
-      002D6E FD               [12]  750 	mov	r5,a
-      002D6F FB               [12]  751 	mov	r3,a
-      002D70 7C 00            [12]  752 	mov	r4,#0x00
-      002D72 8B 82            [24]  753 	mov	dpl,r3
-      002D74 8C 83            [24]  754 	mov	dph,r4
-      002D76 C0 05            [24]  755 	push	ar5
-      002D78 12 2F C7         [24]  756 	lcall	_i2c_write
+      002D90 90 00 11         [24]  748 	mov	dptr,#_seq_read_PARM_2
+      002D93 E0               [24]  749 	movx	a,@dptr
+      002D94 FD               [12]  750 	mov	r5,a
+      002D95 FB               [12]  751 	mov	r3,a
+      002D96 7C 00            [12]  752 	mov	r4,#0x00
+      002D98 8B 82            [24]  753 	mov	dpl,r3
+      002D9A 8C 83            [24]  754 	mov	dph,r4
+      002D9C C0 05            [24]  755 	push	ar5
+      002D9E 12 2F B4         [24]  756 	lcall	_i2c_write
                                     757 ;	eeprom.c:59: delay();
-      002D7B 12 2F 7A         [24]  758 	lcall	_delay
+      002DA1 12 2F 67         [24]  758 	lcall	_delay
                                     759 ;	eeprom.c:60: restart_i2c();
-      002D7E 12 2F BD         [24]  760 	lcall	_restart_i2c
-      002D81 D0 05            [24]  761 	pop	ar5
-      002D83 D0 06            [24]  762 	pop	ar6
-      002D85 D0 07            [24]  763 	pop	ar7
+      002DA4 12 2F AA         [24]  760 	lcall	_restart_i2c
+      002DA7 D0 05            [24]  761 	pop	ar5
+      002DA9 D0 06            [24]  762 	pop	ar6
+      002DAB D0 07            [24]  763 	pop	ar7
                                     764 ;	eeprom.c:62: i2c_write((controlcode+1));//change to read operation
-      002D87 0F               [12]  765 	inc	r7
-      002D88 BF 00 01         [24]  766 	cjne	r7,#0x00,00127$
-      002D8B 0E               [12]  767 	inc	r6
-      002D8C                        768 00127$:
-      002D8C 8F 82            [24]  769 	mov	dpl,r7
-      002D8E 8E 83            [24]  770 	mov	dph,r6
-      002D90 C0 05            [24]  771 	push	ar5
-      002D92 12 2F C7         [24]  772 	lcall	_i2c_write
-      002D95 D0 05            [24]  773 	pop	ar5
+      002DAD 0F               [12]  765 	inc	r7
+      002DAE BF 00 01         [24]  766 	cjne	r7,#0x00,00127$
+      002DB1 0E               [12]  767 	inc	r6
+      002DB2                        768 00127$:
+      002DB2 8F 82            [24]  769 	mov	dpl,r7
+      002DB4 8E 83            [24]  770 	mov	dph,r6
+      002DB6 C0 05            [24]  771 	push	ar5
+      002DB8 12 2F B4         [24]  772 	lcall	_i2c_write
+      002DBB D0 05            [24]  773 	pop	ar5
                                     774 ;	eeprom.c:64: starter|=block1;
-      002D97 90 00 13         [24]  775 	mov	dptr,#_seq_read_PARM_4
-      002D9A E0               [24]  776 	movx	a,@dptr
+      002DBD 90 00 13         [24]  775 	mov	dptr,#_seq_read_PARM_4
+      002DC0 E0               [24]  776 	movx	a,@dptr
                                     777 ;	eeprom.c:65: starter=starter<<8;
-      002D9B FE               [12]  778 	mov	r6,a
+      002DC1 FE               [12]  778 	mov	r6,a
                                     779 ;	eeprom.c:66: starter|=address1;
-      002D9C E4               [12]  780 	clr	a
-      002D9D FF               [12]  781 	mov	r7,a
-      002D9E FC               [12]  782 	mov	r4,a
-      002D9F ED               [12]  783 	mov	a,r5
-      002DA0 42 07            [12]  784 	orl	ar7,a
-      002DA2 EC               [12]  785 	mov	a,r4
-      002DA3 42 06            [12]  786 	orl	ar6,a
+      002DC2 E4               [12]  780 	clr	a
+      002DC3 FF               [12]  781 	mov	r7,a
+      002DC4 FC               [12]  782 	mov	r4,a
+      002DC5 ED               [12]  783 	mov	a,r5
+      002DC6 42 07            [12]  784 	orl	ar7,a
+      002DC8 EC               [12]  785 	mov	a,r4
+      002DC9 42 06            [12]  786 	orl	ar6,a
                                     787 ;	eeprom.c:68: ender|=block2;
-      002DA5 90 00 14         [24]  788 	mov	dptr,#_seq_read_PARM_5
-      002DA8 E0               [24]  789 	movx	a,@dptr
+      002DCB 90 00 14         [24]  788 	mov	dptr,#_seq_read_PARM_5
+      002DCE E0               [24]  789 	movx	a,@dptr
                                     790 ;	eeprom.c:69: ender=ender<<8;
-      002DA9 FC               [12]  791 	mov	r4,a
-      002DAA 7D 00            [12]  792 	mov	r5,#0x00
-                                    793 ;	eeprom.c:70: ender|=address2;uint8_t k=0;uint16_t t=0;
-      002DAC 90 00 12         [24]  794 	mov	dptr,#_seq_read_PARM_3
-      002DAF E0               [24]  795 	movx	a,@dptr
-      002DB0 7A 00            [12]  796 	mov	r2,#0x00
-      002DB2 42 05            [12]  797 	orl	ar5,a
-      002DB4 EA               [12]  798 	mov	a,r2
-      002DB5 42 04            [12]  799 	orl	ar4,a
-                                    800 ;	eeprom.c:72: printf("Starter: %d Ender %d\n\r",starter,ender);
-      002DB7 C0 07            [24]  801 	push	ar7
-      002DB9 C0 06            [24]  802 	push	ar6
-      002DBB C0 05            [24]  803 	push	ar5
-      002DBD C0 04            [24]  804 	push	ar4
-      002DBF C0 05            [24]  805 	push	ar5
-      002DC1 C0 04            [24]  806 	push	ar4
-      002DC3 C0 07            [24]  807 	push	ar7
-      002DC5 C0 06            [24]  808 	push	ar6
-      002DC7 74 B2            [12]  809 	mov	a,#___str_0
-      002DC9 C0 E0            [24]  810 	push	acc
-      002DCB 74 41            [12]  811 	mov	a,#(___str_0 >> 8)
-      002DCD C0 E0            [24]  812 	push	acc
-      002DCF 74 80            [12]  813 	mov	a,#0x80
-      002DD1 C0 E0            [24]  814 	push	acc
-      002DD3 12 37 70         [24]  815 	lcall	_printf
-      002DD6 E5 81            [12]  816 	mov	a,sp
-      002DD8 24 F9            [12]  817 	add	a,#0xf9
-      002DDA F5 81            [12]  818 	mov	sp,a
-      002DDC D0 04            [24]  819 	pop	ar4
-      002DDE D0 05            [24]  820 	pop	ar5
-      002DE0 D0 06            [24]  821 	pop	ar6
-      002DE2 D0 07            [24]  822 	pop	ar7
-                                    823 ;	eeprom.c:73: printf("difference is %d\n\r",ender-starter);
-      002DE4 ED               [12]  824 	mov	a,r5
-      002DE5 C3               [12]  825 	clr	c
-      002DE6 9F               [12]  826 	subb	a,r7
-      002DE7 FA               [12]  827 	mov	r2,a
-      002DE8 EC               [12]  828 	mov	a,r4
-      002DE9 9E               [12]  829 	subb	a,r6
-      002DEA FB               [12]  830 	mov	r3,a
-      002DEB C0 07            [24]  831 	push	ar7
-      002DED C0 06            [24]  832 	push	ar6
-      002DEF C0 05            [24]  833 	push	ar5
-      002DF1 C0 04            [24]  834 	push	ar4
-      002DF3 C0 02            [24]  835 	push	ar2
-      002DF5 C0 03            [24]  836 	push	ar3
-      002DF7 74 C9            [12]  837 	mov	a,#___str_1
-      002DF9 C0 E0            [24]  838 	push	acc
-      002DFB 74 41            [12]  839 	mov	a,#(___str_1 >> 8)
-      002DFD C0 E0            [24]  840 	push	acc
-      002DFF 74 80            [12]  841 	mov	a,#0x80
-      002E01 C0 E0            [24]  842 	push	acc
-      002E03 12 37 70         [24]  843 	lcall	_printf
-      002E06 E5 81            [12]  844 	mov	a,sp
-      002E08 24 FB            [12]  845 	add	a,#0xfb
-      002E0A F5 81            [12]  846 	mov	sp,a
-      002E0C D0 04            [24]  847 	pop	ar4
-      002E0E D0 05            [24]  848 	pop	ar5
-      002E10 D0 06            [24]  849 	pop	ar6
-      002E12 D0 07            [24]  850 	pop	ar7
-                                    851 ;	eeprom.c:74: while(t<(ender)){
-      002E14 7B 00            [12]  852 	mov	r3,#0x00
-      002E16                        853 00103$:
-      002E16 C3               [12]  854 	clr	c
-      002E17 EF               [12]  855 	mov	a,r7
-      002E18 9D               [12]  856 	subb	a,r5
-      002E19 EE               [12]  857 	mov	a,r6
-      002E1A 9C               [12]  858 	subb	a,r4
-      002E1B 40 03            [24]  859 	jc	00128$
-      002E1D 02 2E C9         [24]  860 	ljmp	00105$
-      002E20                        861 00128$:
-                                    862 ;	eeprom.c:75: if(k%16==0)
-      002E20 8B 01            [24]  863 	mov	ar1,r3
-      002E22 E9               [12]  864 	mov	a,r1
-      002E23 54 0F            [12]  865 	anl	a,#0x0f
-      002E25 70 56            [24]  866 	jnz	00102$
-                                    867 ;	eeprom.c:77: printf("\n\r");
-      002E27 C0 07            [24]  868 	push	ar7
-      002E29 C0 06            [24]  869 	push	ar6
-      002E2B C0 05            [24]  870 	push	ar5
-      002E2D C0 04            [24]  871 	push	ar4
-      002E2F C0 03            [24]  872 	push	ar3
-      002E31 74 DC            [12]  873 	mov	a,#___str_2
-      002E33 C0 E0            [24]  874 	push	acc
-      002E35 74 41            [12]  875 	mov	a,#(___str_2 >> 8)
-      002E37 C0 E0            [24]  876 	push	acc
-      002E39 74 80            [12]  877 	mov	a,#0x80
-      002E3B C0 E0            [24]  878 	push	acc
-      002E3D 12 37 70         [24]  879 	lcall	_printf
-      002E40 15 81            [12]  880 	dec	sp
-      002E42 15 81            [12]  881 	dec	sp
-      002E44 15 81            [12]  882 	dec	sp
-      002E46 D0 03            [24]  883 	pop	ar3
-      002E48 D0 04            [24]  884 	pop	ar4
-      002E4A D0 05            [24]  885 	pop	ar5
-      002E4C D0 06            [24]  886 	pop	ar6
-      002E4E D0 07            [24]  887 	pop	ar7
-                                    888 ;	eeprom.c:78: printf("%3X:",t);
-      002E50 C0 07            [24]  889 	push	ar7
-      002E52 C0 06            [24]  890 	push	ar6
-      002E54 C0 05            [24]  891 	push	ar5
-      002E56 C0 04            [24]  892 	push	ar4
-      002E58 C0 03            [24]  893 	push	ar3
-      002E5A C0 07            [24]  894 	push	ar7
-      002E5C C0 06            [24]  895 	push	ar6
-      002E5E 74 DF            [12]  896 	mov	a,#___str_3
-      002E60 C0 E0            [24]  897 	push	acc
-      002E62 74 41            [12]  898 	mov	a,#(___str_3 >> 8)
-      002E64 C0 E0            [24]  899 	push	acc
-      002E66 74 80            [12]  900 	mov	a,#0x80
-      002E68 C0 E0            [24]  901 	push	acc
-      002E6A 12 37 70         [24]  902 	lcall	_printf
-      002E6D E5 81            [12]  903 	mov	a,sp
-      002E6F 24 FB            [12]  904 	add	a,#0xfb
-      002E71 F5 81            [12]  905 	mov	sp,a
-      002E73 D0 03            [24]  906 	pop	ar3
-      002E75 D0 04            [24]  907 	pop	ar4
-      002E77 D0 05            [24]  908 	pop	ar5
-      002E79 D0 06            [24]  909 	pop	ar6
-      002E7B D0 07            [24]  910 	pop	ar7
-      002E7D                        911 00102$:
-                                    912 ;	eeprom.c:80: s=i2c_read();
-      002E7D C0 07            [24]  913 	push	ar7
-      002E7F C0 06            [24]  914 	push	ar6
-      002E81 C0 05            [24]  915 	push	ar5
-      002E83 C0 04            [24]  916 	push	ar4
-      002E85 C0 03            [24]  917 	push	ar3
-      002E87 12 30 71         [24]  918 	lcall	_i2c_read
-      002E8A A9 82            [24]  919 	mov	r1,dpl
-      002E8C AA 83            [24]  920 	mov	r2,dph
-                                    921 ;	eeprom.c:81: i2c_ack();
-      002E8E C0 02            [24]  922 	push	ar2
-      002E90 C0 01            [24]  923 	push	ar1
-      002E92 12 30 56         [24]  924 	lcall	_i2c_ack
-      002E95 D0 01            [24]  925 	pop	ar1
-      002E97 D0 02            [24]  926 	pop	ar2
-      002E99 D0 03            [24]  927 	pop	ar3
-                                    928 ;	eeprom.c:82: k++;
-      002E9B 0B               [12]  929 	inc	r3
-                                    930 ;	eeprom.c:83: printf(" %X ",s);t++;
-      002E9C C0 03            [24]  931 	push	ar3
-      002E9E C0 01            [24]  932 	push	ar1
-      002EA0 C0 02            [24]  933 	push	ar2
-      002EA2 74 E4            [12]  934 	mov	a,#___str_4
-      002EA4 C0 E0            [24]  935 	push	acc
-      002EA6 74 41            [12]  936 	mov	a,#(___str_4 >> 8)
-      002EA8 C0 E0            [24]  937 	push	acc
-      002EAA 74 80            [12]  938 	mov	a,#0x80
-      002EAC C0 E0            [24]  939 	push	acc
-      002EAE 12 37 70         [24]  940 	lcall	_printf
-      002EB1 E5 81            [12]  941 	mov	a,sp
-      002EB3 24 FB            [12]  942 	add	a,#0xfb
-      002EB5 F5 81            [12]  943 	mov	sp,a
-      002EB7 D0 03            [24]  944 	pop	ar3
-      002EB9 D0 04            [24]  945 	pop	ar4
-      002EBB D0 05            [24]  946 	pop	ar5
-      002EBD D0 06            [24]  947 	pop	ar6
-      002EBF D0 07            [24]  948 	pop	ar7
-      002EC1 0F               [12]  949 	inc	r7
-      002EC2 BF 00 01         [24]  950 	cjne	r7,#0x00,00131$
-      002EC5 0E               [12]  951 	inc	r6
-      002EC6                        952 00131$:
-      002EC6 02 2E 16         [24]  953 	ljmp	00103$
-      002EC9                        954 00105$:
-                                    955 ;	eeprom.c:86: s=i2c_read();
-      002EC9 C0 07            [24]  956 	push	ar7
-      002ECB C0 06            [24]  957 	push	ar6
-      002ECD C0 03            [24]  958 	push	ar3
-      002ECF 12 30 71         [24]  959 	lcall	_i2c_read
-      002ED2 AC 82            [24]  960 	mov	r4,dpl
-      002ED4 AD 83            [24]  961 	mov	r5,dph
-      002ED6 D0 03            [24]  962 	pop	ar3
-                                    963 ;	eeprom.c:87: i2c_nack();
-      002ED8 C0 05            [24]  964 	push	ar5
-      002EDA C0 04            [24]  965 	push	ar4
-      002EDC C0 03            [24]  966 	push	ar3
-      002EDE 12 30 65         [24]  967 	lcall	_i2c_nack
-                                    968 ;	eeprom.c:88: i2c_stop();
-      002EE1 12 2F 96         [24]  969 	lcall	_i2c_stop
-      002EE4 D0 03            [24]  970 	pop	ar3
-      002EE6 D0 04            [24]  971 	pop	ar4
-      002EE8 D0 05            [24]  972 	pop	ar5
-      002EEA D0 06            [24]  973 	pop	ar6
-      002EEC D0 07            [24]  974 	pop	ar7
-                                    975 ;	eeprom.c:89: k++;
-      002EEE 0B               [12]  976 	inc	r3
-                                    977 ;	eeprom.c:90: if(k%16==0)
-      002EEF EB               [12]  978 	mov	a,r3
-      002EF0 54 0F            [12]  979 	anl	a,#0x0f
-      002EF2 70 46            [24]  980 	jnz	00107$
-                                    981 ;	eeprom.c:92: printf("\n\r");
-      002EF4 C0 07            [24]  982 	push	ar7
-      002EF6 C0 06            [24]  983 	push	ar6
-      002EF8 C0 05            [24]  984 	push	ar5
-      002EFA C0 04            [24]  985 	push	ar4
-      002EFC 74 DC            [12]  986 	mov	a,#___str_2
-      002EFE C0 E0            [24]  987 	push	acc
-      002F00 74 41            [12]  988 	mov	a,#(___str_2 >> 8)
-      002F02 C0 E0            [24]  989 	push	acc
-      002F04 74 80            [12]  990 	mov	a,#0x80
-      002F06 C0 E0            [24]  991 	push	acc
-      002F08 12 37 70         [24]  992 	lcall	_printf
-      002F0B 15 81            [12]  993 	dec	sp
-      002F0D 15 81            [12]  994 	dec	sp
-      002F0F 15 81            [12]  995 	dec	sp
-      002F11 D0 04            [24]  996 	pop	ar4
-      002F13 D0 05            [24]  997 	pop	ar5
-      002F15 D0 06            [24]  998 	pop	ar6
-      002F17 D0 07            [24]  999 	pop	ar7
-                                   1000 ;	eeprom.c:93: printf("%X:",t);
-      002F19 C0 05            [24] 1001 	push	ar5
-      002F1B C0 04            [24] 1002 	push	ar4
-      002F1D C0 07            [24] 1003 	push	ar7
-      002F1F C0 06            [24] 1004 	push	ar6
-      002F21 74 E9            [12] 1005 	mov	a,#___str_5
-      002F23 C0 E0            [24] 1006 	push	acc
-      002F25 74 41            [12] 1007 	mov	a,#(___str_5 >> 8)
-      002F27 C0 E0            [24] 1008 	push	acc
-      002F29 74 80            [12] 1009 	mov	a,#0x80
-      002F2B C0 E0            [24] 1010 	push	acc
-      002F2D 12 37 70         [24] 1011 	lcall	_printf
-      002F30 E5 81            [12] 1012 	mov	a,sp
-      002F32 24 FB            [12] 1013 	add	a,#0xfb
-      002F34 F5 81            [12] 1014 	mov	sp,a
-      002F36 D0 04            [24] 1015 	pop	ar4
-      002F38 D0 05            [24] 1016 	pop	ar5
-      002F3A                       1017 00107$:
-                                   1018 ;	eeprom.c:95: printf(" %X ",s);
-      002F3A C0 04            [24] 1019 	push	ar4
-      002F3C C0 05            [24] 1020 	push	ar5
-      002F3E 74 E4            [12] 1021 	mov	a,#___str_4
-      002F40 C0 E0            [24] 1022 	push	acc
-      002F42 74 41            [12] 1023 	mov	a,#(___str_4 >> 8)
-      002F44 C0 E0            [24] 1024 	push	acc
-      002F46 74 80            [12] 1025 	mov	a,#0x80
-      002F48 C0 E0            [24] 1026 	push	acc
-      002F4A 12 37 70         [24] 1027 	lcall	_printf
-      002F4D E5 81            [12] 1028 	mov	a,sp
-      002F4F 24 FB            [12] 1029 	add	a,#0xfb
-      002F51 F5 81            [12] 1030 	mov	sp,a
-                                   1031 ;	eeprom.c:96: printf(newl);
-      002F53 74 DC            [12] 1032 	mov	a,#___str_2
-      002F55 C0 E0            [24] 1033 	push	acc
-      002F57 74 41            [12] 1034 	mov	a,#(___str_2 >> 8)
-      002F59 C0 E0            [24] 1035 	push	acc
-      002F5B 74 80            [12] 1036 	mov	a,#0x80
-      002F5D C0 E0            [24] 1037 	push	acc
-      002F5F 12 37 70         [24] 1038 	lcall	_printf
-      002F62 15 81            [12] 1039 	dec	sp
-      002F64 15 81            [12] 1040 	dec	sp
-      002F66 15 81            [12] 1041 	dec	sp
-                                   1042 ;	eeprom.c:97: restart_i2c();
-      002F68 12 2F BD         [24] 1043 	lcall	_restart_i2c
-                                   1044 ;	eeprom.c:98: i2c_write(0xFF);
-      002F6B 90 00 FF         [24] 1045 	mov	dptr,#0x00ff
-      002F6E 12 2F C7         [24] 1046 	lcall	_i2c_write
-                                   1047 ;	eeprom.c:99: i2c_nack();
-      002F71 12 30 65         [24] 1048 	lcall	_i2c_nack
-                                   1049 ;	eeprom.c:100: restart_i2c();
-      002F74 12 2F BD         [24] 1050 	lcall	_restart_i2c
-                                   1051 ;	eeprom.c:101: i2c_stop();
-                                   1052 ;	eeprom.c:104: }
-      002F77 02 2F 96         [24] 1053 	ljmp	_i2c_stop
-                                   1054 	.area CSEG    (CODE)
-                                   1055 	.area CONST   (CODE)
-                                   1056 	.area CONST   (CODE)
-      0041B2                       1057 ___str_0:
-      0041B2 53 74 61 72 74 65 72  1058 	.ascii "Starter: %d Ender %d"
-             3A 20 25 64 20 45 6E
-             64 65 72 20 25 64
-      0041C6 0A                    1059 	.db 0x0a
-      0041C7 0D                    1060 	.db 0x0d
-      0041C8 00                    1061 	.db 0x00
-                                   1062 	.area CSEG    (CODE)
-                                   1063 	.area CONST   (CODE)
-      0041C9                       1064 ___str_1:
-      0041C9 64 69 66 66 65 72 65  1065 	.ascii "difference is %d"
-             6E 63 65 20 69 73 20
-             25 64
-      0041D9 0A                    1066 	.db 0x0a
-      0041DA 0D                    1067 	.db 0x0d
-      0041DB 00                    1068 	.db 0x00
-                                   1069 	.area CSEG    (CODE)
-                                   1070 	.area CONST   (CODE)
-      0041DC                       1071 ___str_2:
-      0041DC 0A                    1072 	.db 0x0a
-      0041DD 0D                    1073 	.db 0x0d
-      0041DE 00                    1074 	.db 0x00
-                                   1075 	.area CSEG    (CODE)
-                                   1076 	.area CONST   (CODE)
-      0041DF                       1077 ___str_3:
-      0041DF 25 33 58 3A           1078 	.ascii "%3X:"
-      0041E3 00                    1079 	.db 0x00
-                                   1080 	.area CSEG    (CODE)
-                                   1081 	.area CONST   (CODE)
-      0041E4                       1082 ___str_4:
-      0041E4 20 25 58 20           1083 	.ascii " %X "
-      0041E8 00                    1084 	.db 0x00
-                                   1085 	.area CSEG    (CODE)
-                                   1086 	.area CONST   (CODE)
-      0041E9                       1087 ___str_5:
-      0041E9 25 58 3A              1088 	.ascii "%X:"
-      0041EC 00                    1089 	.db 0x00
-                                   1090 	.area CSEG    (CODE)
-                                   1091 	.area XINIT   (CODE)
-                                   1092 	.area CABS    (ABS,CODE)
+      002DCF FC               [12]  791 	mov	r4,a
+      002DD0 7D 00            [12]  792 	mov	r5,#0x00
+                                    793 ;	eeprom.c:70: ender|=address2;
+      002DD2 90 00 12         [24]  794 	mov	dptr,#_seq_read_PARM_3
+      002DD5 E0               [24]  795 	movx	a,@dptr
+      002DD6 7A 00            [12]  796 	mov	r2,#0x00
+      002DD8 42 05            [12]  797 	orl	ar5,a
+      002DDA EA               [12]  798 	mov	a,r2
+      002DDB 42 04            [12]  799 	orl	ar4,a
+                                    800 ;	eeprom.c:74: printf("\n\r");
+      002DDD C0 07            [24]  801 	push	ar7
+      002DDF C0 06            [24]  802 	push	ar6
+      002DE1 C0 05            [24]  803 	push	ar5
+      002DE3 C0 04            [24]  804 	push	ar4
+      002DE5 74 07            [12]  805 	mov	a,#___str_0
+      002DE7 C0 E0            [24]  806 	push	acc
+      002DE9 74 44            [12]  807 	mov	a,#(___str_0 >> 8)
+      002DEB C0 E0            [24]  808 	push	acc
+      002DED 74 80            [12]  809 	mov	a,#0x80
+      002DEF C0 E0            [24]  810 	push	acc
+      002DF1 12 39 B1         [24]  811 	lcall	_printf
+      002DF4 15 81            [12]  812 	dec	sp
+      002DF6 15 81            [12]  813 	dec	sp
+      002DF8 15 81            [12]  814 	dec	sp
+      002DFA D0 04            [24]  815 	pop	ar4
+      002DFC D0 05            [24]  816 	pop	ar5
+      002DFE D0 06            [24]  817 	pop	ar6
+      002E00 D0 07            [24]  818 	pop	ar7
+                                    819 ;	eeprom.c:77: while(t<(ender)){
+      002E02 7B 00            [12]  820 	mov	r3,#0x00
+      002E04                        821 00103$:
+      002E04 C3               [12]  822 	clr	c
+      002E05 EF               [12]  823 	mov	a,r7
+      002E06 9D               [12]  824 	subb	a,r5
+      002E07 EE               [12]  825 	mov	a,r6
+      002E08 9C               [12]  826 	subb	a,r4
+      002E09 40 03            [24]  827 	jc	00128$
+      002E0B 02 2E B7         [24]  828 	ljmp	00105$
+      002E0E                        829 00128$:
+                                    830 ;	eeprom.c:78: if(k%16==0)
+      002E0E 8B 01            [24]  831 	mov	ar1,r3
+      002E10 E9               [12]  832 	mov	a,r1
+      002E11 54 0F            [12]  833 	anl	a,#0x0f
+      002E13 70 56            [24]  834 	jnz	00102$
+                                    835 ;	eeprom.c:80: printf("\n\r");
+      002E15 C0 07            [24]  836 	push	ar7
+      002E17 C0 06            [24]  837 	push	ar6
+      002E19 C0 05            [24]  838 	push	ar5
+      002E1B C0 04            [24]  839 	push	ar4
+      002E1D C0 03            [24]  840 	push	ar3
+      002E1F 74 07            [12]  841 	mov	a,#___str_0
+      002E21 C0 E0            [24]  842 	push	acc
+      002E23 74 44            [12]  843 	mov	a,#(___str_0 >> 8)
+      002E25 C0 E0            [24]  844 	push	acc
+      002E27 74 80            [12]  845 	mov	a,#0x80
+      002E29 C0 E0            [24]  846 	push	acc
+      002E2B 12 39 B1         [24]  847 	lcall	_printf
+      002E2E 15 81            [12]  848 	dec	sp
+      002E30 15 81            [12]  849 	dec	sp
+      002E32 15 81            [12]  850 	dec	sp
+      002E34 D0 03            [24]  851 	pop	ar3
+      002E36 D0 04            [24]  852 	pop	ar4
+      002E38 D0 05            [24]  853 	pop	ar5
+      002E3A D0 06            [24]  854 	pop	ar6
+      002E3C D0 07            [24]  855 	pop	ar7
+                                    856 ;	eeprom.c:81: printf("%3X:",t);
+      002E3E C0 07            [24]  857 	push	ar7
+      002E40 C0 06            [24]  858 	push	ar6
+      002E42 C0 05            [24]  859 	push	ar5
+      002E44 C0 04            [24]  860 	push	ar4
+      002E46 C0 03            [24]  861 	push	ar3
+      002E48 C0 07            [24]  862 	push	ar7
+      002E4A C0 06            [24]  863 	push	ar6
+      002E4C 74 0A            [12]  864 	mov	a,#___str_1
+      002E4E C0 E0            [24]  865 	push	acc
+      002E50 74 44            [12]  866 	mov	a,#(___str_1 >> 8)
+      002E52 C0 E0            [24]  867 	push	acc
+      002E54 74 80            [12]  868 	mov	a,#0x80
+      002E56 C0 E0            [24]  869 	push	acc
+      002E58 12 39 B1         [24]  870 	lcall	_printf
+      002E5B E5 81            [12]  871 	mov	a,sp
+      002E5D 24 FB            [12]  872 	add	a,#0xfb
+      002E5F F5 81            [12]  873 	mov	sp,a
+      002E61 D0 03            [24]  874 	pop	ar3
+      002E63 D0 04            [24]  875 	pop	ar4
+      002E65 D0 05            [24]  876 	pop	ar5
+      002E67 D0 06            [24]  877 	pop	ar6
+      002E69 D0 07            [24]  878 	pop	ar7
+      002E6B                        879 00102$:
+                                    880 ;	eeprom.c:83: s=i2c_read();
+      002E6B C0 07            [24]  881 	push	ar7
+      002E6D C0 06            [24]  882 	push	ar6
+      002E6F C0 05            [24]  883 	push	ar5
+      002E71 C0 04            [24]  884 	push	ar4
+      002E73 C0 03            [24]  885 	push	ar3
+      002E75 12 30 5E         [24]  886 	lcall	_i2c_read
+      002E78 A9 82            [24]  887 	mov	r1,dpl
+      002E7A AA 83            [24]  888 	mov	r2,dph
+                                    889 ;	eeprom.c:84: i2c_ack();
+      002E7C C0 02            [24]  890 	push	ar2
+      002E7E C0 01            [24]  891 	push	ar1
+      002E80 12 30 43         [24]  892 	lcall	_i2c_ack
+      002E83 D0 01            [24]  893 	pop	ar1
+      002E85 D0 02            [24]  894 	pop	ar2
+      002E87 D0 03            [24]  895 	pop	ar3
+                                    896 ;	eeprom.c:85: k++;
+      002E89 0B               [12]  897 	inc	r3
+                                    898 ;	eeprom.c:86: printf(" %X ",s);t++;
+      002E8A C0 03            [24]  899 	push	ar3
+      002E8C C0 01            [24]  900 	push	ar1
+      002E8E C0 02            [24]  901 	push	ar2
+      002E90 74 0F            [12]  902 	mov	a,#___str_2
+      002E92 C0 E0            [24]  903 	push	acc
+      002E94 74 44            [12]  904 	mov	a,#(___str_2 >> 8)
+      002E96 C0 E0            [24]  905 	push	acc
+      002E98 74 80            [12]  906 	mov	a,#0x80
+      002E9A C0 E0            [24]  907 	push	acc
+      002E9C 12 39 B1         [24]  908 	lcall	_printf
+      002E9F E5 81            [12]  909 	mov	a,sp
+      002EA1 24 FB            [12]  910 	add	a,#0xfb
+      002EA3 F5 81            [12]  911 	mov	sp,a
+      002EA5 D0 03            [24]  912 	pop	ar3
+      002EA7 D0 04            [24]  913 	pop	ar4
+      002EA9 D0 05            [24]  914 	pop	ar5
+      002EAB D0 06            [24]  915 	pop	ar6
+      002EAD D0 07            [24]  916 	pop	ar7
+      002EAF 0F               [12]  917 	inc	r7
+      002EB0 BF 00 01         [24]  918 	cjne	r7,#0x00,00131$
+      002EB3 0E               [12]  919 	inc	r6
+      002EB4                        920 00131$:
+      002EB4 02 2E 04         [24]  921 	ljmp	00103$
+      002EB7                        922 00105$:
+                                    923 ;	eeprom.c:89: s=i2c_read();
+      002EB7 C0 07            [24]  924 	push	ar7
+      002EB9 C0 06            [24]  925 	push	ar6
+      002EBB C0 03            [24]  926 	push	ar3
+      002EBD 12 30 5E         [24]  927 	lcall	_i2c_read
+      002EC0 AC 82            [24]  928 	mov	r4,dpl
+      002EC2 AD 83            [24]  929 	mov	r5,dph
+      002EC4 D0 03            [24]  930 	pop	ar3
+                                    931 ;	eeprom.c:90: i2c_nack();
+      002EC6 C0 05            [24]  932 	push	ar5
+      002EC8 C0 04            [24]  933 	push	ar4
+      002ECA C0 03            [24]  934 	push	ar3
+      002ECC 12 30 52         [24]  935 	lcall	_i2c_nack
+                                    936 ;	eeprom.c:91: i2c_stop();
+      002ECF 12 2F 83         [24]  937 	lcall	_i2c_stop
+      002ED2 D0 03            [24]  938 	pop	ar3
+      002ED4 D0 04            [24]  939 	pop	ar4
+      002ED6 D0 05            [24]  940 	pop	ar5
+      002ED8 D0 06            [24]  941 	pop	ar6
+      002EDA D0 07            [24]  942 	pop	ar7
+                                    943 ;	eeprom.c:93: if(k%16==0)
+      002EDC EB               [12]  944 	mov	a,r3
+      002EDD 54 0F            [12]  945 	anl	a,#0x0f
+      002EDF 70 46            [24]  946 	jnz	00107$
+                                    947 ;	eeprom.c:95: printf("\n\r");
+      002EE1 C0 07            [24]  948 	push	ar7
+      002EE3 C0 06            [24]  949 	push	ar6
+      002EE5 C0 05            [24]  950 	push	ar5
+      002EE7 C0 04            [24]  951 	push	ar4
+      002EE9 74 07            [12]  952 	mov	a,#___str_0
+      002EEB C0 E0            [24]  953 	push	acc
+      002EED 74 44            [12]  954 	mov	a,#(___str_0 >> 8)
+      002EEF C0 E0            [24]  955 	push	acc
+      002EF1 74 80            [12]  956 	mov	a,#0x80
+      002EF3 C0 E0            [24]  957 	push	acc
+      002EF5 12 39 B1         [24]  958 	lcall	_printf
+      002EF8 15 81            [12]  959 	dec	sp
+      002EFA 15 81            [12]  960 	dec	sp
+      002EFC 15 81            [12]  961 	dec	sp
+      002EFE D0 04            [24]  962 	pop	ar4
+      002F00 D0 05            [24]  963 	pop	ar5
+      002F02 D0 06            [24]  964 	pop	ar6
+      002F04 D0 07            [24]  965 	pop	ar7
+                                    966 ;	eeprom.c:96: printf("%X:",t);
+      002F06 C0 05            [24]  967 	push	ar5
+      002F08 C0 04            [24]  968 	push	ar4
+      002F0A C0 07            [24]  969 	push	ar7
+      002F0C C0 06            [24]  970 	push	ar6
+      002F0E 74 14            [12]  971 	mov	a,#___str_3
+      002F10 C0 E0            [24]  972 	push	acc
+      002F12 74 44            [12]  973 	mov	a,#(___str_3 >> 8)
+      002F14 C0 E0            [24]  974 	push	acc
+      002F16 74 80            [12]  975 	mov	a,#0x80
+      002F18 C0 E0            [24]  976 	push	acc
+      002F1A 12 39 B1         [24]  977 	lcall	_printf
+      002F1D E5 81            [12]  978 	mov	a,sp
+      002F1F 24 FB            [12]  979 	add	a,#0xfb
+      002F21 F5 81            [12]  980 	mov	sp,a
+      002F23 D0 04            [24]  981 	pop	ar4
+      002F25 D0 05            [24]  982 	pop	ar5
+      002F27                        983 00107$:
+                                    984 ;	eeprom.c:98: printf(" %X ",s);
+      002F27 C0 04            [24]  985 	push	ar4
+      002F29 C0 05            [24]  986 	push	ar5
+      002F2B 74 0F            [12]  987 	mov	a,#___str_2
+      002F2D C0 E0            [24]  988 	push	acc
+      002F2F 74 44            [12]  989 	mov	a,#(___str_2 >> 8)
+      002F31 C0 E0            [24]  990 	push	acc
+      002F33 74 80            [12]  991 	mov	a,#0x80
+      002F35 C0 E0            [24]  992 	push	acc
+      002F37 12 39 B1         [24]  993 	lcall	_printf
+      002F3A E5 81            [12]  994 	mov	a,sp
+      002F3C 24 FB            [12]  995 	add	a,#0xfb
+      002F3E F5 81            [12]  996 	mov	sp,a
+                                    997 ;	eeprom.c:99: printf(newl);
+      002F40 74 07            [12]  998 	mov	a,#___str_0
+      002F42 C0 E0            [24]  999 	push	acc
+      002F44 74 44            [12] 1000 	mov	a,#(___str_0 >> 8)
+      002F46 C0 E0            [24] 1001 	push	acc
+      002F48 74 80            [12] 1002 	mov	a,#0x80
+      002F4A C0 E0            [24] 1003 	push	acc
+      002F4C 12 39 B1         [24] 1004 	lcall	_printf
+      002F4F 15 81            [12] 1005 	dec	sp
+      002F51 15 81            [12] 1006 	dec	sp
+      002F53 15 81            [12] 1007 	dec	sp
+                                   1008 ;	eeprom.c:100: restart_i2c();
+      002F55 12 2F AA         [24] 1009 	lcall	_restart_i2c
+                                   1010 ;	eeprom.c:101: i2c_write(0xFF);
+      002F58 90 00 FF         [24] 1011 	mov	dptr,#0x00ff
+      002F5B 12 2F B4         [24] 1012 	lcall	_i2c_write
+                                   1013 ;	eeprom.c:102: i2c_nack();
+      002F5E 12 30 52         [24] 1014 	lcall	_i2c_nack
+                                   1015 ;	eeprom.c:103: restart_i2c();
+      002F61 12 2F AA         [24] 1016 	lcall	_restart_i2c
+                                   1017 ;	eeprom.c:104: i2c_stop();
+                                   1018 ;	eeprom.c:107: }
+      002F64 02 2F 83         [24] 1019 	ljmp	_i2c_stop
+                                   1020 	.area CSEG    (CODE)
+                                   1021 	.area CONST   (CODE)
+                                   1022 	.area CONST   (CODE)
+      004407                       1023 ___str_0:
+      004407 0A                    1024 	.db 0x0a
+      004408 0D                    1025 	.db 0x0d
+      004409 00                    1026 	.db 0x00
+                                   1027 	.area CSEG    (CODE)
+                                   1028 	.area CONST   (CODE)
+      00440A                       1029 ___str_1:
+      00440A 25 33 58 3A           1030 	.ascii "%3X:"
+      00440E 00                    1031 	.db 0x00
+                                   1032 	.area CSEG    (CODE)
+                                   1033 	.area CONST   (CODE)
+      00440F                       1034 ___str_2:
+      00440F 20 25 58 20           1035 	.ascii " %X "
+      004413 00                    1036 	.db 0x00
+                                   1037 	.area CSEG    (CODE)
+                                   1038 	.area CONST   (CODE)
+      004414                       1039 ___str_3:
+      004414 25 58 3A              1040 	.ascii "%X:"
+      004417 00                    1041 	.db 0x00
+                                   1042 	.area CSEG    (CODE)
+                                   1043 	.area XINIT   (CODE)
+                                   1044 	.area CABS    (ABS,CODE)

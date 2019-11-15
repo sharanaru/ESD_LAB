@@ -790,307 +790,255 @@
                                     790 ;	eeprom.c:69: ender=ender<<8;
       00015C FC               [12]  791 	mov	r4,a
       00015D 7D 00            [12]  792 	mov	r5,#0x00
-                                    793 ;	eeprom.c:70: ender|=address2;uint8_t k=0;uint16_t t=0;
+                                    793 ;	eeprom.c:70: ender|=address2;
       00015F 90r00r08         [24]  794 	mov	dptr,#_seq_read_PARM_3
       000162 E0               [24]  795 	movx	a,@dptr
       000163 7A 00            [12]  796 	mov	r2,#0x00
       000165 42 05            [12]  797 	orl	ar5,a
       000167 EA               [12]  798 	mov	a,r2
       000168 42 04            [12]  799 	orl	ar4,a
-                                    800 ;	eeprom.c:72: printf("Starter: %d Ender %d\n\r",starter,ender);
+                                    800 ;	eeprom.c:74: printf("\n\r");
       00016A C0 07            [24]  801 	push	ar7
       00016C C0 06            [24]  802 	push	ar6
       00016E C0 05            [24]  803 	push	ar5
       000170 C0 04            [24]  804 	push	ar4
-      000172 C0 05            [24]  805 	push	ar5
-      000174 C0 04            [24]  806 	push	ar4
-      000176 C0 07            [24]  807 	push	ar7
-      000178 C0 06            [24]  808 	push	ar6
-      00017A 74r00            [12]  809 	mov	a,#___str_0
+      000172 74r00            [12]  805 	mov	a,#___str_0
+      000174 C0 E0            [24]  806 	push	acc
+      000176 74s00            [12]  807 	mov	a,#(___str_0 >> 8)
+      000178 C0 E0            [24]  808 	push	acc
+      00017A 74 80            [12]  809 	mov	a,#0x80
       00017C C0 E0            [24]  810 	push	acc
-      00017E 74s00            [12]  811 	mov	a,#(___str_0 >> 8)
-      000180 C0 E0            [24]  812 	push	acc
-      000182 74 80            [12]  813 	mov	a,#0x80
-      000184 C0 E0            [24]  814 	push	acc
-      000186 12r00r00         [24]  815 	lcall	_printf
-      000189 E5 81            [12]  816 	mov	a,sp
-      00018B 24 F9            [12]  817 	add	a,#0xf9
-      00018D F5 81            [12]  818 	mov	sp,a
-      00018F D0 04            [24]  819 	pop	ar4
-      000191 D0 05            [24]  820 	pop	ar5
-      000193 D0 06            [24]  821 	pop	ar6
-      000195 D0 07            [24]  822 	pop	ar7
-                                    823 ;	eeprom.c:73: printf("difference is %d\n\r",ender-starter);
-      000197 ED               [12]  824 	mov	a,r5
-      000198 C3               [12]  825 	clr	c
-      000199 9F               [12]  826 	subb	a,r7
-      00019A FA               [12]  827 	mov	r2,a
-      00019B EC               [12]  828 	mov	a,r4
-      00019C 9E               [12]  829 	subb	a,r6
-      00019D FB               [12]  830 	mov	r3,a
-      00019E C0 07            [24]  831 	push	ar7
-      0001A0 C0 06            [24]  832 	push	ar6
-      0001A2 C0 05            [24]  833 	push	ar5
-      0001A4 C0 04            [24]  834 	push	ar4
-      0001A6 C0 02            [24]  835 	push	ar2
-      0001A8 C0 03            [24]  836 	push	ar3
-      0001AA 74r17            [12]  837 	mov	a,#___str_1
-      0001AC C0 E0            [24]  838 	push	acc
-      0001AE 74s00            [12]  839 	mov	a,#(___str_1 >> 8)
-      0001B0 C0 E0            [24]  840 	push	acc
-      0001B2 74 80            [12]  841 	mov	a,#0x80
-      0001B4 C0 E0            [24]  842 	push	acc
-      0001B6 12r00r00         [24]  843 	lcall	_printf
-      0001B9 E5 81            [12]  844 	mov	a,sp
-      0001BB 24 FB            [12]  845 	add	a,#0xfb
-      0001BD F5 81            [12]  846 	mov	sp,a
-      0001BF D0 04            [24]  847 	pop	ar4
-      0001C1 D0 05            [24]  848 	pop	ar5
-      0001C3 D0 06            [24]  849 	pop	ar6
-      0001C5 D0 07            [24]  850 	pop	ar7
-                                    851 ;	eeprom.c:74: while(t<(ender)){
-      0001C7 7B 00            [12]  852 	mov	r3,#0x00
-      0001C9                        853 00103$:
-      0001C9 C3               [12]  854 	clr	c
-      0001CA EF               [12]  855 	mov	a,r7
-      0001CB 9D               [12]  856 	subb	a,r5
-      0001CC EE               [12]  857 	mov	a,r6
-      0001CD 9C               [12]  858 	subb	a,r4
-      0001CE 40 03            [24]  859 	jc	00128$
-      0001D0 02r02r7C         [24]  860 	ljmp	00105$
-      0001D3                        861 00128$:
-                                    862 ;	eeprom.c:75: if(k%16==0)
-      0001D3 8B 01            [24]  863 	mov	ar1,r3
-      0001D5 E9               [12]  864 	mov	a,r1
-      0001D6 54 0F            [12]  865 	anl	a,#0x0f
-      0001D8 70 56            [24]  866 	jnz	00102$
-                                    867 ;	eeprom.c:77: printf("\n\r");
-      0001DA C0 07            [24]  868 	push	ar7
-      0001DC C0 06            [24]  869 	push	ar6
-      0001DE C0 05            [24]  870 	push	ar5
-      0001E0 C0 04            [24]  871 	push	ar4
-      0001E2 C0 03            [24]  872 	push	ar3
-      0001E4 74r2A            [12]  873 	mov	a,#___str_2
-      0001E6 C0 E0            [24]  874 	push	acc
-      0001E8 74s00            [12]  875 	mov	a,#(___str_2 >> 8)
-      0001EA C0 E0            [24]  876 	push	acc
-      0001EC 74 80            [12]  877 	mov	a,#0x80
-      0001EE C0 E0            [24]  878 	push	acc
-      0001F0 12r00r00         [24]  879 	lcall	_printf
-      0001F3 15 81            [12]  880 	dec	sp
-      0001F5 15 81            [12]  881 	dec	sp
-      0001F7 15 81            [12]  882 	dec	sp
-      0001F9 D0 03            [24]  883 	pop	ar3
-      0001FB D0 04            [24]  884 	pop	ar4
-      0001FD D0 05            [24]  885 	pop	ar5
-      0001FF D0 06            [24]  886 	pop	ar6
-      000201 D0 07            [24]  887 	pop	ar7
-                                    888 ;	eeprom.c:78: printf("%3X:",t);
-      000203 C0 07            [24]  889 	push	ar7
-      000205 C0 06            [24]  890 	push	ar6
-      000207 C0 05            [24]  891 	push	ar5
-      000209 C0 04            [24]  892 	push	ar4
-      00020B C0 03            [24]  893 	push	ar3
-      00020D C0 07            [24]  894 	push	ar7
-      00020F C0 06            [24]  895 	push	ar6
-      000211 74r2D            [12]  896 	mov	a,#___str_3
-      000213 C0 E0            [24]  897 	push	acc
-      000215 74s00            [12]  898 	mov	a,#(___str_3 >> 8)
-      000217 C0 E0            [24]  899 	push	acc
-      000219 74 80            [12]  900 	mov	a,#0x80
-      00021B C0 E0            [24]  901 	push	acc
-      00021D 12r00r00         [24]  902 	lcall	_printf
-      000220 E5 81            [12]  903 	mov	a,sp
-      000222 24 FB            [12]  904 	add	a,#0xfb
-      000224 F5 81            [12]  905 	mov	sp,a
-      000226 D0 03            [24]  906 	pop	ar3
-      000228 D0 04            [24]  907 	pop	ar4
-      00022A D0 05            [24]  908 	pop	ar5
-      00022C D0 06            [24]  909 	pop	ar6
-      00022E D0 07            [24]  910 	pop	ar7
-      000230                        911 00102$:
-                                    912 ;	eeprom.c:80: s=i2c_read();
-      000230 C0 07            [24]  913 	push	ar7
-      000232 C0 06            [24]  914 	push	ar6
-      000234 C0 05            [24]  915 	push	ar5
-      000236 C0 04            [24]  916 	push	ar4
-      000238 C0 03            [24]  917 	push	ar3
-      00023A 12r00r00         [24]  918 	lcall	_i2c_read
-      00023D A9 82            [24]  919 	mov	r1,dpl
-      00023F AA 83            [24]  920 	mov	r2,dph
-                                    921 ;	eeprom.c:81: i2c_ack();
-      000241 C0 02            [24]  922 	push	ar2
-      000243 C0 01            [24]  923 	push	ar1
-      000245 12r00r00         [24]  924 	lcall	_i2c_ack
-      000248 D0 01            [24]  925 	pop	ar1
-      00024A D0 02            [24]  926 	pop	ar2
-      00024C D0 03            [24]  927 	pop	ar3
-                                    928 ;	eeprom.c:82: k++;
-      00024E 0B               [12]  929 	inc	r3
-                                    930 ;	eeprom.c:83: printf(" %X ",s);t++;
-      00024F C0 03            [24]  931 	push	ar3
-      000251 C0 01            [24]  932 	push	ar1
-      000253 C0 02            [24]  933 	push	ar2
-      000255 74r32            [12]  934 	mov	a,#___str_4
-      000257 C0 E0            [24]  935 	push	acc
-      000259 74s00            [12]  936 	mov	a,#(___str_4 >> 8)
-      00025B C0 E0            [24]  937 	push	acc
-      00025D 74 80            [12]  938 	mov	a,#0x80
-      00025F C0 E0            [24]  939 	push	acc
-      000261 12r00r00         [24]  940 	lcall	_printf
-      000264 E5 81            [12]  941 	mov	a,sp
-      000266 24 FB            [12]  942 	add	a,#0xfb
-      000268 F5 81            [12]  943 	mov	sp,a
-      00026A D0 03            [24]  944 	pop	ar3
-      00026C D0 04            [24]  945 	pop	ar4
-      00026E D0 05            [24]  946 	pop	ar5
-      000270 D0 06            [24]  947 	pop	ar6
-      000272 D0 07            [24]  948 	pop	ar7
-      000274 0F               [12]  949 	inc	r7
-      000275 BF 00 01         [24]  950 	cjne	r7,#0x00,00131$
-      000278 0E               [12]  951 	inc	r6
-      000279                        952 00131$:
-      000279 02r01rC9         [24]  953 	ljmp	00103$
-      00027C                        954 00105$:
-                                    955 ;	eeprom.c:86: s=i2c_read();
-      00027C C0 07            [24]  956 	push	ar7
-      00027E C0 06            [24]  957 	push	ar6
-      000280 C0 03            [24]  958 	push	ar3
-      000282 12r00r00         [24]  959 	lcall	_i2c_read
-      000285 AC 82            [24]  960 	mov	r4,dpl
-      000287 AD 83            [24]  961 	mov	r5,dph
-      000289 D0 03            [24]  962 	pop	ar3
-                                    963 ;	eeprom.c:87: i2c_nack();
-      00028B C0 05            [24]  964 	push	ar5
-      00028D C0 04            [24]  965 	push	ar4
-      00028F C0 03            [24]  966 	push	ar3
-      000291 12r00r00         [24]  967 	lcall	_i2c_nack
-                                    968 ;	eeprom.c:88: i2c_stop();
-      000294 12r00r00         [24]  969 	lcall	_i2c_stop
-      000297 D0 03            [24]  970 	pop	ar3
-      000299 D0 04            [24]  971 	pop	ar4
-      00029B D0 05            [24]  972 	pop	ar5
-      00029D D0 06            [24]  973 	pop	ar6
-      00029F D0 07            [24]  974 	pop	ar7
-                                    975 ;	eeprom.c:89: k++;
-      0002A1 0B               [12]  976 	inc	r3
-                                    977 ;	eeprom.c:90: if(k%16==0)
-      0002A2 EB               [12]  978 	mov	a,r3
-      0002A3 54 0F            [12]  979 	anl	a,#0x0f
-      0002A5 70 46            [24]  980 	jnz	00107$
-                                    981 ;	eeprom.c:92: printf("\n\r");
-      0002A7 C0 07            [24]  982 	push	ar7
-      0002A9 C0 06            [24]  983 	push	ar6
-      0002AB C0 05            [24]  984 	push	ar5
-      0002AD C0 04            [24]  985 	push	ar4
-      0002AF 74r2A            [12]  986 	mov	a,#___str_2
-      0002B1 C0 E0            [24]  987 	push	acc
-      0002B3 74s00            [12]  988 	mov	a,#(___str_2 >> 8)
-      0002B5 C0 E0            [24]  989 	push	acc
-      0002B7 74 80            [12]  990 	mov	a,#0x80
-      0002B9 C0 E0            [24]  991 	push	acc
-      0002BB 12r00r00         [24]  992 	lcall	_printf
-      0002BE 15 81            [12]  993 	dec	sp
-      0002C0 15 81            [12]  994 	dec	sp
-      0002C2 15 81            [12]  995 	dec	sp
-      0002C4 D0 04            [24]  996 	pop	ar4
-      0002C6 D0 05            [24]  997 	pop	ar5
-      0002C8 D0 06            [24]  998 	pop	ar6
-      0002CA D0 07            [24]  999 	pop	ar7
-                                   1000 ;	eeprom.c:93: printf("%X:",t);
-      0002CC C0 05            [24] 1001 	push	ar5
-      0002CE C0 04            [24] 1002 	push	ar4
-      0002D0 C0 07            [24] 1003 	push	ar7
-      0002D2 C0 06            [24] 1004 	push	ar6
-      0002D4 74r37            [12] 1005 	mov	a,#___str_5
-      0002D6 C0 E0            [24] 1006 	push	acc
-      0002D8 74s00            [12] 1007 	mov	a,#(___str_5 >> 8)
-      0002DA C0 E0            [24] 1008 	push	acc
-      0002DC 74 80            [12] 1009 	mov	a,#0x80
-      0002DE C0 E0            [24] 1010 	push	acc
-      0002E0 12r00r00         [24] 1011 	lcall	_printf
-      0002E3 E5 81            [12] 1012 	mov	a,sp
-      0002E5 24 FB            [12] 1013 	add	a,#0xfb
-      0002E7 F5 81            [12] 1014 	mov	sp,a
-      0002E9 D0 04            [24] 1015 	pop	ar4
-      0002EB D0 05            [24] 1016 	pop	ar5
-      0002ED                       1017 00107$:
-                                   1018 ;	eeprom.c:95: printf(" %X ",s);
-      0002ED C0 04            [24] 1019 	push	ar4
-      0002EF C0 05            [24] 1020 	push	ar5
-      0002F1 74r32            [12] 1021 	mov	a,#___str_4
-      0002F3 C0 E0            [24] 1022 	push	acc
-      0002F5 74s00            [12] 1023 	mov	a,#(___str_4 >> 8)
-      0002F7 C0 E0            [24] 1024 	push	acc
-      0002F9 74 80            [12] 1025 	mov	a,#0x80
-      0002FB C0 E0            [24] 1026 	push	acc
-      0002FD 12r00r00         [24] 1027 	lcall	_printf
-      000300 E5 81            [12] 1028 	mov	a,sp
-      000302 24 FB            [12] 1029 	add	a,#0xfb
-      000304 F5 81            [12] 1030 	mov	sp,a
-                                   1031 ;	eeprom.c:96: printf(newl);
-      000306 74r2A            [12] 1032 	mov	a,#___str_2
-      000308 C0 E0            [24] 1033 	push	acc
-      00030A 74s00            [12] 1034 	mov	a,#(___str_2 >> 8)
-      00030C C0 E0            [24] 1035 	push	acc
-      00030E 74 80            [12] 1036 	mov	a,#0x80
-      000310 C0 E0            [24] 1037 	push	acc
-      000312 12r00r00         [24] 1038 	lcall	_printf
-      000315 15 81            [12] 1039 	dec	sp
-      000317 15 81            [12] 1040 	dec	sp
-      000319 15 81            [12] 1041 	dec	sp
-                                   1042 ;	eeprom.c:97: restart_i2c();
-      00031B 12r00r00         [24] 1043 	lcall	_restart_i2c
-                                   1044 ;	eeprom.c:98: i2c_write(0xFF);
-      00031E 90 00 FF         [24] 1045 	mov	dptr,#0x00ff
-      000321 12r00r00         [24] 1046 	lcall	_i2c_write
-                                   1047 ;	eeprom.c:99: i2c_nack();
-      000324 12r00r00         [24] 1048 	lcall	_i2c_nack
-                                   1049 ;	eeprom.c:100: restart_i2c();
-      000327 12r00r00         [24] 1050 	lcall	_restart_i2c
-                                   1051 ;	eeprom.c:101: i2c_stop();
-                                   1052 ;	eeprom.c:104: }
-      00032A 02r00r00         [24] 1053 	ljmp	_i2c_stop
-                                   1054 	.area CSEG    (CODE)
-                                   1055 	.area CONST   (CODE)
-                                   1056 	.area CONST   (CODE)
-      000000                       1057 ___str_0:
-      000000 53 74 61 72 74 65 72  1058 	.ascii "Starter: %d Ender %d"
-             3A 20 25 64 20 45 6E
-             64 65 72 20 25 64
-      000014 0A                    1059 	.db 0x0a
-      000015 0D                    1060 	.db 0x0d
-      000016 00                    1061 	.db 0x00
-                                   1062 	.area CSEG    (CODE)
-                                   1063 	.area CONST   (CODE)
-      000017                       1064 ___str_1:
-      000017 64 69 66 66 65 72 65  1065 	.ascii "difference is %d"
-             6E 63 65 20 69 73 20
-             25 64
-      000027 0A                    1066 	.db 0x0a
-      000028 0D                    1067 	.db 0x0d
-      000029 00                    1068 	.db 0x00
-                                   1069 	.area CSEG    (CODE)
-                                   1070 	.area CONST   (CODE)
-      00002A                       1071 ___str_2:
-      00002A 0A                    1072 	.db 0x0a
-      00002B 0D                    1073 	.db 0x0d
-      00002C 00                    1074 	.db 0x00
-                                   1075 	.area CSEG    (CODE)
-                                   1076 	.area CONST   (CODE)
-      00002D                       1077 ___str_3:
-      00002D 25 33 58 3A           1078 	.ascii "%3X:"
-      000031 00                    1079 	.db 0x00
-                                   1080 	.area CSEG    (CODE)
-                                   1081 	.area CONST   (CODE)
-      000032                       1082 ___str_4:
-      000032 20 25 58 20           1083 	.ascii " %X "
-      000036 00                    1084 	.db 0x00
-                                   1085 	.area CSEG    (CODE)
-                                   1086 	.area CONST   (CODE)
-      000037                       1087 ___str_5:
-      000037 25 58 3A              1088 	.ascii "%X:"
-      00003A 00                    1089 	.db 0x00
-                                   1090 	.area CSEG    (CODE)
-                                   1091 	.area XINIT   (CODE)
-                                   1092 	.area CABS    (ABS,CODE)
+      00017E 12r00r00         [24]  811 	lcall	_printf
+      000181 15 81            [12]  812 	dec	sp
+      000183 15 81            [12]  813 	dec	sp
+      000185 15 81            [12]  814 	dec	sp
+      000187 D0 04            [24]  815 	pop	ar4
+      000189 D0 05            [24]  816 	pop	ar5
+      00018B D0 06            [24]  817 	pop	ar6
+      00018D D0 07            [24]  818 	pop	ar7
+                                    819 ;	eeprom.c:77: while(t<(ender)){
+      00018F 7B 00            [12]  820 	mov	r3,#0x00
+      000191                        821 00103$:
+      000191 C3               [12]  822 	clr	c
+      000192 EF               [12]  823 	mov	a,r7
+      000193 9D               [12]  824 	subb	a,r5
+      000194 EE               [12]  825 	mov	a,r6
+      000195 9C               [12]  826 	subb	a,r4
+      000196 40 03            [24]  827 	jc	00128$
+      000198 02r02r44         [24]  828 	ljmp	00105$
+      00019B                        829 00128$:
+                                    830 ;	eeprom.c:78: if(k%16==0)
+      00019B 8B 01            [24]  831 	mov	ar1,r3
+      00019D E9               [12]  832 	mov	a,r1
+      00019E 54 0F            [12]  833 	anl	a,#0x0f
+      0001A0 70 56            [24]  834 	jnz	00102$
+                                    835 ;	eeprom.c:80: printf("\n\r");
+      0001A2 C0 07            [24]  836 	push	ar7
+      0001A4 C0 06            [24]  837 	push	ar6
+      0001A6 C0 05            [24]  838 	push	ar5
+      0001A8 C0 04            [24]  839 	push	ar4
+      0001AA C0 03            [24]  840 	push	ar3
+      0001AC 74r00            [12]  841 	mov	a,#___str_0
+      0001AE C0 E0            [24]  842 	push	acc
+      0001B0 74s00            [12]  843 	mov	a,#(___str_0 >> 8)
+      0001B2 C0 E0            [24]  844 	push	acc
+      0001B4 74 80            [12]  845 	mov	a,#0x80
+      0001B6 C0 E0            [24]  846 	push	acc
+      0001B8 12r00r00         [24]  847 	lcall	_printf
+      0001BB 15 81            [12]  848 	dec	sp
+      0001BD 15 81            [12]  849 	dec	sp
+      0001BF 15 81            [12]  850 	dec	sp
+      0001C1 D0 03            [24]  851 	pop	ar3
+      0001C3 D0 04            [24]  852 	pop	ar4
+      0001C5 D0 05            [24]  853 	pop	ar5
+      0001C7 D0 06            [24]  854 	pop	ar6
+      0001C9 D0 07            [24]  855 	pop	ar7
+                                    856 ;	eeprom.c:81: printf("%3X:",t);
+      0001CB C0 07            [24]  857 	push	ar7
+      0001CD C0 06            [24]  858 	push	ar6
+      0001CF C0 05            [24]  859 	push	ar5
+      0001D1 C0 04            [24]  860 	push	ar4
+      0001D3 C0 03            [24]  861 	push	ar3
+      0001D5 C0 07            [24]  862 	push	ar7
+      0001D7 C0 06            [24]  863 	push	ar6
+      0001D9 74r03            [12]  864 	mov	a,#___str_1
+      0001DB C0 E0            [24]  865 	push	acc
+      0001DD 74s00            [12]  866 	mov	a,#(___str_1 >> 8)
+      0001DF C0 E0            [24]  867 	push	acc
+      0001E1 74 80            [12]  868 	mov	a,#0x80
+      0001E3 C0 E0            [24]  869 	push	acc
+      0001E5 12r00r00         [24]  870 	lcall	_printf
+      0001E8 E5 81            [12]  871 	mov	a,sp
+      0001EA 24 FB            [12]  872 	add	a,#0xfb
+      0001EC F5 81            [12]  873 	mov	sp,a
+      0001EE D0 03            [24]  874 	pop	ar3
+      0001F0 D0 04            [24]  875 	pop	ar4
+      0001F2 D0 05            [24]  876 	pop	ar5
+      0001F4 D0 06            [24]  877 	pop	ar6
+      0001F6 D0 07            [24]  878 	pop	ar7
+      0001F8                        879 00102$:
+                                    880 ;	eeprom.c:83: s=i2c_read();
+      0001F8 C0 07            [24]  881 	push	ar7
+      0001FA C0 06            [24]  882 	push	ar6
+      0001FC C0 05            [24]  883 	push	ar5
+      0001FE C0 04            [24]  884 	push	ar4
+      000200 C0 03            [24]  885 	push	ar3
+      000202 12r00r00         [24]  886 	lcall	_i2c_read
+      000205 A9 82            [24]  887 	mov	r1,dpl
+      000207 AA 83            [24]  888 	mov	r2,dph
+                                    889 ;	eeprom.c:84: i2c_ack();
+      000209 C0 02            [24]  890 	push	ar2
+      00020B C0 01            [24]  891 	push	ar1
+      00020D 12r00r00         [24]  892 	lcall	_i2c_ack
+      000210 D0 01            [24]  893 	pop	ar1
+      000212 D0 02            [24]  894 	pop	ar2
+      000214 D0 03            [24]  895 	pop	ar3
+                                    896 ;	eeprom.c:85: k++;
+      000216 0B               [12]  897 	inc	r3
+                                    898 ;	eeprom.c:86: printf(" %X ",s);t++;
+      000217 C0 03            [24]  899 	push	ar3
+      000219 C0 01            [24]  900 	push	ar1
+      00021B C0 02            [24]  901 	push	ar2
+      00021D 74r08            [12]  902 	mov	a,#___str_2
+      00021F C0 E0            [24]  903 	push	acc
+      000221 74s00            [12]  904 	mov	a,#(___str_2 >> 8)
+      000223 C0 E0            [24]  905 	push	acc
+      000225 74 80            [12]  906 	mov	a,#0x80
+      000227 C0 E0            [24]  907 	push	acc
+      000229 12r00r00         [24]  908 	lcall	_printf
+      00022C E5 81            [12]  909 	mov	a,sp
+      00022E 24 FB            [12]  910 	add	a,#0xfb
+      000230 F5 81            [12]  911 	mov	sp,a
+      000232 D0 03            [24]  912 	pop	ar3
+      000234 D0 04            [24]  913 	pop	ar4
+      000236 D0 05            [24]  914 	pop	ar5
+      000238 D0 06            [24]  915 	pop	ar6
+      00023A D0 07            [24]  916 	pop	ar7
+      00023C 0F               [12]  917 	inc	r7
+      00023D BF 00 01         [24]  918 	cjne	r7,#0x00,00131$
+      000240 0E               [12]  919 	inc	r6
+      000241                        920 00131$:
+      000241 02r01r91         [24]  921 	ljmp	00103$
+      000244                        922 00105$:
+                                    923 ;	eeprom.c:89: s=i2c_read();
+      000244 C0 07            [24]  924 	push	ar7
+      000246 C0 06            [24]  925 	push	ar6
+      000248 C0 03            [24]  926 	push	ar3
+      00024A 12r00r00         [24]  927 	lcall	_i2c_read
+      00024D AC 82            [24]  928 	mov	r4,dpl
+      00024F AD 83            [24]  929 	mov	r5,dph
+      000251 D0 03            [24]  930 	pop	ar3
+                                    931 ;	eeprom.c:90: i2c_nack();
+      000253 C0 05            [24]  932 	push	ar5
+      000255 C0 04            [24]  933 	push	ar4
+      000257 C0 03            [24]  934 	push	ar3
+      000259 12r00r00         [24]  935 	lcall	_i2c_nack
+                                    936 ;	eeprom.c:91: i2c_stop();
+      00025C 12r00r00         [24]  937 	lcall	_i2c_stop
+      00025F D0 03            [24]  938 	pop	ar3
+      000261 D0 04            [24]  939 	pop	ar4
+      000263 D0 05            [24]  940 	pop	ar5
+      000265 D0 06            [24]  941 	pop	ar6
+      000267 D0 07            [24]  942 	pop	ar7
+                                    943 ;	eeprom.c:93: if(k%16==0)
+      000269 EB               [12]  944 	mov	a,r3
+      00026A 54 0F            [12]  945 	anl	a,#0x0f
+      00026C 70 46            [24]  946 	jnz	00107$
+                                    947 ;	eeprom.c:95: printf("\n\r");
+      00026E C0 07            [24]  948 	push	ar7
+      000270 C0 06            [24]  949 	push	ar6
+      000272 C0 05            [24]  950 	push	ar5
+      000274 C0 04            [24]  951 	push	ar4
+      000276 74r00            [12]  952 	mov	a,#___str_0
+      000278 C0 E0            [24]  953 	push	acc
+      00027A 74s00            [12]  954 	mov	a,#(___str_0 >> 8)
+      00027C C0 E0            [24]  955 	push	acc
+      00027E 74 80            [12]  956 	mov	a,#0x80
+      000280 C0 E0            [24]  957 	push	acc
+      000282 12r00r00         [24]  958 	lcall	_printf
+      000285 15 81            [12]  959 	dec	sp
+      000287 15 81            [12]  960 	dec	sp
+      000289 15 81            [12]  961 	dec	sp
+      00028B D0 04            [24]  962 	pop	ar4
+      00028D D0 05            [24]  963 	pop	ar5
+      00028F D0 06            [24]  964 	pop	ar6
+      000291 D0 07            [24]  965 	pop	ar7
+                                    966 ;	eeprom.c:96: printf("%X:",t);
+      000293 C0 05            [24]  967 	push	ar5
+      000295 C0 04            [24]  968 	push	ar4
+      000297 C0 07            [24]  969 	push	ar7
+      000299 C0 06            [24]  970 	push	ar6
+      00029B 74r0D            [12]  971 	mov	a,#___str_3
+      00029D C0 E0            [24]  972 	push	acc
+      00029F 74s00            [12]  973 	mov	a,#(___str_3 >> 8)
+      0002A1 C0 E0            [24]  974 	push	acc
+      0002A3 74 80            [12]  975 	mov	a,#0x80
+      0002A5 C0 E0            [24]  976 	push	acc
+      0002A7 12r00r00         [24]  977 	lcall	_printf
+      0002AA E5 81            [12]  978 	mov	a,sp
+      0002AC 24 FB            [12]  979 	add	a,#0xfb
+      0002AE F5 81            [12]  980 	mov	sp,a
+      0002B0 D0 04            [24]  981 	pop	ar4
+      0002B2 D0 05            [24]  982 	pop	ar5
+      0002B4                        983 00107$:
+                                    984 ;	eeprom.c:98: printf(" %X ",s);
+      0002B4 C0 04            [24]  985 	push	ar4
+      0002B6 C0 05            [24]  986 	push	ar5
+      0002B8 74r08            [12]  987 	mov	a,#___str_2
+      0002BA C0 E0            [24]  988 	push	acc
+      0002BC 74s00            [12]  989 	mov	a,#(___str_2 >> 8)
+      0002BE C0 E0            [24]  990 	push	acc
+      0002C0 74 80            [12]  991 	mov	a,#0x80
+      0002C2 C0 E0            [24]  992 	push	acc
+      0002C4 12r00r00         [24]  993 	lcall	_printf
+      0002C7 E5 81            [12]  994 	mov	a,sp
+      0002C9 24 FB            [12]  995 	add	a,#0xfb
+      0002CB F5 81            [12]  996 	mov	sp,a
+                                    997 ;	eeprom.c:99: printf(newl);
+      0002CD 74r00            [12]  998 	mov	a,#___str_0
+      0002CF C0 E0            [24]  999 	push	acc
+      0002D1 74s00            [12] 1000 	mov	a,#(___str_0 >> 8)
+      0002D3 C0 E0            [24] 1001 	push	acc
+      0002D5 74 80            [12] 1002 	mov	a,#0x80
+      0002D7 C0 E0            [24] 1003 	push	acc
+      0002D9 12r00r00         [24] 1004 	lcall	_printf
+      0002DC 15 81            [12] 1005 	dec	sp
+      0002DE 15 81            [12] 1006 	dec	sp
+      0002E0 15 81            [12] 1007 	dec	sp
+                                   1008 ;	eeprom.c:100: restart_i2c();
+      0002E2 12r00r00         [24] 1009 	lcall	_restart_i2c
+                                   1010 ;	eeprom.c:101: i2c_write(0xFF);
+      0002E5 90 00 FF         [24] 1011 	mov	dptr,#0x00ff
+      0002E8 12r00r00         [24] 1012 	lcall	_i2c_write
+                                   1013 ;	eeprom.c:102: i2c_nack();
+      0002EB 12r00r00         [24] 1014 	lcall	_i2c_nack
+                                   1015 ;	eeprom.c:103: restart_i2c();
+      0002EE 12r00r00         [24] 1016 	lcall	_restart_i2c
+                                   1017 ;	eeprom.c:104: i2c_stop();
+                                   1018 ;	eeprom.c:107: }
+      0002F1 02r00r00         [24] 1019 	ljmp	_i2c_stop
+                                   1020 	.area CSEG    (CODE)
+                                   1021 	.area CONST   (CODE)
+                                   1022 	.area CONST   (CODE)
+      000000                       1023 ___str_0:
+      000000 0A                    1024 	.db 0x0a
+      000001 0D                    1025 	.db 0x0d
+      000002 00                    1026 	.db 0x00
+                                   1027 	.area CSEG    (CODE)
+                                   1028 	.area CONST   (CODE)
+      000003                       1029 ___str_1:
+      000003 25 33 58 3A           1030 	.ascii "%3X:"
+      000007 00                    1031 	.db 0x00
+                                   1032 	.area CSEG    (CODE)
+                                   1033 	.area CONST   (CODE)
+      000008                       1034 ___str_2:
+      000008 20 25 58 20           1035 	.ascii " %X "
+      00000C 00                    1036 	.db 0x00
+                                   1037 	.area CSEG    (CODE)
+                                   1038 	.area CONST   (CODE)
+      00000D                       1039 ___str_3:
+      00000D 25 58 3A              1040 	.ascii "%X:"
+      000010 00                    1041 	.db 0x00
+                                   1042 	.area CSEG    (CODE)
+                                   1043 	.area XINIT   (CODE)
+                                   1044 	.area CABS    (ABS,CODE)

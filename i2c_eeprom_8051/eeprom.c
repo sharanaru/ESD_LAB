@@ -67,10 +67,13 @@ starter|=address1;
 uint16_t ender=0;
 ender|=block2;
 ender=ender<<8;
-ender|=address2;uint8_t k=0;uint16_t t=0;
+ender|=address2;
+uint8_t k=0;
+uint16_t t=0;
 t=starter;
-printf("Starter: %d Ender %d\n\r",starter,ender);
-printf("difference is %d\n\r",ender-starter);
+printf("\n\r");
+
+
 while(t<(ender)){
 if(k%16==0)
 {
@@ -86,7 +89,7 @@ printf(" %X ",s);t++;
 s=i2c_read();
 i2c_nack();
 i2c_stop();
-k++;
+//k++;
 if(k%16==0)
 {
     printf("\n\r");

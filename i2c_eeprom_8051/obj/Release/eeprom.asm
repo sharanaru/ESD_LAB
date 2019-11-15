@@ -790,22 +790,18 @@ _seq_read:
 ;	eeprom.c:69: ender=ender<<8;
 	mov	r4,a
 	mov	r5,#0x00
-;	eeprom.c:70: ender|=address2;uint8_t k=0;uint16_t t=0;
+;	eeprom.c:70: ender|=address2;
 	mov	dptr,#_seq_read_PARM_3
 	movx	a,@dptr
 	mov	r2,#0x00
 	orl	ar5,a
 	mov	a,r2
 	orl	ar4,a
-;	eeprom.c:72: printf("Starter: %d Ender %d\n\r",starter,ender);
+;	eeprom.c:74: printf("\n\r");
 	push	ar7
 	push	ar6
 	push	ar5
 	push	ar4
-	push	ar5
-	push	ar4
-	push	ar7
-	push	ar6
 	mov	a,#___str_0
 	push	acc
 	mov	a,#(___str_0 >> 8)
@@ -813,42 +809,14 @@ _seq_read:
 	mov	a,#0x80
 	push	acc
 	lcall	_printf
-	mov	a,sp
-	add	a,#0xf9
-	mov	sp,a
+	dec	sp
+	dec	sp
+	dec	sp
 	pop	ar4
 	pop	ar5
 	pop	ar6
 	pop	ar7
-;	eeprom.c:73: printf("difference is %d\n\r",ender-starter);
-	mov	a,r5
-	clr	c
-	subb	a,r7
-	mov	r2,a
-	mov	a,r4
-	subb	a,r6
-	mov	r3,a
-	push	ar7
-	push	ar6
-	push	ar5
-	push	ar4
-	push	ar2
-	push	ar3
-	mov	a,#___str_1
-	push	acc
-	mov	a,#(___str_1 >> 8)
-	push	acc
-	mov	a,#0x80
-	push	acc
-	lcall	_printf
-	mov	a,sp
-	add	a,#0xfb
-	mov	sp,a
-	pop	ar4
-	pop	ar5
-	pop	ar6
-	pop	ar7
-;	eeprom.c:74: while(t<(ender)){
+;	eeprom.c:77: while(t<(ender)){
 	mov	r3,#0x00
 00103$:
 	clr	c
@@ -859,20 +827,20 @@ _seq_read:
 	jc	00128$
 	ljmp	00105$
 00128$:
-;	eeprom.c:75: if(k%16==0)
+;	eeprom.c:78: if(k%16==0)
 	mov	ar1,r3
 	mov	a,r1
 	anl	a,#0x0f
 	jnz	00102$
-;	eeprom.c:77: printf("\n\r");
+;	eeprom.c:80: printf("\n\r");
 	push	ar7
 	push	ar6
 	push	ar5
 	push	ar4
 	push	ar3
-	mov	a,#___str_2
+	mov	a,#___str_0
 	push	acc
-	mov	a,#(___str_2 >> 8)
+	mov	a,#(___str_0 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -885,7 +853,7 @@ _seq_read:
 	pop	ar5
 	pop	ar6
 	pop	ar7
-;	eeprom.c:78: printf("%3X:",t);
+;	eeprom.c:81: printf("%3X:",t);
 	push	ar7
 	push	ar6
 	push	ar5
@@ -893,9 +861,9 @@ _seq_read:
 	push	ar3
 	push	ar7
 	push	ar6
-	mov	a,#___str_3
+	mov	a,#___str_1
 	push	acc
-	mov	a,#(___str_3 >> 8)
+	mov	a,#(___str_1 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -909,7 +877,7 @@ _seq_read:
 	pop	ar6
 	pop	ar7
 00102$:
-;	eeprom.c:80: s=i2c_read();
+;	eeprom.c:83: s=i2c_read();
 	push	ar7
 	push	ar6
 	push	ar5
@@ -918,22 +886,22 @@ _seq_read:
 	lcall	_i2c_read
 	mov	r1,dpl
 	mov	r2,dph
-;	eeprom.c:81: i2c_ack();
+;	eeprom.c:84: i2c_ack();
 	push	ar2
 	push	ar1
 	lcall	_i2c_ack
 	pop	ar1
 	pop	ar2
 	pop	ar3
-;	eeprom.c:82: k++;
+;	eeprom.c:85: k++;
 	inc	r3
-;	eeprom.c:83: printf(" %X ",s);t++;
+;	eeprom.c:86: printf(" %X ",s);t++;
 	push	ar3
 	push	ar1
 	push	ar2
-	mov	a,#___str_4
+	mov	a,#___str_2
 	push	acc
-	mov	a,#(___str_4 >> 8)
+	mov	a,#(___str_2 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -952,7 +920,7 @@ _seq_read:
 00131$:
 	ljmp	00103$
 00105$:
-;	eeprom.c:86: s=i2c_read();
+;	eeprom.c:89: s=i2c_read();
 	push	ar7
 	push	ar6
 	push	ar3
@@ -960,32 +928,30 @@ _seq_read:
 	mov	r4,dpl
 	mov	r5,dph
 	pop	ar3
-;	eeprom.c:87: i2c_nack();
+;	eeprom.c:90: i2c_nack();
 	push	ar5
 	push	ar4
 	push	ar3
 	lcall	_i2c_nack
-;	eeprom.c:88: i2c_stop();
+;	eeprom.c:91: i2c_stop();
 	lcall	_i2c_stop
 	pop	ar3
 	pop	ar4
 	pop	ar5
 	pop	ar6
 	pop	ar7
-;	eeprom.c:89: k++;
-	inc	r3
-;	eeprom.c:90: if(k%16==0)
+;	eeprom.c:93: if(k%16==0)
 	mov	a,r3
 	anl	a,#0x0f
 	jnz	00107$
-;	eeprom.c:92: printf("\n\r");
+;	eeprom.c:95: printf("\n\r");
 	push	ar7
 	push	ar6
 	push	ar5
 	push	ar4
-	mov	a,#___str_2
+	mov	a,#___str_0
 	push	acc
-	mov	a,#(___str_2 >> 8)
+	mov	a,#(___str_0 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -997,14 +963,14 @@ _seq_read:
 	pop	ar5
 	pop	ar6
 	pop	ar7
-;	eeprom.c:93: printf("%X:",t);
+;	eeprom.c:96: printf("%X:",t);
 	push	ar5
 	push	ar4
 	push	ar7
 	push	ar6
-	mov	a,#___str_5
+	mov	a,#___str_3
 	push	acc
-	mov	a,#(___str_5 >> 8)
+	mov	a,#(___str_3 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -1015,20 +981,9 @@ _seq_read:
 	pop	ar4
 	pop	ar5
 00107$:
-;	eeprom.c:95: printf(" %X ",s);
+;	eeprom.c:98: printf(" %X ",s);
 	push	ar4
 	push	ar5
-	mov	a,#___str_4
-	push	acc
-	mov	a,#(___str_4 >> 8)
-	push	acc
-	mov	a,#0x80
-	push	acc
-	lcall	_printf
-	mov	a,sp
-	add	a,#0xfb
-	mov	sp,a
-;	eeprom.c:96: printf(newl);
 	mov	a,#___str_2
 	push	acc
 	mov	a,#(___str_2 >> 8)
@@ -1036,55 +991,52 @@ _seq_read:
 	mov	a,#0x80
 	push	acc
 	lcall	_printf
+	mov	a,sp
+	add	a,#0xfb
+	mov	sp,a
+;	eeprom.c:99: printf(newl);
+	mov	a,#___str_0
+	push	acc
+	mov	a,#(___str_0 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
 	dec	sp
 	dec	sp
 	dec	sp
-;	eeprom.c:97: restart_i2c();
-	lcall	_restart_i2c
-;	eeprom.c:98: i2c_write(0xFF);
-	mov	dptr,#0x00ff
-	lcall	_i2c_write
-;	eeprom.c:99: i2c_nack();
-	lcall	_i2c_nack
 ;	eeprom.c:100: restart_i2c();
 	lcall	_restart_i2c
-;	eeprom.c:101: i2c_stop();
-;	eeprom.c:104: }
+;	eeprom.c:101: i2c_write(0xFF);
+	mov	dptr,#0x00ff
+	lcall	_i2c_write
+;	eeprom.c:102: i2c_nack();
+	lcall	_i2c_nack
+;	eeprom.c:103: restart_i2c();
+	lcall	_restart_i2c
+;	eeprom.c:104: i2c_stop();
+;	eeprom.c:107: }
 	ljmp	_i2c_stop
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 	.area CONST   (CODE)
 ___str_0:
-	.ascii "Starter: %d Ender %d"
 	.db 0x0a
 	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_1:
-	.ascii "difference is %d"
-	.db 0x0a
-	.db 0x0d
-	.db 0x00
-	.area CSEG    (CODE)
-	.area CONST   (CODE)
-___str_2:
-	.db 0x0a
-	.db 0x0d
-	.db 0x00
-	.area CSEG    (CODE)
-	.area CONST   (CODE)
-___str_3:
 	.ascii "%3X:"
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_4:
+___str_2:
 	.ascii " %X "
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_5:
+___str_3:
 	.ascii "%X:"
 	.db 0x00
 	.area CSEG    (CODE)
