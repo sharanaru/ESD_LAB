@@ -567,7 +567,7 @@
                                     567 ;r                         Allocated with name '_inputchecker_r_65536_90'
                                     568 ;i                         Allocated with name '_inputchecker_i_65536_91'
                                     569 ;------------------------------------------------------------
-                                    570 ;	main.c:14: void inputchecker(char *r)
+                                    570 ;	main.c:13: void inputchecker(char *r)
                                     571 ;	-----------------------------------------
                                     572 ;	 function inputchecker
                                     573 ;	-----------------------------------------
@@ -591,13 +591,13 @@
       0030D7 EF               [12]  591 	mov	a,r7
       0030D8 A3               [24]  592 	inc	dptr
       0030D9 F0               [24]  593 	movx	@dptr,a
-                                    594 ;	main.c:17: flag_inputcheck=0;
+                                    594 ;	main.c:16: flag_inputcheck=0;
       0030DA 90 00 7E         [24]  595 	mov	dptr,#_flag_inputcheck
       0030DD E4               [12]  596 	clr	a
       0030DE F0               [24]  597 	movx	@dptr,a
       0030DF A3               [24]  598 	inc	dptr
       0030E0 F0               [24]  599 	movx	@dptr,a
-                                    600 ;	main.c:18: while(r[i]!='\0')
+                                    600 ;	main.c:17: while(r[i]!='\0')
       0030E1 90 00 1A         [24]  601 	mov	dptr,#_inputchecker_r_65536_90
       0030E4 E0               [24]  602 	movx	a,@dptr
       0030E5 FD               [12]  603 	mov	r5,a
@@ -638,7 +638,7 @@
       00311F 70 01            [24]  638 	jnz	00134$
       003121 22               [24]  639 	ret
       003122                        640 00134$:
-                                    641 ;	main.c:20: if(((r[i]>='0')&&(r[i]<='9'))||((r[i]>='a')&&(r[i]<='f'))||((r[i]>='A')&&(r[i]<='F')))
+                                    641 ;	main.c:19: if(((r[i]>='0')&&(r[i]<='9'))||((r[i]>='a')&&(r[i]<='f'))||((r[i]>='A')&&(r[i]<='F')))
       003122 74 D0            [12]  642 	mov	a,#0x100 - 0x30
       003124 25 0B            [12]  643 	add	a,_inputchecker_sloc1_1_0
       003126 50 06            [24]  644 	jnc	00106$
@@ -696,37 +696,37 @@
       00317E 24 B9            [12]  696 	add	a,#0xff - 0x46
       003180 40 08            [24]  697 	jc	00102$
       003182                        698 00101$:
-                                    699 ;	main.c:21: i++;
+                                    699 ;	main.c:20: i++;
       003182 08               [12]  700 	inc	r0
       003183 B8 00 01         [24]  701 	cjne	r0,#0x00,00141$
       003186 09               [12]  702 	inc	r1
       003187                        703 00141$:
       003187 02 30 FC         [24]  704 	ljmp	00109$
       00318A                        705 00102$:
-                                    706 ;	main.c:26: printf_tiny("Invalid character entered Please retry\n\r");
-      00318A 74 18            [12]  707 	mov	a,#___str_0
+                                    706 ;	main.c:25: printf_tiny("Invalid character entered Please retry\n\r");
+      00318A 74 05            [12]  707 	mov	a,#___str_0
       00318C C0 E0            [24]  708 	push	acc
       00318E 74 44            [12]  709 	mov	a,#(___str_0 >> 8)
       003190 C0 E0            [24]  710 	push	acc
       003192 12 37 FF         [24]  711 	lcall	_printf_tiny
       003195 15 81            [12]  712 	dec	sp
       003197 15 81            [12]  713 	dec	sp
-                                    714 ;	main.c:27: flag_inputcheck=1;
+                                    714 ;	main.c:26: flag_inputcheck=1;
       003199 90 00 7E         [24]  715 	mov	dptr,#_flag_inputcheck
       00319C 74 01            [12]  716 	mov	a,#0x01
       00319E F0               [24]  717 	movx	@dptr,a
       00319F E4               [12]  718 	clr	a
       0031A0 A3               [24]  719 	inc	dptr
       0031A1 F0               [24]  720 	movx	@dptr,a
-                                    721 ;	main.c:28: return;
-                                    722 ;	main.c:32: }
+                                    721 ;	main.c:27: return;
+                                    722 ;	main.c:31: }
       0031A2 22               [24]  723 	ret
                                     724 ;------------------------------------------------------------
                                     725 ;Allocation info for local variables in function 'putchar'
                                     726 ;------------------------------------------------------------
                                     727 ;c                         Allocated with name '_putchar_c_65536_94'
                                     728 ;------------------------------------------------------------
-                                    729 ;	main.c:37: int putchar (int c)//serial outps char value
+                                    729 ;	main.c:36: int putchar (int c)//serial outps char value
                                     730 ;	-----------------------------------------
                                     731 ;	 function putchar
                                     732 ;	-----------------------------------------
@@ -738,58 +738,58 @@
       0031AB EF               [12]  738 	mov	a,r7
       0031AC A3               [24]  739 	inc	dptr
       0031AD F0               [24]  740 	movx	@dptr,a
-                                    741 ;	main.c:39: while (!TI);				// compare asm code generated for these three lines
+                                    741 ;	main.c:38: while (!TI);				// compare asm code generated for these three lines
       0031AE                        742 00101$:
       0031AE 30 99 FD         [24]  743 	jnb	_TI,00101$
-                                    744 ;	main.c:40: while (TI == 0);
+                                    744 ;	main.c:39: while (TI == 0);
       0031B1                        745 00104$:
       0031B1 30 99 FD         [24]  746 	jnb	_TI,00104$
-                                    747 ;	main.c:41: while ((SCON & 0x02) == 0);    // wait for TX ready, spin on TI
+                                    747 ;	main.c:40: while ((SCON & 0x02) == 0);    // wait for TX ready, spin on TI
       0031B4                        748 00107$:
       0031B4 E5 98            [12]  749 	mov	a,_SCON
       0031B6 30 E1 FB         [24]  750 	jnb	acc.1,00107$
-                                    751 ;	main.c:42: SBUF = c;  	// load serial port with transmit value
+                                    751 ;	main.c:41: SBUF = c;  	// load serial port with transmit value
       0031B9 90 00 21         [24]  752 	mov	dptr,#_putchar_c_65536_94
       0031BC E0               [24]  753 	movx	a,@dptr
       0031BD FE               [12]  754 	mov	r6,a
       0031BE A3               [24]  755 	inc	dptr
       0031BF E0               [24]  756 	movx	a,@dptr
       0031C0 8E 99            [24]  757 	mov	_SBUF,r6
-                                    758 ;	main.c:43: TI = 0;  	// clear TI flag
+                                    758 ;	main.c:42: TI = 0;  	// clear TI flag
                                     759 ;	assignBit
       0031C2 C2 99            [12]  760 	clr	_TI
-                                    761 ;	main.c:44: return 0;
+                                    761 ;	main.c:43: return 0;
       0031C4 90 00 00         [24]  762 	mov	dptr,#0x0000
-                                    763 ;	main.c:45: }
+                                    763 ;	main.c:44: }
       0031C7 22               [24]  764 	ret
                                     765 ;------------------------------------------------------------
                                     766 ;Allocation info for local variables in function 'getchar'
                                     767 ;------------------------------------------------------------
-                                    768 ;	main.c:48: int getchar(void)//reads char value from serial
+                                    768 ;	main.c:47: int getchar(void)//reads char value from serial
                                     769 ;	-----------------------------------------
                                     770 ;	 function getchar
                                     771 ;	-----------------------------------------
       0031C8                        772 _getchar:
-                                    773 ;	main.c:51: while (!RI);                // compare asm code generated for these three lines
+                                    773 ;	main.c:50: while (!RI);                // compare asm code generated for these three lines
       0031C8                        774 00101$:
       0031C8 30 98 FD         [24]  775 	jnb	_RI,00101$
-                                    776 ;	main.c:52: while ((SCON & 0x01) == 0);  // wait for character to be received, spin on RI
+                                    776 ;	main.c:51: while ((SCON & 0x01) == 0);  // wait for character to be received, spin on RI
       0031CB                        777 00104$:
       0031CB E5 98            [12]  778 	mov	a,_SCON
       0031CD 30 E0 FB         [24]  779 	jnb	acc.0,00104$
-                                    780 ;	main.c:53: while (RI == 0);
+                                    780 ;	main.c:52: while (RI == 0);
       0031D0                        781 00107$:
-                                    782 ;	main.c:54: RI = 0;			// clear RI flag
+                                    782 ;	main.c:53: RI = 0;			// clear RI flag
                                     783 ;	assignBit
       0031D0 10 98 02         [24]  784 	jbc	_RI,00130$
       0031D3 80 FB            [24]  785 	sjmp	00107$
       0031D5                        786 00130$:
-                                    787 ;	main.c:55: return SBUF;  	// return character from SBUF
+                                    787 ;	main.c:54: return SBUF;  	// return character from SBUF
       0031D5 AE 99            [24]  788 	mov	r6,_SBUF
       0031D7 7F 00            [12]  789 	mov	r7,#0x00
       0031D9 8E 82            [24]  790 	mov	dpl,r6
       0031DB 8F 83            [24]  791 	mov	dph,r7
-                                    792 ;	main.c:56: }
+                                    792 ;	main.c:55: }
       0031DD 22               [24]  793 	ret
                                     794 ;------------------------------------------------------------
                                     795 ;Allocation info for local variables in function 'putstr'
@@ -797,7 +797,7 @@
                                     797 ;s                         Allocated with name '_putstr_s_65536_98'
                                     798 ;i                         Allocated with name '_putstr_i_65536_99'
                                     799 ;------------------------------------------------------------
-                                    800 ;	main.c:57: int putstr (char *s)//outputs string to serial
+                                    800 ;	main.c:56: int putstr (char *s)//outputs string to serial
                                     801 ;	-----------------------------------------
                                     802 ;	 function putstr
                                     803 ;	-----------------------------------------
@@ -813,7 +813,7 @@
       0031EB EF               [12]  813 	mov	a,r7
       0031EC A3               [24]  814 	inc	dptr
       0031ED F0               [24]  815 	movx	@dptr,a
-                                    816 ;	main.c:60: while (*s) 			// output characters until NULL found
+                                    816 ;	main.c:59: while (*s) 			// output characters until NULL found
       0031EE 90 00 23         [24]  817 	mov	dptr,#_putstr_s_65536_98
       0031F1 E0               [24]  818 	movx	a,@dptr
       0031F2 FD               [12]  819 	mov	r5,a
@@ -832,7 +832,7 @@
       003203 12 43 D3         [24]  832 	lcall	__gptrget
       003206 FA               [12]  833 	mov	r2,a
       003207 60 36            [24]  834 	jz	00108$
-                                    835 ;	main.c:62: putchar(*s++);
+                                    835 ;	main.c:61: putchar(*s++);
       003209 0D               [12]  836 	inc	r5
       00320A BD 00 01         [24]  837 	cjne	r5,#0x00,00116$
       00320D 0E               [12]  838 	inc	r6
@@ -861,7 +861,7 @@
       003232 D0 05            [24]  861 	pop	ar5
       003234 D0 06            [24]  862 	pop	ar6
       003236 D0 07            [24]  863 	pop	ar7
-                                    864 ;	main.c:63: i++;
+                                    864 ;	main.c:62: i++;
       003238 0B               [12]  865 	inc	r3
       003239 BB 00 C1         [24]  866 	cjne	r3,#0x00,00101$
       00323C 0C               [12]  867 	inc	r4
@@ -876,14 +876,14 @@
       003247 EF               [12]  876 	mov	a,r7
       003248 A3               [24]  877 	inc	dptr
       003249 F0               [24]  878 	movx	@dptr,a
-                                    879 ;	main.c:66: return i+1;
+                                    879 ;	main.c:65: return i+1;
       00324A 0B               [12]  880 	inc	r3
       00324B BB 00 01         [24]  881 	cjne	r3,#0x00,00118$
       00324E 0C               [12]  882 	inc	r4
       00324F                        883 00118$:
       00324F 8B 82            [24]  884 	mov	dpl,r3
       003251 8C 83            [24]  885 	mov	dph,r4
-                                    886 ;	main.c:67: }
+                                    886 ;	main.c:66: }
       003253 22               [24]  887 	ret
                                     888 ;------------------------------------------------------------
                                     889 ;Allocation info for local variables in function 'readint'
@@ -891,20 +891,20 @@
                                     891 ;reader                    Allocated with name '_readint_reader_65536_101'
                                     892 ;number                    Allocated with name '_readint_number_65537_102'
                                     893 ;------------------------------------------------------------
-                                    894 ;	main.c:69: int readint()//reads  char string as integer
+                                    894 ;	main.c:68: int readint()//reads  char string as integer
                                     895 ;	-----------------------------------------
                                     896 ;	 function readint
                                     897 ;	-----------------------------------------
       003254                        898 _readint:
-                                    899 ;	main.c:72: gets(reader);
+                                    899 ;	main.c:71: gets(reader);
       003254 90 00 00         [24]  900 	mov	dptr,#0x0000
       003257 75 F0 00         [24]  901 	mov	b,#0x00
       00325A 12 36 FA         [24]  902 	lcall	_gets
-                                    903 ;	main.c:73: int number=atoi(reader);
+                                    903 ;	main.c:72: int number=atoi(reader);
       00325D 90 00 00         [24]  904 	mov	dptr,#0x0000
       003260 75 F0 00         [24]  905 	mov	b,#0x00
-                                    906 ;	main.c:74: return number;
-                                    907 ;	main.c:75: }
+                                    906 ;	main.c:73: return number;
+                                    907 ;	main.c:74: }
       003263 02 35 DA         [24]  908 	ljmp	_atoi
                                     909 ;------------------------------------------------------------
                                     910 ;Allocation info for local variables in function 'writebytehandler'
@@ -915,7 +915,7 @@
                                     915 ;address                   Allocated with name '_writebytehandler_address_65537_107'
                                     916 ;data                      Allocated with name '_writebytehandler_data_65538_108'
                                     917 ;------------------------------------------------------------
-                                    918 ;	main.c:84: void writebytehandler(char *receiver)
+                                    918 ;	main.c:83: void writebytehandler(char *receiver)
                                     919 ;	-----------------------------------------
                                     920 ;	 function writebytehandler
                                     921 ;	-----------------------------------------
@@ -931,7 +931,7 @@
       003273 EF               [12]  931 	mov	a,r7
       003274 A3               [24]  932 	inc	dptr
       003275 F0               [24]  933 	movx	@dptr,a
-                                    934 ;	main.c:86: uint16_t t=strtohex(receiver);
+                                    934 ;	main.c:85: uint16_t t=strtohex(receiver);
       003276 90 00 28         [24]  935 	mov	dptr,#_writebytehandler_receiver_65536_103
       003279 E0               [24]  936 	movx	a,@dptr
       00327A FD               [12]  937 	mov	r5,a
@@ -947,44 +947,44 @@
       003287 12 25 C6         [24]  947 	lcall	_strtohex
       00328A AE 82            [24]  948 	mov	r6,dpl
       00328C AF 83            [24]  949 	mov	r7,dph
-                                    950 ;	main.c:87: uint8_t blockno=(t & 0xE00)>>8;
+                                    950 ;	main.c:86: uint8_t blockno=(t & 0xE00)>>8;
       00328E 7C 00            [12]  951 	mov	r4,#0x00
       003290 74 0E            [12]  952 	mov	a,#0x0e
       003292 5F               [12]  953 	anl	a,r7
       003293 FD               [12]  954 	mov	r5,a
-                                    955 ;	main.c:89: if(blockno<8)
+                                    955 ;	main.c:88: if(blockno<8)
       003294 BD 08 00         [24]  956 	cjne	r5,#0x08,00116$
       003297                        957 00116$:
       003297 50 08            [24]  958 	jnc	00102$
-                                    959 ;	main.c:92: control |=blockno;
+                                    959 ;	main.c:91: control |=blockno;
       003299 90 00 80         [24]  960 	mov	dptr,#_control
       00329C E0               [24]  961 	movx	a,@dptr
       00329D 4D               [12]  962 	orl	a,r5
       00329E F0               [24]  963 	movx	@dptr,a
       00329F 80 09            [24]  964 	sjmp	00103$
       0032A1                        965 00102$:
-                                    966 ;	main.c:99: putstr("\n\rInvalid block no.\n\r");
-      0032A1 90 44 41         [24]  967 	mov	dptr,#___str_1
+                                    966 ;	main.c:98: putstr("\n\rInvalid block no.\n\r");
+      0032A1 90 44 2E         [24]  967 	mov	dptr,#___str_1
       0032A4 75 F0 80         [24]  968 	mov	b,#0x80
-                                    969 ;	main.c:100: return;
+                                    969 ;	main.c:99: return;
       0032A7 02 31 DE         [24]  970 	ljmp	_putstr
       0032AA                        971 00103$:
-                                    972 ;	main.c:103: uint8_t address=(t&0x0FF);
-                                    973 ;	main.c:106: putstr("Enter data to be written\n\r");
-      0032AA 90 44 57         [24]  974 	mov	dptr,#___str_2
+                                    972 ;	main.c:102: uint8_t address=(t&0x0FF);
+                                    973 ;	main.c:105: putstr("Enter data to be written\n\r");
+      0032AA 90 44 44         [24]  974 	mov	dptr,#___str_2
       0032AD 75 F0 80         [24]  975 	mov	b,#0x80
       0032B0 C0 06            [24]  976 	push	ar6
       0032B2 12 31 DE         [24]  977 	lcall	_putstr
-                                    978 ;	main.c:108: gets(addressreceiver);
+                                    978 ;	main.c:107: gets(addressreceiver);
       0032B5 90 00 1D         [24]  979 	mov	dptr,#_addressreceiver
       0032B8 75 F0 00         [24]  980 	mov	b,#0x00
       0032BB 12 36 FA         [24]  981 	lcall	_gets
-                                    982 ;	main.c:109: inputchecker(addressreceiver);
+                                    982 ;	main.c:108: inputchecker(addressreceiver);
       0032BE 90 00 1D         [24]  983 	mov	dptr,#_addressreceiver
       0032C1 75 F0 00         [24]  984 	mov	b,#0x00
       0032C4 12 30 CA         [24]  985 	lcall	_inputchecker
       0032C7 D0 06            [24]  986 	pop	ar6
-                                    987 ;	main.c:110: if(!flag_inputcheck)
+                                    987 ;	main.c:109: if(!flag_inputcheck)
       0032C9 90 00 7E         [24]  988 	mov	dptr,#_flag_inputcheck
       0032CC E0               [24]  989 	movx	a,@dptr
       0032CD F5 F0            [12]  990 	mov	b,a
@@ -992,26 +992,26 @@
       0032D0 E0               [24]  992 	movx	a,@dptr
       0032D1 45 F0            [12]  993 	orl	a,b
       0032D3 70 3E            [24]  994 	jnz	00106$
-                                    995 ;	main.c:112: putstr("data is ");
-      0032D5 90 44 72         [24]  996 	mov	dptr,#___str_3
+                                    995 ;	main.c:111: putstr("data is ");
+      0032D5 90 44 5F         [24]  996 	mov	dptr,#___str_3
       0032D8 75 F0 80         [24]  997 	mov	b,#0x80
       0032DB C0 06            [24]  998 	push	ar6
       0032DD 12 31 DE         [24]  999 	lcall	_putstr
-                                   1000 ;	main.c:113: putstr(addressreceiver);
+                                   1000 ;	main.c:112: putstr(addressreceiver);
       0032E0 90 00 1D         [24] 1001 	mov	dptr,#_addressreceiver
       0032E3 75 F0 00         [24] 1002 	mov	b,#0x00
       0032E6 12 31 DE         [24] 1003 	lcall	_putstr
-                                   1004 ;	main.c:114: putstr(newl);
-      0032E9 90 44 7B         [24] 1005 	mov	dptr,#___str_4
+                                   1004 ;	main.c:113: putstr(newl);
+      0032E9 90 44 68         [24] 1005 	mov	dptr,#___str_4
       0032EC 75 F0 80         [24] 1006 	mov	b,#0x80
       0032EF 12 31 DE         [24] 1007 	lcall	_putstr
-                                   1008 ;	main.c:115: data=strtohex(addressreceiver);
+                                   1008 ;	main.c:114: data=strtohex(addressreceiver);
       0032F2 90 00 1D         [24] 1009 	mov	dptr,#_addressreceiver
       0032F5 75 F0 00         [24] 1010 	mov	b,#0x00
       0032F8 12 25 C6         [24] 1011 	lcall	_strtohex
       0032FB AD 82            [24] 1012 	mov	r5,dpl
       0032FD D0 06            [24] 1013 	pop	ar6
-                                   1014 ;	main.c:116: byte_write(control,address,data);
+                                   1014 ;	main.c:115: byte_write(control,address,data);
       0032FF 90 00 80         [24] 1015 	mov	dptr,#_control
       003302 E0               [24] 1016 	movx	a,@dptr
       003303 FF               [12] 1017 	mov	r7,a
@@ -1022,7 +1022,7 @@
       00330C ED               [12] 1022 	mov	a,r5
       00330D F0               [24] 1023 	movx	@dptr,a
       00330E 8F 82            [24] 1024 	mov	dpl,r7
-                                   1025 ;	main.c:119: }
+                                   1025 ;	main.c:118: }
       003310 02 2C 73         [24] 1026 	ljmp	_byte_write
       003313                       1027 00106$:
       003313 22               [24] 1028 	ret
@@ -1035,7 +1035,7 @@
                                    1035 ;address                   Allocated with name '_randomread_handler_address_131072_114'
                                    1036 ;result                    Allocated with name '_randomread_handler_result_131072_114'
                                    1037 ;------------------------------------------------------------
-                                   1038 ;	main.c:121: int randomread_handler(char *receiver)
+                                   1038 ;	main.c:120: int randomread_handler(char *receiver)
                                    1039 ;	-----------------------------------------
                                    1040 ;	 function randomread_handler
                                    1041 ;	-----------------------------------------
@@ -1051,7 +1051,7 @@
       003321 EF               [12] 1051 	mov	a,r7
       003322 A3               [24] 1052 	inc	dptr
       003323 F0               [24] 1053 	movx	@dptr,a
-                                   1054 ;	main.c:123: uint16_t t=strtohex(receiver);
+                                   1054 ;	main.c:122: uint16_t t=strtohex(receiver);
       003324 90 00 2B         [24] 1055 	mov	dptr,#_randomread_handler_receiver_65536_110
       003327 E0               [24] 1056 	movx	a,@dptr
       003328 FD               [12] 1057 	mov	r5,a
@@ -1067,40 +1067,40 @@
       003335 12 25 C6         [24] 1067 	lcall	_strtohex
       003338 AE 82            [24] 1068 	mov	r6,dpl
       00333A AF 83            [24] 1069 	mov	r7,dph
-                                   1070 ;	main.c:124: uint8_t blockno=(t & 0xE00)>>8;
+                                   1070 ;	main.c:123: uint8_t blockno=(t & 0xE00)>>8;
       00333C 74 0E            [12] 1071 	mov	a,#0x0e
       00333E 5F               [12] 1072 	anl	a,r7
       00333F FD               [12] 1073 	mov	r5,a
-                                   1074 ;	main.c:125: if(blockno<7)
+                                   1074 ;	main.c:124: if(blockno<7)
       003340 BD 07 00         [24] 1075 	cjne	r5,#0x07,00117$
       003343                       1076 00117$:
       003343 50 08            [24] 1077 	jnc	00102$
-                                   1078 ;	main.c:128: control |=blockno;
+                                   1078 ;	main.c:127: control |=blockno;
       003345 90 00 80         [24] 1079 	mov	dptr,#_control
       003348 E0               [24] 1080 	movx	a,@dptr
       003349 4D               [12] 1081 	orl	a,r5
       00334A F0               [24] 1082 	movx	@dptr,a
       00334B 80 06            [24] 1083 	sjmp	00103$
       00334D                       1084 00102$:
-                                   1085 ;	main.c:133: errorflag=1;
+                                   1085 ;	main.c:132: errorflag=1;
       00334D 90 00 81         [24] 1086 	mov	dptr,#_errorflag
       003350 74 01            [12] 1087 	mov	a,#0x01
       003352 F0               [24] 1088 	movx	@dptr,a
       003353                       1089 00103$:
-                                   1090 ;	main.c:134: if(errorflag)
+                                   1090 ;	main.c:133: if(errorflag)
       003353 90 00 81         [24] 1091 	mov	dptr,#_errorflag
       003356 E0               [24] 1092 	movx	a,@dptr
       003357 60 0D            [24] 1093 	jz	00105$
-                                   1094 ;	main.c:136: putstr("Wrong block number. \n\r");
-      003359 90 44 7E         [24] 1095 	mov	dptr,#___str_5
+                                   1094 ;	main.c:135: putstr("Wrong block number. \n\r");
+      003359 90 44 6B         [24] 1095 	mov	dptr,#___str_5
       00335C 75 F0 80         [24] 1096 	mov	b,#0x80
       00335F 12 31 DE         [24] 1097 	lcall	_putstr
-                                   1098 ;	main.c:137: return -1;
+                                   1098 ;	main.c:136: return -1;
       003362 90 FF FF         [24] 1099 	mov	dptr,#0xffff
       003365 22               [24] 1100 	ret
       003366                       1101 00105$:
-                                   1102 ;	main.c:142: uint8_t address=(t&0x0FF);
-                                   1103 ;	main.c:143: int result =random_read(control,address);
+                                   1102 ;	main.c:141: uint8_t address=(t&0x0FF);
+                                   1103 ;	main.c:142: int result =random_read(control,address);
       003366 90 00 80         [24] 1104 	mov	dptr,#_control
       003369 E0               [24] 1105 	movx	a,@dptr
       00336A FF               [12] 1106 	mov	r7,a
@@ -1111,14 +1111,14 @@
       003372 12 2D 01         [24] 1111 	lcall	_random_read
       003375 AE 82            [24] 1112 	mov	r6,dpl
       003377 AF 83            [24] 1113 	mov	r7,dph
-                                   1114 ;	main.c:144: errorflag=0;
+                                   1114 ;	main.c:143: errorflag=0;
       003379 90 00 81         [24] 1115 	mov	dptr,#_errorflag
       00337C E4               [12] 1116 	clr	a
       00337D F0               [24] 1117 	movx	@dptr,a
-                                   1118 ;	main.c:145: return result;
+                                   1118 ;	main.c:144: return result;
       00337E 8E 82            [24] 1119 	mov	dpl,r6
       003380 8F 83            [24] 1120 	mov	dph,r7
-                                   1121 ;	main.c:148: }
+                                   1121 ;	main.c:147: }
       003382 22               [24] 1122 	ret
                                    1123 ;------------------------------------------------------------
                                    1124 ;Allocation info for local variables in function 'main'
@@ -1132,24 +1132,24 @@
                                    1132 ;block2                    Allocated with name '_main_block2_196611_124'
                                    1133 ;endaddress                Allocated with name '_main_endaddress_196611_124'
                                    1134 ;------------------------------------------------------------
-                                   1135 ;	main.c:150: void main(void)
+                                   1135 ;	main.c:149: void main(void)
                                    1136 ;	-----------------------------------------
                                    1137 ;	 function main
                                    1138 ;	-----------------------------------------
       003383                       1139 _main:
-                                   1140 ;	main.c:152: i2c_reset();
+                                   1140 ;	main.c:151: i2c_reset();
       003383 12 2F 6E         [24] 1141 	lcall	_i2c_reset
-                                   1142 ;	main.c:153: while(1)
+                                   1142 ;	main.c:152: while(1)
       003386                       1143 00123$:
-                                   1144 ;	main.c:157: errorflag=0;
+                                   1144 ;	main.c:156: errorflag=0;
       003386 90 00 81         [24] 1145 	mov	dptr,#_errorflag
       003389 E4               [12] 1146 	clr	a
       00338A F0               [24] 1147 	movx	@dptr,a
-                                   1148 ;	main.c:158: putstr("*****************\n\rMENU FOR TESTING I2C FUNCTIONS\n\rPRESS W FOR WRITE BYTE\n\rPRESS R FOR RANDOM READ\n\rPRESS S FOR HEX DUMP\n\r\n\rPRESS X FOR EEPROM RESET\n\r");
-      00338B 90 44 95         [24] 1149 	mov	dptr,#___str_6
+                                   1148 ;	main.c:157: putstr("*************************\n\rMENU FOR TESTING I2C FUNCTIONS\n\rPRESS W FOR WRITE BYTE\n\rPRESS R FOR RANDOM READ\n\rPRESS S FOR HEX DUMP\n\rPRESS X FOR EEPROM RESET\n\r");
+      00338B 90 44 82         [24] 1149 	mov	dptr,#___str_6
       00338E 75 F0 80         [24] 1150 	mov	b,#0x80
       003391 12 31 DE         [24] 1151 	lcall	_putstr
-                                   1152 ;	main.c:159: menuselect=getchar();
+                                   1152 ;	main.c:158: menuselect=getchar();
       003394 12 31 C8         [24] 1153 	lcall	_getchar
       003397 AE 82            [24] 1154 	mov	r6,dpl
       003399 AF 83            [24] 1155 	mov	r7,dph
@@ -1159,15 +1159,15 @@
       0033A0 EF               [12] 1159 	mov	a,r7
       0033A1 A3               [24] 1160 	inc	dptr
       0033A2 F0               [24] 1161 	movx	@dptr,a
-                                   1162 ;	main.c:161: putchar(menuselect);
+                                   1162 ;	main.c:160: putchar(menuselect);
       0033A3 8E 82            [24] 1163 	mov	dpl,r6
       0033A5 8F 83            [24] 1164 	mov	dph,r7
       0033A7 12 31 A3         [24] 1165 	lcall	_putchar
-                                   1166 ;	main.c:162: putstr("\n\r");
-      0033AA 90 44 7B         [24] 1167 	mov	dptr,#___str_4
+                                   1166 ;	main.c:161: putstr("\n\r");
+      0033AA 90 44 68         [24] 1167 	mov	dptr,#___str_4
       0033AD 75 F0 80         [24] 1168 	mov	b,#0x80
       0033B0 12 31 DE         [24] 1169 	lcall	_putstr
-                                   1170 ;	main.c:164: switch(toupper(menuselect))
+                                   1170 ;	main.c:163: switch(toupper(menuselect))
       0033B3 90 00 26         [24] 1171 	mov	dptr,#_menuselect
       0033B6 E0               [24] 1172 	movx	a,@dptr
       0033B7 FE               [12] 1173 	mov	r6,a
@@ -1196,61 +1196,61 @@
       0033E5 02 35 AD         [24] 1196 	ljmp	00119$
       0033E8                       1197 00178$:
       0033E8 02 35 C2         [24] 1198 	ljmp	00120$
-                                   1199 ;	main.c:167: case 'W':
+                                   1199 ;	main.c:166: case 'W':
       0033EB                       1200 00101$:
-                                   1201 ;	main.c:168: putstr("ENTER ADDRESS TO BE WRITTEN ,ADDRESS INCLUDES BLOCK NUMBER AND WORD ADRRESS TOGETHER IN HEX\n\r");
-      0033EB 90 45 2C         [24] 1202 	mov	dptr,#___str_7
+                                   1201 ;	main.c:167: putstr("ENTER ADDRESS TO BE WRITTEN ,ADDRESS INCLUDES BLOCK NUMBER AND WORD ADRRESS TOGETHER IN HEX\n\r");
+      0033EB 90 45 1F         [24] 1202 	mov	dptr,#___str_7
       0033EE 75 F0 80         [24] 1203 	mov	b,#0x80
       0033F1 12 31 DE         [24] 1204 	lcall	_putstr
-                                   1205 ;	main.c:170: gets(addressreceiver);
+                                   1205 ;	main.c:169: gets(addressreceiver);
       0033F4 90 00 1D         [24] 1206 	mov	dptr,#_addressreceiver
       0033F7 75 F0 00         [24] 1207 	mov	b,#0x00
       0033FA 12 36 FA         [24] 1208 	lcall	_gets
-                                   1209 ;	main.c:171: inputchecker(addressreceiver);
+                                   1209 ;	main.c:170: inputchecker(addressreceiver);
       0033FD 90 00 1D         [24] 1210 	mov	dptr,#_addressreceiver
       003400 75 F0 00         [24] 1211 	mov	b,#0x00
       003403 12 30 CA         [24] 1212 	lcall	_inputchecker
-                                   1213 ;	main.c:172: if(!flag_inputcheck)
+                                   1213 ;	main.c:171: if(!flag_inputcheck)
       003406 90 00 7E         [24] 1214 	mov	dptr,#_flag_inputcheck
       003409 E0               [24] 1215 	movx	a,@dptr
       00340A F5 F0            [12] 1216 	mov	b,a
       00340C A3               [24] 1217 	inc	dptr
       00340D E0               [24] 1218 	movx	a,@dptr
       00340E 45 F0            [12] 1219 	orl	a,b
-                                   1220 ;	main.c:173: writebytehandler(addressreceiver);
+                                   1220 ;	main.c:172: writebytehandler(addressreceiver);
       003410 70 08            [24] 1221 	jnz	00103$
       003412 90 00 1D         [24] 1222 	mov	dptr,#_addressreceiver
       003415 F5 F0            [12] 1223 	mov	b,a
       003417 12 32 66         [24] 1224 	lcall	_writebytehandler
       00341A                       1225 00103$:
-                                   1226 ;	main.c:174: control=0xA0;
+                                   1226 ;	main.c:173: control=0xA0;
       00341A 90 00 80         [24] 1227 	mov	dptr,#_control
       00341D 74 A0            [12] 1228 	mov	a,#0xa0
       00341F F0               [24] 1229 	movx	@dptr,a
-                                   1230 ;	main.c:175: break;
+                                   1230 ;	main.c:174: break;
       003420 02 33 86         [24] 1231 	ljmp	00123$
-                                   1232 ;	main.c:177: case 'R':
+                                   1232 ;	main.c:176: case 'R':
       003423                       1233 00104$:
-                                   1234 ;	main.c:178: putstr("ENTER ADDRESS TO BE READ,ADDRESS INCLUDES BLOCK NUMBER AND WORD ADRRESS TOGETHER SEPERATED  in HEX\n\r");
-      003423 90 45 8A         [24] 1235 	mov	dptr,#___str_8
+                                   1234 ;	main.c:177: putstr("ENTER ADDRESS TO BE READ,ADDRESS INCLUDES BLOCK NUMBER AND WORD ADRRESS TOGETHER in HEX\n\r");
+      003423 90 45 7D         [24] 1235 	mov	dptr,#___str_8
       003426 75 F0 80         [24] 1236 	mov	b,#0x80
       003429 12 31 DE         [24] 1237 	lcall	_putstr
-                                   1238 ;	main.c:179: gets(addressreceiver);
+                                   1238 ;	main.c:178: gets(addressreceiver);
       00342C 90 00 1D         [24] 1239 	mov	dptr,#_addressreceiver
       00342F 75 F0 00         [24] 1240 	mov	b,#0x00
       003432 12 36 FA         [24] 1241 	lcall	_gets
-                                   1242 ;	main.c:180: inputchecker(addressreceiver);
+                                   1242 ;	main.c:179: inputchecker(addressreceiver);
       003435 90 00 1D         [24] 1243 	mov	dptr,#_addressreceiver
       003438 75 F0 00         [24] 1244 	mov	b,#0x00
       00343B 12 30 CA         [24] 1245 	lcall	_inputchecker
-                                   1246 ;	main.c:181: if(!flag_inputcheck)
+                                   1246 ;	main.c:180: if(!flag_inputcheck)
       00343E 90 00 7E         [24] 1247 	mov	dptr,#_flag_inputcheck
       003441 E0               [24] 1248 	movx	a,@dptr
       003442 F5 F0            [12] 1249 	mov	b,a
       003444 A3               [24] 1250 	inc	dptr
       003445 E0               [24] 1251 	movx	a,@dptr
       003446 45 F0            [12] 1252 	orl	a,b
-                                   1253 ;	main.c:184: output=randomread_handler(addressreceiver);
+                                   1253 ;	main.c:183: output=randomread_handler(addressreceiver);
       003448 70 37            [24] 1254 	jnz	00108$
       00344A 90 00 1D         [24] 1255 	mov	dptr,#_addressreceiver
       00344D F5 F0            [12] 1256 	mov	b,a
@@ -1260,18 +1260,18 @@
       003456 90 00 2E         [24] 1260 	mov	dptr,#_output
       003459 EE               [12] 1261 	mov	a,r6
       00345A F0               [24] 1262 	movx	@dptr,a
-                                   1263 ;	main.c:185: if(errorflag==0)
+                                   1263 ;	main.c:184: if(errorflag==0)
       00345B 90 00 81         [24] 1264 	mov	dptr,#_errorflag
       00345E E0               [24] 1265 	movx	a,@dptr
       00345F 70 20            [24] 1266 	jnz	00108$
-                                   1267 ;	main.c:186: printf("Read value is 0x%X\n\r",output);
+                                   1267 ;	main.c:185: printf("Read value is 0x%X\n\r",output);
       003461 90 00 2E         [24] 1268 	mov	dptr,#_output
       003464 E0               [24] 1269 	movx	a,@dptr
       003465 FF               [12] 1270 	mov	r7,a
       003466 7E 00            [12] 1271 	mov	r6,#0x00
       003468 C0 07            [24] 1272 	push	ar7
       00346A C0 06            [24] 1273 	push	ar6
-      00346C 74 EF            [12] 1274 	mov	a,#___str_9
+      00346C 74 D7            [12] 1274 	mov	a,#___str_9
       00346E C0 E0            [24] 1275 	push	acc
       003470 74 45            [12] 1276 	mov	a,#(___str_9 >> 8)
       003472 C0 E0            [24] 1277 	push	acc
@@ -1282,31 +1282,31 @@
       00347D 24 FB            [12] 1282 	add	a,#0xfb
       00347F F5 81            [12] 1283 	mov	sp,a
       003481                       1284 00108$:
-                                   1285 ;	main.c:188: control=0xA0;
+                                   1285 ;	main.c:187: control=0xA0;
       003481 90 00 80         [24] 1286 	mov	dptr,#_control
       003484 74 A0            [12] 1287 	mov	a,#0xa0
       003486 F0               [24] 1288 	movx	@dptr,a
-                                   1289 ;	main.c:190: break;
+                                   1289 ;	main.c:189: break;
       003487 02 33 86         [24] 1290 	ljmp	00123$
-                                   1291 ;	main.c:191: case 'S':
+                                   1291 ;	main.c:190: case 'S':
       00348A                       1292 00109$:
-                                   1293 ;	main.c:192: putstr("ENTER ADDRESS TO BE READ,ADDRESS INCLUDES BLOCK NUMBER AND WORD ADRRESS TOGETHER SEPERATED BY 0 in HEX\n\r");
-      00348A 90 46 04         [24] 1294 	mov	dptr,#___str_10
+                                   1293 ;	main.c:191: putstr("\n\r");
+      00348A 90 44 68         [24] 1294 	mov	dptr,#___str_4
       00348D 75 F0 80         [24] 1295 	mov	b,#0x80
       003490 12 31 DE         [24] 1296 	lcall	_putstr
-                                   1297 ;	main.c:195: putstr("Enter first address\n\r");
-      003493 90 46 6D         [24] 1298 	mov	dptr,#___str_11
+                                   1297 ;	main.c:194: putstr("Enter first address\n\r");
+      003493 90 45 EC         [24] 1298 	mov	dptr,#___str_10
       003496 75 F0 80         [24] 1299 	mov	b,#0x80
       003499 12 31 DE         [24] 1300 	lcall	_putstr
-                                   1301 ;	main.c:196: gets(addressreceiver1);
+                                   1301 ;	main.c:195: gets(addressreceiver1);
       00349C 90 00 2F         [24] 1302 	mov	dptr,#_main_addressreceiver1_196609_120
       00349F 75 F0 00         [24] 1303 	mov	b,#0x00
       0034A2 12 36 FA         [24] 1304 	lcall	_gets
-                                   1305 ;	main.c:197: inputchecker(addressreceiver1);
+                                   1305 ;	main.c:196: inputchecker(addressreceiver1);
       0034A5 90 00 2F         [24] 1306 	mov	dptr,#_main_addressreceiver1_196609_120
       0034A8 75 F0 00         [24] 1307 	mov	b,#0x00
       0034AB 12 30 CA         [24] 1308 	lcall	_inputchecker
-                                   1309 ;	main.c:198: if(flag_inputcheck)
+                                   1309 ;	main.c:197: if(flag_inputcheck)
       0034AE 90 00 7E         [24] 1310 	mov	dptr,#_flag_inputcheck
       0034B1 E0               [24] 1311 	movx	a,@dptr
       0034B2 F5 F0            [12] 1312 	mov	b,a
@@ -1314,42 +1314,42 @@
       0034B5 E0               [24] 1314 	movx	a,@dptr
       0034B6 45 F0            [12] 1315 	orl	a,b
       0034B8 60 15            [24] 1316 	jz	00111$
-                                   1317 ;	main.c:200: putstr("Error in input");
-      0034BA 90 46 83         [24] 1318 	mov	dptr,#___str_12
+                                   1317 ;	main.c:199: putstr("Error in input");
+      0034BA 90 46 02         [24] 1318 	mov	dptr,#___str_11
       0034BD 75 F0 80         [24] 1319 	mov	b,#0x80
       0034C0 12 31 DE         [24] 1320 	lcall	_putstr
-                                   1321 ;	main.c:201: putstr(newl);
-      0034C3 90 44 7B         [24] 1322 	mov	dptr,#___str_4
+                                   1321 ;	main.c:200: putstr(newl);
+      0034C3 90 44 68         [24] 1322 	mov	dptr,#___str_4
       0034C6 75 F0 80         [24] 1323 	mov	b,#0x80
       0034C9 12 31 DE         [24] 1324 	lcall	_putstr
-                                   1325 ;	main.c:202: break;
+                                   1325 ;	main.c:201: break;
       0034CC 02 33 86         [24] 1326 	ljmp	00123$
       0034CF                       1327 00111$:
-                                   1328 ;	main.c:206: uint16_t address1=strtohex(addressreceiver1);
+                                   1328 ;	main.c:205: uint16_t address1=strtohex(addressreceiver1);
       0034CF 90 00 2F         [24] 1329 	mov	dptr,#_main_addressreceiver1_196609_120
       0034D2 75 F0 00         [24] 1330 	mov	b,#0x00
       0034D5 12 25 C6         [24] 1331 	lcall	_strtohex
       0034D8 AE 82            [24] 1332 	mov	r6,dpl
       0034DA AF 83            [24] 1333 	mov	r7,dph
-                                   1334 ;	main.c:208: uint8_t block1=(address1 & 0xE00)>>8;
+                                   1334 ;	main.c:207: uint8_t block1=(address1 & 0xE00)>>8;
       0034DC 74 0E            [12] 1335 	mov	a,#0x0e
       0034DE 5F               [12] 1336 	anl	a,r7
       0034DF FD               [12] 1337 	mov	r5,a
-                                   1338 ;	main.c:209: uint8_t startaddress=(address1&0x0FF);
+                                   1338 ;	main.c:208: uint8_t startaddress=(address1&0x0FF);
       0034E0 8E 04            [24] 1339 	mov	ar4,r6
-                                   1340 ;	main.c:214: putstr("Enter second address\n\r");
-      0034E2 90 46 92         [24] 1341 	mov	dptr,#___str_13
+                                   1340 ;	main.c:213: putstr("Enter second address\n\r");
+      0034E2 90 46 11         [24] 1341 	mov	dptr,#___str_12
       0034E5 75 F0 80         [24] 1342 	mov	b,#0x80
       0034E8 C0 07            [24] 1343 	push	ar7
       0034EA C0 06            [24] 1344 	push	ar6
       0034EC C0 05            [24] 1345 	push	ar5
       0034EE C0 04            [24] 1346 	push	ar4
       0034F0 12 31 DE         [24] 1347 	lcall	_putstr
-                                   1348 ;	main.c:215: gets(addressreceiver2);
+                                   1348 ;	main.c:214: gets(addressreceiver2);
       0034F3 90 00 33         [24] 1349 	mov	dptr,#_main_addressreceiver2_196610_122
       0034F6 75 F0 00         [24] 1350 	mov	b,#0x00
       0034F9 12 36 FA         [24] 1351 	lcall	_gets
-                                   1352 ;	main.c:216: inputchecker(addressreceiver2);
+                                   1352 ;	main.c:215: inputchecker(addressreceiver2);
       0034FC 90 00 33         [24] 1353 	mov	dptr,#_main_addressreceiver2_196610_122
       0034FF 75 F0 00         [24] 1354 	mov	b,#0x00
       003502 12 30 CA         [24] 1355 	lcall	_inputchecker
@@ -1357,7 +1357,7 @@
       003507 D0 05            [24] 1357 	pop	ar5
       003509 D0 06            [24] 1358 	pop	ar6
       00350B D0 07            [24] 1359 	pop	ar7
-                                   1360 ;	main.c:217: if(flag_inputcheck)
+                                   1360 ;	main.c:216: if(flag_inputcheck)
       00350D 90 00 7E         [24] 1361 	mov	dptr,#_flag_inputcheck
       003510 E0               [24] 1362 	movx	a,@dptr
       003511 F5 F0            [12] 1363 	mov	b,a
@@ -1365,18 +1365,18 @@
       003514 E0               [24] 1365 	movx	a,@dptr
       003515 45 F0            [12] 1366 	orl	a,b
       003517 60 15            [24] 1367 	jz	00113$
-                                   1368 ;	main.c:219: putstr("Error in input");
-      003519 90 46 83         [24] 1369 	mov	dptr,#___str_12
+                                   1368 ;	main.c:218: putstr("Error in input");
+      003519 90 46 02         [24] 1369 	mov	dptr,#___str_11
       00351C 75 F0 80         [24] 1370 	mov	b,#0x80
       00351F 12 31 DE         [24] 1371 	lcall	_putstr
-                                   1372 ;	main.c:220: putstr(newl);
-      003522 90 44 7B         [24] 1373 	mov	dptr,#___str_4
+                                   1372 ;	main.c:219: putstr(newl);
+      003522 90 44 68         [24] 1373 	mov	dptr,#___str_4
       003525 75 F0 80         [24] 1374 	mov	b,#0x80
       003528 12 31 DE         [24] 1375 	lcall	_putstr
-                                   1376 ;	main.c:221: break;
+                                   1376 ;	main.c:220: break;
       00352B 02 33 86         [24] 1377 	ljmp	00123$
       00352E                       1378 00113$:
-                                   1379 ;	main.c:225: uint16_t address2=strtohex(addressreceiver2);
+                                   1379 ;	main.c:224: uint16_t address2=strtohex(addressreceiver2);
       00352E 90 00 33         [24] 1380 	mov	dptr,#_main_addressreceiver2_196610_122
       003531 75 F0 00         [24] 1381 	mov	b,#0x00
       003534 C0 07            [24] 1382 	push	ar7
@@ -1390,13 +1390,13 @@
       003545 D0 05            [24] 1390 	pop	ar5
       003547 D0 06            [24] 1391 	pop	ar6
       003549 D0 07            [24] 1392 	pop	ar7
-                                   1393 ;	main.c:226: uint8_t block2=(address2 & 0xE00)>>8;
+                                   1393 ;	main.c:225: uint8_t block2=(address2 & 0xE00)>>8;
       00354B 74 0E            [12] 1394 	mov	a,#0x0e
       00354D 5B               [12] 1395 	anl	a,r3
       00354E F9               [12] 1396 	mov	r1,a
-                                   1397 ;	main.c:227: uint8_t endaddress=(address2&0x0FF);
+                                   1397 ;	main.c:226: uint8_t endaddress=(address2&0x0FF);
       00354F 8A 00            [24] 1398 	mov	ar0,r2
-                                   1399 ;	main.c:229: if(block1>7 || block2>7)
+                                   1399 ;	main.c:228: if(block1>7 || block2>7)
       003551 ED               [12] 1400 	mov	a,r5
       003552 24 F8            [12] 1401 	add	a,#0xff - 0x07
       003554 40 05            [24] 1402 	jc	00114$
@@ -1404,24 +1404,24 @@
       003557 24 F8            [12] 1404 	add	a,#0xff - 0x07
       003559 50 0C            [24] 1405 	jnc	00115$
       00355B                       1406 00114$:
-                                   1407 ;	main.c:232: putstr("Block numbers are invalid\n\r");
-      00355B 90 46 A9         [24] 1408 	mov	dptr,#___str_14
+                                   1407 ;	main.c:231: putstr("Block numbers are invalid\n\r");
+      00355B 90 46 28         [24] 1408 	mov	dptr,#___str_13
       00355E 75 F0 80         [24] 1409 	mov	b,#0x80
       003561 12 31 DE         [24] 1410 	lcall	_putstr
-                                   1411 ;	main.c:233: break;
+                                   1411 ;	main.c:232: break;
       003564 02 33 86         [24] 1412 	ljmp	00123$
       003567                       1413 00115$:
-                                   1414 ;	main.c:235: if(address1>address2)
+                                   1414 ;	main.c:234: if(address1>address2)
       003567 C3               [12] 1415 	clr	c
       003568 EA               [12] 1416 	mov	a,r2
       003569 9E               [12] 1417 	subb	a,r6
       00356A EB               [12] 1418 	mov	a,r3
       00356B 9F               [12] 1419 	subb	a,r7
       00356C 50 18            [24] 1420 	jnc	00118$
-                                   1421 ;	main.c:237: printf("Initial address is greater than Second address\n\r");
-      00356E 74 C5            [12] 1422 	mov	a,#___str_15
+                                   1421 ;	main.c:236: printf("Initial address is greater than Second address\n\r");
+      00356E 74 44            [12] 1422 	mov	a,#___str_14
       003570 C0 E0            [24] 1423 	push	acc
-      003572 74 46            [12] 1424 	mov	a,#(___str_15 >> 8)
+      003572 74 46            [12] 1424 	mov	a,#(___str_14 >> 8)
       003574 C0 E0            [24] 1425 	push	acc
       003576 74 80            [12] 1426 	mov	a,#0x80
       003578 C0 E0            [24] 1427 	push	acc
@@ -1429,10 +1429,10 @@
       00357D 15 81            [12] 1429 	dec	sp
       00357F 15 81            [12] 1430 	dec	sp
       003581 15 81            [12] 1431 	dec	sp
-                                   1432 ;	main.c:238: break;
+                                   1432 ;	main.c:237: break;
       003583 02 33 86         [24] 1433 	ljmp	00123$
       003586                       1434 00118$:
-                                   1435 ;	main.c:244: seq_read(control,startaddress,endaddress,block1,block2);
+                                   1435 ;	main.c:243: seq_read(control,startaddress,endaddress,block1,block2);
       003586 90 00 80         [24] 1436 	mov	dptr,#_control
       003589 E0               [24] 1437 	movx	a,@dptr
       00358A FF               [12] 1438 	mov	r7,a
@@ -1450,33 +1450,33 @@
       00359E F0               [24] 1450 	movx	@dptr,a
       00359F 8F 82            [24] 1451 	mov	dpl,r7
       0035A1 12 2D 60         [24] 1452 	lcall	_seq_read
-                                   1453 ;	main.c:250: control=0xA0;
+                                   1453 ;	main.c:249: control=0xA0;
       0035A4 90 00 80         [24] 1454 	mov	dptr,#_control
       0035A7 74 A0            [12] 1455 	mov	a,#0xa0
       0035A9 F0               [24] 1456 	movx	@dptr,a
-                                   1457 ;	main.c:252: break;
+                                   1457 ;	main.c:251: break;
       0035AA 02 33 86         [24] 1458 	ljmp	00123$
-                                   1459 ;	main.c:253: case 'X':
+                                   1459 ;	main.c:252: case 'X':
       0035AD                       1460 00119$:
-                                   1461 ;	main.c:254: restart_i2c();
+                                   1461 ;	main.c:253: restart_i2c();
       0035AD 12 2F AA         [24] 1462 	lcall	_restart_i2c
-                                   1463 ;	main.c:255: i2c_write(0xFF);
+                                   1463 ;	main.c:254: i2c_write(0xFF);
       0035B0 90 00 FF         [24] 1464 	mov	dptr,#0x00ff
       0035B3 12 2F B4         [24] 1465 	lcall	_i2c_write
-                                   1466 ;	main.c:256: i2c_nack();
+                                   1466 ;	main.c:255: i2c_nack();
       0035B6 12 30 52         [24] 1467 	lcall	_i2c_nack
-                                   1468 ;	main.c:257: restart_i2c();
+                                   1468 ;	main.c:256: restart_i2c();
       0035B9 12 2F AA         [24] 1469 	lcall	_restart_i2c
-                                   1470 ;	main.c:258: i2c_stop();
+                                   1470 ;	main.c:257: i2c_stop();
       0035BC 12 2F 83         [24] 1471 	lcall	_i2c_stop
-                                   1472 ;	main.c:259: break;
+                                   1472 ;	main.c:258: break;
       0035BF 02 33 86         [24] 1473 	ljmp	00123$
-                                   1474 ;	main.c:260: default:
+                                   1474 ;	main.c:259: default:
       0035C2                       1475 00120$:
-                                   1476 ;	main.c:261: printf("No function attached to input\r\n");
-      0035C2 74 F6            [12] 1477 	mov	a,#___str_16
+                                   1476 ;	main.c:260: printf("No function attached to input\r\n");
+      0035C2 74 75            [12] 1477 	mov	a,#___str_15
       0035C4 C0 E0            [24] 1478 	push	acc
-      0035C6 74 46            [12] 1479 	mov	a,#(___str_16 >> 8)
+      0035C6 74 46            [12] 1479 	mov	a,#(___str_15 >> 8)
       0035C8 C0 E0            [24] 1480 	push	acc
       0035CA 74 80            [12] 1481 	mov	a,#0x80
       0035CC C0 E0            [24] 1482 	push	acc
@@ -1484,109 +1484,108 @@
       0035D1 15 81            [12] 1484 	dec	sp
       0035D3 15 81            [12] 1485 	dec	sp
       0035D5 15 81            [12] 1486 	dec	sp
-                                   1487 ;	main.c:274: }
-                                   1488 ;	main.c:278: }
+                                   1487 ;	main.c:273: }
+                                   1488 ;	main.c:277: }
       0035D7 02 33 86         [24] 1489 	ljmp	00123$
                                    1490 	.area CSEG    (CODE)
                                    1491 	.area CONST   (CODE)
                                    1492 	.area CONST   (CODE)
-      004418                       1493 ___str_0:
-      004418 49 6E 76 61 6C 69 64  1494 	.ascii "Invalid character entered Please retry"
+      004405                       1493 ___str_0:
+      004405 49 6E 76 61 6C 69 64  1494 	.ascii "Invalid character entered Please retry"
              20 63 68 61 72 61 63
              74 65 72 20 65 6E 74
              65 72 65 64 20 50 6C
              65 61 73 65 20 72 65
              74 72 79
-      00443E 0A                    1495 	.db 0x0a
-      00443F 0D                    1496 	.db 0x0d
-      004440 00                    1497 	.db 0x00
+      00442B 0A                    1495 	.db 0x0a
+      00442C 0D                    1496 	.db 0x0d
+      00442D 00                    1497 	.db 0x00
                                    1498 	.area CSEG    (CODE)
                                    1499 	.area CONST   (CODE)
-      004441                       1500 ___str_1:
-      004441 0A                    1501 	.db 0x0a
-      004442 0D                    1502 	.db 0x0d
-      004443 49 6E 76 61 6C 69 64  1503 	.ascii "Invalid block no."
+      00442E                       1500 ___str_1:
+      00442E 0A                    1501 	.db 0x0a
+      00442F 0D                    1502 	.db 0x0d
+      004430 49 6E 76 61 6C 69 64  1503 	.ascii "Invalid block no."
              20 62 6C 6F 63 6B 20
              6E 6F 2E
-      004454 0A                    1504 	.db 0x0a
-      004455 0D                    1505 	.db 0x0d
-      004456 00                    1506 	.db 0x00
+      004441 0A                    1504 	.db 0x0a
+      004442 0D                    1505 	.db 0x0d
+      004443 00                    1506 	.db 0x00
                                    1507 	.area CSEG    (CODE)
                                    1508 	.area CONST   (CODE)
-      004457                       1509 ___str_2:
-      004457 45 6E 74 65 72 20 64  1510 	.ascii "Enter data to be written"
+      004444                       1509 ___str_2:
+      004444 45 6E 74 65 72 20 64  1510 	.ascii "Enter data to be written"
              61 74 61 20 74 6F 20
              62 65 20 77 72 69 74
              74 65 6E
-      00446F 0A                    1511 	.db 0x0a
-      004470 0D                    1512 	.db 0x0d
-      004471 00                    1513 	.db 0x00
+      00445C 0A                    1511 	.db 0x0a
+      00445D 0D                    1512 	.db 0x0d
+      00445E 00                    1513 	.db 0x00
                                    1514 	.area CSEG    (CODE)
                                    1515 	.area CONST   (CODE)
-      004472                       1516 ___str_3:
-      004472 64 61 74 61 20 69 73  1517 	.ascii "data is "
+      00445F                       1516 ___str_3:
+      00445F 64 61 74 61 20 69 73  1517 	.ascii "data is "
              20
-      00447A 00                    1518 	.db 0x00
+      004467 00                    1518 	.db 0x00
                                    1519 	.area CSEG    (CODE)
                                    1520 	.area CONST   (CODE)
-      00447B                       1521 ___str_4:
-      00447B 0A                    1522 	.db 0x0a
-      00447C 0D                    1523 	.db 0x0d
-      00447D 00                    1524 	.db 0x00
+      004468                       1521 ___str_4:
+      004468 0A                    1522 	.db 0x0a
+      004469 0D                    1523 	.db 0x0d
+      00446A 00                    1524 	.db 0x00
                                    1525 	.area CSEG    (CODE)
                                    1526 	.area CONST   (CODE)
-      00447E                       1527 ___str_5:
-      00447E 57 72 6F 6E 67 20 62  1528 	.ascii "Wrong block number. "
+      00446B                       1527 ___str_5:
+      00446B 57 72 6F 6E 67 20 62  1528 	.ascii "Wrong block number. "
              6C 6F 63 6B 20 6E 75
              6D 62 65 72 2E 20
-      004492 0A                    1529 	.db 0x0a
-      004493 0D                    1530 	.db 0x0d
-      004494 00                    1531 	.db 0x00
+      00447F 0A                    1529 	.db 0x0a
+      004480 0D                    1530 	.db 0x0d
+      004481 00                    1531 	.db 0x00
                                    1532 	.area CSEG    (CODE)
                                    1533 	.area CONST   (CODE)
-      004495                       1534 ___str_6:
-      004495 2A 2A 2A 2A 2A 2A 2A  1535 	.ascii "*****************"
+      004482                       1534 ___str_6:
+      004482 2A 2A 2A 2A 2A 2A 2A  1535 	.ascii "*************************"
              2A 2A 2A 2A 2A 2A 2A
-             2A 2A 2A
-      0044A6 0A                    1536 	.db 0x0a
-      0044A7 0D                    1537 	.db 0x0d
-      0044A8 4D 45 4E 55 20 46 4F  1538 	.ascii "MENU FOR TESTING I2C FUNCTIONS"
+             2A 2A 2A 2A 2A 2A 2A
+             2A 2A 2A 2A
+      00449B 0A                    1536 	.db 0x0a
+      00449C 0D                    1537 	.db 0x0d
+      00449D 4D 45 4E 55 20 46 4F  1538 	.ascii "MENU FOR TESTING I2C FUNCTIONS"
              52 20 54 45 53 54 49
              4E 47 20 49 32 43 20
              46 55 4E 43 54 49 4F
              4E 53
-      0044C6 0A                    1539 	.db 0x0a
-      0044C7 0D                    1540 	.db 0x0d
-      0044C8 50 52 45 53 53 20 57  1541 	.ascii "PRESS W FOR WRITE BYTE"
+      0044BB 0A                    1539 	.db 0x0a
+      0044BC 0D                    1540 	.db 0x0d
+      0044BD 50 52 45 53 53 20 57  1541 	.ascii "PRESS W FOR WRITE BYTE"
              20 46 4F 52 20 57 52
              49 54 45 20 42 59 54
              45
-      0044DE 0A                    1542 	.db 0x0a
-      0044DF 0D                    1543 	.db 0x0d
-      0044E0 50 52 45 53 53 20 52  1544 	.ascii "PRESS R FOR RANDOM READ"
+      0044D3 0A                    1542 	.db 0x0a
+      0044D4 0D                    1543 	.db 0x0d
+      0044D5 50 52 45 53 53 20 52  1544 	.ascii "PRESS R FOR RANDOM READ"
              20 46 4F 52 20 52 41
              4E 44 4F 4D 20 52 45
              41 44
-      0044F7 0A                    1545 	.db 0x0a
-      0044F8 0D                    1546 	.db 0x0d
-      0044F9 50 52 45 53 53 20 53  1547 	.ascii "PRESS S FOR HEX DUMP"
+      0044EC 0A                    1545 	.db 0x0a
+      0044ED 0D                    1546 	.db 0x0d
+      0044EE 50 52 45 53 53 20 53  1547 	.ascii "PRESS S FOR HEX DUMP"
              20 46 4F 52 20 48 45
              58 20 44 55 4D 50
-      00450D 0A                    1548 	.db 0x0a
-      00450E 0D                    1549 	.db 0x0d
-      00450F 0A                    1550 	.db 0x0a
-      004510 0D                    1551 	.db 0x0d
-      004511 50 52 45 53 53 20 58  1552 	.ascii "PRESS X FOR EEPROM RESET"
+      004502 0A                    1548 	.db 0x0a
+      004503 0D                    1549 	.db 0x0d
+      004504 50 52 45 53 53 20 58  1550 	.ascii "PRESS X FOR EEPROM RESET"
              20 46 4F 52 20 45 45
              50 52 4F 4D 20 52 45
              53 45 54
-      004529 0A                    1553 	.db 0x0a
-      00452A 0D                    1554 	.db 0x0d
-      00452B 00                    1555 	.db 0x00
-                                   1556 	.area CSEG    (CODE)
-                                   1557 	.area CONST   (CODE)
-      00452C                       1558 ___str_7:
-      00452C 45 4E 54 45 52 20 41  1559 	.ascii "ENTER ADDRESS TO BE WRITTEN ,ADDRESS INCLUDES BLOCK NUMBER A"
+      00451C 0A                    1551 	.db 0x0a
+      00451D 0D                    1552 	.db 0x0d
+      00451E 00                    1553 	.db 0x00
+                                   1554 	.area CSEG    (CODE)
+                                   1555 	.area CONST   (CODE)
+      00451F                       1556 ___str_7:
+      00451F 45 4E 54 45 52 20 41  1557 	.ascii "ENTER ADDRESS TO BE WRITTEN ,ADDRESS INCLUDES BLOCK NUMBER A"
              44 44 52 45 53 53 20
              54 4F 20 42 45 20 57
              52 49 54 54 45 4E 20
@@ -1595,18 +1594,18 @@
              44 45 53 20 42 4C 4F
              43 4B 20 4E 55 4D 42
              45 52 20 41
-      004568 4E 44 20 57 4F 52 44  1560 	.ascii "ND WORD ADRRESS TOGETHER IN HEX"
+      00455B 4E 44 20 57 4F 52 44  1558 	.ascii "ND WORD ADRRESS TOGETHER IN HEX"
              20 41 44 52 52 45 53
              53 20 54 4F 47 45 54
              48 45 52 20 49 4E 20
              48 45 58
-      004587 0A                    1561 	.db 0x0a
-      004588 0D                    1562 	.db 0x0d
-      004589 00                    1563 	.db 0x00
-                                   1564 	.area CSEG    (CODE)
-                                   1565 	.area CONST   (CODE)
-      00458A                       1566 ___str_8:
-      00458A 45 4E 54 45 52 20 41  1567 	.ascii "ENTER ADDRESS TO BE READ,ADDRESS INCLUDES BLOCK NUMBER AND W"
+      00457A 0A                    1559 	.db 0x0a
+      00457B 0D                    1560 	.db 0x0d
+      00457C 00                    1561 	.db 0x00
+                                   1562 	.area CSEG    (CODE)
+                                   1563 	.area CONST   (CODE)
+      00457D                       1564 ___str_8:
+      00457D 45 4E 54 45 52 20 41  1565 	.ascii "ENTER ADDRESS TO BE READ,ADDRESS INCLUDES BLOCK NUMBER AND W"
              44 44 52 45 53 53 20
              54 4F 20 42 45 20 52
              45 41 44 2C 41 44 44
@@ -1615,109 +1614,86 @@
              42 4C 4F 43 4B 20 4E
              55 4D 42 45 52 20 41
              4E 44 20 57
-      0045C6 4F 52 44 20 41 44 52  1568 	.ascii "ORD ADRRESS TOGETHER SEPERATED  in HEX"
+      0045B9 4F 52 44 20 41 44 52  1566 	.ascii "ORD ADRRESS TOGETHER in HEX"
              52 45 53 53 20 54 4F
              47 45 54 48 45 52 20
-             53 45 50 45 52 41 54
-             45 44 20 20 69 6E 20
-             48 45 58
-      0045EC 0A                    1569 	.db 0x0a
-      0045ED 0D                    1570 	.db 0x0d
-      0045EE 00                    1571 	.db 0x00
-                                   1572 	.area CSEG    (CODE)
-                                   1573 	.area CONST   (CODE)
-      0045EF                       1574 ___str_9:
-      0045EF 52 65 61 64 20 76 61  1575 	.ascii "Read value is 0x%X"
+             69 6E 20 48 45 58
+      0045D4 0A                    1567 	.db 0x0a
+      0045D5 0D                    1568 	.db 0x0d
+      0045D6 00                    1569 	.db 0x00
+                                   1570 	.area CSEG    (CODE)
+                                   1571 	.area CONST   (CODE)
+      0045D7                       1572 ___str_9:
+      0045D7 52 65 61 64 20 76 61  1573 	.ascii "Read value is 0x%X"
              6C 75 65 20 69 73 20
              30 78 25 58
-      004601 0A                    1576 	.db 0x0a
-      004602 0D                    1577 	.db 0x0d
-      004603 00                    1578 	.db 0x00
-                                   1579 	.area CSEG    (CODE)
-                                   1580 	.area CONST   (CODE)
-      004604                       1581 ___str_10:
-      004604 45 4E 54 45 52 20 41  1582 	.ascii "ENTER ADDRESS TO BE READ,ADDRESS INCLUDES BLOCK NUMBER AND W"
-             44 44 52 45 53 53 20
-             54 4F 20 42 45 20 52
-             45 41 44 2C 41 44 44
-             52 45 53 53 20 49 4E
-             43 4C 55 44 45 53 20
-             42 4C 4F 43 4B 20 4E
-             55 4D 42 45 52 20 41
-             4E 44 20 57
-      004640 4F 52 44 20 41 44 52  1583 	.ascii "ORD ADRRESS TOGETHER SEPERATED BY 0 in HEX"
-             52 45 53 53 20 54 4F
-             47 45 54 48 45 52 20
-             53 45 50 45 52 41 54
-             45 44 20 42 59 20 30
-             20 69 6E 20 48 45 58
-      00466A 0A                    1584 	.db 0x0a
-      00466B 0D                    1585 	.db 0x0d
-      00466C 00                    1586 	.db 0x00
-                                   1587 	.area CSEG    (CODE)
-                                   1588 	.area CONST   (CODE)
-      00466D                       1589 ___str_11:
-      00466D 45 6E 74 65 72 20 66  1590 	.ascii "Enter first address"
+      0045E9 0A                    1574 	.db 0x0a
+      0045EA 0D                    1575 	.db 0x0d
+      0045EB 00                    1576 	.db 0x00
+                                   1577 	.area CSEG    (CODE)
+                                   1578 	.area CONST   (CODE)
+      0045EC                       1579 ___str_10:
+      0045EC 45 6E 74 65 72 20 66  1580 	.ascii "Enter first address"
              69 72 73 74 20 61 64
              64 72 65 73 73
-      004680 0A                    1591 	.db 0x0a
-      004681 0D                    1592 	.db 0x0d
-      004682 00                    1593 	.db 0x00
-                                   1594 	.area CSEG    (CODE)
-                                   1595 	.area CONST   (CODE)
-      004683                       1596 ___str_12:
-      004683 45 72 72 6F 72 20 69  1597 	.ascii "Error in input"
+      0045FF 0A                    1581 	.db 0x0a
+      004600 0D                    1582 	.db 0x0d
+      004601 00                    1583 	.db 0x00
+                                   1584 	.area CSEG    (CODE)
+                                   1585 	.area CONST   (CODE)
+      004602                       1586 ___str_11:
+      004602 45 72 72 6F 72 20 69  1587 	.ascii "Error in input"
              6E 20 69 6E 70 75 74
-      004691 00                    1598 	.db 0x00
-                                   1599 	.area CSEG    (CODE)
-                                   1600 	.area CONST   (CODE)
-      004692                       1601 ___str_13:
-      004692 45 6E 74 65 72 20 73  1602 	.ascii "Enter second address"
+      004610 00                    1588 	.db 0x00
+                                   1589 	.area CSEG    (CODE)
+                                   1590 	.area CONST   (CODE)
+      004611                       1591 ___str_12:
+      004611 45 6E 74 65 72 20 73  1592 	.ascii "Enter second address"
              65 63 6F 6E 64 20 61
              64 64 72 65 73 73
-      0046A6 0A                    1603 	.db 0x0a
-      0046A7 0D                    1604 	.db 0x0d
-      0046A8 00                    1605 	.db 0x00
-                                   1606 	.area CSEG    (CODE)
-                                   1607 	.area CONST   (CODE)
-      0046A9                       1608 ___str_14:
-      0046A9 42 6C 6F 63 6B 20 6E  1609 	.ascii "Block numbers are invalid"
+      004625 0A                    1593 	.db 0x0a
+      004626 0D                    1594 	.db 0x0d
+      004627 00                    1595 	.db 0x00
+                                   1596 	.area CSEG    (CODE)
+                                   1597 	.area CONST   (CODE)
+      004628                       1598 ___str_13:
+      004628 42 6C 6F 63 6B 20 6E  1599 	.ascii "Block numbers are invalid"
              75 6D 62 65 72 73 20
              61 72 65 20 69 6E 76
              61 6C 69 64
-      0046C2 0A                    1610 	.db 0x0a
-      0046C3 0D                    1611 	.db 0x0d
-      0046C4 00                    1612 	.db 0x00
-                                   1613 	.area CSEG    (CODE)
-                                   1614 	.area CONST   (CODE)
-      0046C5                       1615 ___str_15:
-      0046C5 49 6E 69 74 69 61 6C  1616 	.ascii "Initial address is greater than Second address"
+      004641 0A                    1600 	.db 0x0a
+      004642 0D                    1601 	.db 0x0d
+      004643 00                    1602 	.db 0x00
+                                   1603 	.area CSEG    (CODE)
+                                   1604 	.area CONST   (CODE)
+      004644                       1605 ___str_14:
+      004644 49 6E 69 74 69 61 6C  1606 	.ascii "Initial address is greater than Second address"
              20 61 64 64 72 65 73
              73 20 69 73 20 67 72
              65 61 74 65 72 20 74
              68 61 6E 20 53 65 63
              6F 6E 64 20 61 64 64
              72 65 73 73
-      0046F3 0A                    1617 	.db 0x0a
-      0046F4 0D                    1618 	.db 0x0d
-      0046F5 00                    1619 	.db 0x00
-                                   1620 	.area CSEG    (CODE)
-                                   1621 	.area CONST   (CODE)
-      0046F6                       1622 ___str_16:
-      0046F6 4E 6F 20 66 75 6E 63  1623 	.ascii "No function attached to input"
+      004672 0A                    1607 	.db 0x0a
+      004673 0D                    1608 	.db 0x0d
+      004674 00                    1609 	.db 0x00
+                                   1610 	.area CSEG    (CODE)
+                                   1611 	.area CONST   (CODE)
+      004675                       1612 ___str_15:
+      004675 4E 6F 20 66 75 6E 63  1613 	.ascii "No function attached to input"
              74 69 6F 6E 20 61 74
              74 61 63 68 65 64 20
              74 6F 20 69 6E 70 75
              74
-      004713 0D                    1624 	.db 0x0d
-      004714 0A                    1625 	.db 0x0a
-      004715 00                    1626 	.db 0x00
-                                   1627 	.area CSEG    (CODE)
-                                   1628 	.area XINIT   (CODE)
-      004721                       1629 __xinit__flag_inputcheck:
-      004721 00 00                 1630 	.byte #0x00, #0x00	;  0
-      004723                       1631 __xinit__control:
-      004723 A0                    1632 	.db #0xa0	; 160
-      004724                       1633 __xinit__errorflag:
-      004724 00                    1634 	.db #0x00	; 0
-                                   1635 	.area CABS    (ABS,CODE)
+      004692 0D                    1614 	.db 0x0d
+      004693 0A                    1615 	.db 0x0a
+      004694 00                    1616 	.db 0x00
+                                   1617 	.area CSEG    (CODE)
+                                   1618 	.area XINIT   (CODE)
+      0046A0                       1619 __xinit__flag_inputcheck:
+      0046A0 00 00                 1620 	.byte #0x00, #0x00	;  0
+      0046A2                       1621 __xinit__control:
+      0046A2 A0                    1622 	.db #0xa0	; 160
+      0046A3                       1623 __xinit__errorflag:
+      0046A3 00                    1624 	.db #0x00	; 0
+                                   1625 	.area CABS    (ABS,CODE)

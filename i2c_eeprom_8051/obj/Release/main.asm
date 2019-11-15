@@ -567,7 +567,7 @@ __sdcc_program_startup:
 ;r                         Allocated with name '_inputchecker_r_65536_90'
 ;i                         Allocated with name '_inputchecker_i_65536_91'
 ;------------------------------------------------------------
-;	main.c:14: void inputchecker(char *r)
+;	main.c:13: void inputchecker(char *r)
 ;	-----------------------------------------
 ;	 function inputchecker
 ;	-----------------------------------------
@@ -591,13 +591,13 @@ _inputchecker:
 	mov	a,r7
 	inc	dptr
 	movx	@dptr,a
-;	main.c:17: flag_inputcheck=0;
+;	main.c:16: flag_inputcheck=0;
 	mov	dptr,#_flag_inputcheck
 	clr	a
 	movx	@dptr,a
 	inc	dptr
 	movx	@dptr,a
-;	main.c:18: while(r[i]!='\0')
+;	main.c:17: while(r[i]!='\0')
 	mov	dptr,#_inputchecker_r_65536_90
 	movx	a,@dptr
 	mov	r5,a
@@ -638,7 +638,7 @@ _inputchecker:
 	jnz	00134$
 	ret
 00134$:
-;	main.c:20: if(((r[i]>='0')&&(r[i]<='9'))||((r[i]>='a')&&(r[i]<='f'))||((r[i]>='A')&&(r[i]<='F')))
+;	main.c:19: if(((r[i]>='0')&&(r[i]<='9'))||((r[i]>='a')&&(r[i]<='f'))||((r[i]>='A')&&(r[i]<='F')))
 	mov	a,#0x100 - 0x30
 	add	a,_inputchecker_sloc1_1_0
 	jnc	00106$
@@ -696,14 +696,14 @@ _inputchecker:
 	add	a,#0xff - 0x46
 	jc	00102$
 00101$:
-;	main.c:21: i++;
+;	main.c:20: i++;
 	inc	r0
 	cjne	r0,#0x00,00141$
 	inc	r1
 00141$:
 	ljmp	00109$
 00102$:
-;	main.c:26: printf_tiny("Invalid character entered Please retry\n\r");
+;	main.c:25: printf_tiny("Invalid character entered Please retry\n\r");
 	mov	a,#___str_0
 	push	acc
 	mov	a,#(___str_0 >> 8)
@@ -711,22 +711,22 @@ _inputchecker:
 	lcall	_printf_tiny
 	dec	sp
 	dec	sp
-;	main.c:27: flag_inputcheck=1;
+;	main.c:26: flag_inputcheck=1;
 	mov	dptr,#_flag_inputcheck
 	mov	a,#0x01
 	movx	@dptr,a
 	clr	a
 	inc	dptr
 	movx	@dptr,a
-;	main.c:28: return;
-;	main.c:32: }
+;	main.c:27: return;
+;	main.c:31: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'putchar'
 ;------------------------------------------------------------
 ;c                         Allocated with name '_putchar_c_65536_94'
 ;------------------------------------------------------------
-;	main.c:37: int putchar (int c)//serial outps char value
+;	main.c:36: int putchar (int c)//serial outps char value
 ;	-----------------------------------------
 ;	 function putchar
 ;	-----------------------------------------
@@ -738,58 +738,58 @@ _putchar:
 	mov	a,r7
 	inc	dptr
 	movx	@dptr,a
-;	main.c:39: while (!TI);				// compare asm code generated for these three lines
+;	main.c:38: while (!TI);				// compare asm code generated for these three lines
 00101$:
 	jnb	_TI,00101$
-;	main.c:40: while (TI == 0);
+;	main.c:39: while (TI == 0);
 00104$:
 	jnb	_TI,00104$
-;	main.c:41: while ((SCON & 0x02) == 0);    // wait for TX ready, spin on TI
+;	main.c:40: while ((SCON & 0x02) == 0);    // wait for TX ready, spin on TI
 00107$:
 	mov	a,_SCON
 	jnb	acc.1,00107$
-;	main.c:42: SBUF = c;  	// load serial port with transmit value
+;	main.c:41: SBUF = c;  	// load serial port with transmit value
 	mov	dptr,#_putchar_c_65536_94
 	movx	a,@dptr
 	mov	r6,a
 	inc	dptr
 	movx	a,@dptr
 	mov	_SBUF,r6
-;	main.c:43: TI = 0;  	// clear TI flag
+;	main.c:42: TI = 0;  	// clear TI flag
 ;	assignBit
 	clr	_TI
-;	main.c:44: return 0;
+;	main.c:43: return 0;
 	mov	dptr,#0x0000
-;	main.c:45: }
+;	main.c:44: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'getchar'
 ;------------------------------------------------------------
-;	main.c:48: int getchar(void)//reads char value from serial
+;	main.c:47: int getchar(void)//reads char value from serial
 ;	-----------------------------------------
 ;	 function getchar
 ;	-----------------------------------------
 _getchar:
-;	main.c:51: while (!RI);                // compare asm code generated for these three lines
+;	main.c:50: while (!RI);                // compare asm code generated for these three lines
 00101$:
 	jnb	_RI,00101$
-;	main.c:52: while ((SCON & 0x01) == 0);  // wait for character to be received, spin on RI
+;	main.c:51: while ((SCON & 0x01) == 0);  // wait for character to be received, spin on RI
 00104$:
 	mov	a,_SCON
 	jnb	acc.0,00104$
-;	main.c:53: while (RI == 0);
+;	main.c:52: while (RI == 0);
 00107$:
-;	main.c:54: RI = 0;			// clear RI flag
+;	main.c:53: RI = 0;			// clear RI flag
 ;	assignBit
 	jbc	_RI,00130$
 	sjmp	00107$
 00130$:
-;	main.c:55: return SBUF;  	// return character from SBUF
+;	main.c:54: return SBUF;  	// return character from SBUF
 	mov	r6,_SBUF
 	mov	r7,#0x00
 	mov	dpl,r6
 	mov	dph,r7
-;	main.c:56: }
+;	main.c:55: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'putstr'
@@ -797,7 +797,7 @@ _getchar:
 ;s                         Allocated with name '_putstr_s_65536_98'
 ;i                         Allocated with name '_putstr_i_65536_99'
 ;------------------------------------------------------------
-;	main.c:57: int putstr (char *s)//outputs string to serial
+;	main.c:56: int putstr (char *s)//outputs string to serial
 ;	-----------------------------------------
 ;	 function putstr
 ;	-----------------------------------------
@@ -813,7 +813,7 @@ _putstr:
 	mov	a,r7
 	inc	dptr
 	movx	@dptr,a
-;	main.c:60: while (*s) 			// output characters until NULL found
+;	main.c:59: while (*s) 			// output characters until NULL found
 	mov	dptr,#_putstr_s_65536_98
 	movx	a,@dptr
 	mov	r5,a
@@ -832,7 +832,7 @@ _putstr:
 	lcall	__gptrget
 	mov	r2,a
 	jz	00108$
-;	main.c:62: putchar(*s++);
+;	main.c:61: putchar(*s++);
 	inc	r5
 	cjne	r5,#0x00,00116$
 	inc	r6
@@ -861,7 +861,7 @@ _putstr:
 	pop	ar5
 	pop	ar6
 	pop	ar7
-;	main.c:63: i++;
+;	main.c:62: i++;
 	inc	r3
 	cjne	r3,#0x00,00101$
 	inc	r4
@@ -876,14 +876,14 @@ _putstr:
 	mov	a,r7
 	inc	dptr
 	movx	@dptr,a
-;	main.c:66: return i+1;
+;	main.c:65: return i+1;
 	inc	r3
 	cjne	r3,#0x00,00118$
 	inc	r4
 00118$:
 	mov	dpl,r3
 	mov	dph,r4
-;	main.c:67: }
+;	main.c:66: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'readint'
@@ -891,20 +891,20 @@ _putstr:
 ;reader                    Allocated with name '_readint_reader_65536_101'
 ;number                    Allocated with name '_readint_number_65537_102'
 ;------------------------------------------------------------
-;	main.c:69: int readint()//reads  char string as integer
+;	main.c:68: int readint()//reads  char string as integer
 ;	-----------------------------------------
 ;	 function readint
 ;	-----------------------------------------
 _readint:
-;	main.c:72: gets(reader);
+;	main.c:71: gets(reader);
 	mov	dptr,#0x0000
 	mov	b,#0x00
 	lcall	_gets
-;	main.c:73: int number=atoi(reader);
+;	main.c:72: int number=atoi(reader);
 	mov	dptr,#0x0000
 	mov	b,#0x00
-;	main.c:74: return number;
-;	main.c:75: }
+;	main.c:73: return number;
+;	main.c:74: }
 	ljmp	_atoi
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'writebytehandler'
@@ -915,7 +915,7 @@ _readint:
 ;address                   Allocated with name '_writebytehandler_address_65537_107'
 ;data                      Allocated with name '_writebytehandler_data_65538_108'
 ;------------------------------------------------------------
-;	main.c:84: void writebytehandler(char *receiver)
+;	main.c:83: void writebytehandler(char *receiver)
 ;	-----------------------------------------
 ;	 function writebytehandler
 ;	-----------------------------------------
@@ -931,7 +931,7 @@ _writebytehandler:
 	mov	a,r7
 	inc	dptr
 	movx	@dptr,a
-;	main.c:86: uint16_t t=strtohex(receiver);
+;	main.c:85: uint16_t t=strtohex(receiver);
 	mov	dptr,#_writebytehandler_receiver_65536_103
 	movx	a,@dptr
 	mov	r5,a
@@ -947,44 +947,44 @@ _writebytehandler:
 	lcall	_strtohex
 	mov	r6,dpl
 	mov	r7,dph
-;	main.c:87: uint8_t blockno=(t & 0xE00)>>8;
+;	main.c:86: uint8_t blockno=(t & 0xE00)>>8;
 	mov	r4,#0x00
 	mov	a,#0x0e
 	anl	a,r7
 	mov	r5,a
-;	main.c:89: if(blockno<8)
+;	main.c:88: if(blockno<8)
 	cjne	r5,#0x08,00116$
 00116$:
 	jnc	00102$
-;	main.c:92: control |=blockno;
+;	main.c:91: control |=blockno;
 	mov	dptr,#_control
 	movx	a,@dptr
 	orl	a,r5
 	movx	@dptr,a
 	sjmp	00103$
 00102$:
-;	main.c:99: putstr("\n\rInvalid block no.\n\r");
+;	main.c:98: putstr("\n\rInvalid block no.\n\r");
 	mov	dptr,#___str_1
 	mov	b,#0x80
-;	main.c:100: return;
+;	main.c:99: return;
 	ljmp	_putstr
 00103$:
-;	main.c:103: uint8_t address=(t&0x0FF);
-;	main.c:106: putstr("Enter data to be written\n\r");
+;	main.c:102: uint8_t address=(t&0x0FF);
+;	main.c:105: putstr("Enter data to be written\n\r");
 	mov	dptr,#___str_2
 	mov	b,#0x80
 	push	ar6
 	lcall	_putstr
-;	main.c:108: gets(addressreceiver);
+;	main.c:107: gets(addressreceiver);
 	mov	dptr,#_addressreceiver
 	mov	b,#0x00
 	lcall	_gets
-;	main.c:109: inputchecker(addressreceiver);
+;	main.c:108: inputchecker(addressreceiver);
 	mov	dptr,#_addressreceiver
 	mov	b,#0x00
 	lcall	_inputchecker
 	pop	ar6
-;	main.c:110: if(!flag_inputcheck)
+;	main.c:109: if(!flag_inputcheck)
 	mov	dptr,#_flag_inputcheck
 	movx	a,@dptr
 	mov	b,a
@@ -992,26 +992,26 @@ _writebytehandler:
 	movx	a,@dptr
 	orl	a,b
 	jnz	00106$
-;	main.c:112: putstr("data is ");
+;	main.c:111: putstr("data is ");
 	mov	dptr,#___str_3
 	mov	b,#0x80
 	push	ar6
 	lcall	_putstr
-;	main.c:113: putstr(addressreceiver);
+;	main.c:112: putstr(addressreceiver);
 	mov	dptr,#_addressreceiver
 	mov	b,#0x00
 	lcall	_putstr
-;	main.c:114: putstr(newl);
+;	main.c:113: putstr(newl);
 	mov	dptr,#___str_4
 	mov	b,#0x80
 	lcall	_putstr
-;	main.c:115: data=strtohex(addressreceiver);
+;	main.c:114: data=strtohex(addressreceiver);
 	mov	dptr,#_addressreceiver
 	mov	b,#0x00
 	lcall	_strtohex
 	mov	r5,dpl
 	pop	ar6
-;	main.c:116: byte_write(control,address,data);
+;	main.c:115: byte_write(control,address,data);
 	mov	dptr,#_control
 	movx	a,@dptr
 	mov	r7,a
@@ -1022,7 +1022,7 @@ _writebytehandler:
 	mov	a,r5
 	movx	@dptr,a
 	mov	dpl,r7
-;	main.c:119: }
+;	main.c:118: }
 	ljmp	_byte_write
 00106$:
 	ret
@@ -1035,7 +1035,7 @@ _writebytehandler:
 ;address                   Allocated with name '_randomread_handler_address_131072_114'
 ;result                    Allocated with name '_randomread_handler_result_131072_114'
 ;------------------------------------------------------------
-;	main.c:121: int randomread_handler(char *receiver)
+;	main.c:120: int randomread_handler(char *receiver)
 ;	-----------------------------------------
 ;	 function randomread_handler
 ;	-----------------------------------------
@@ -1051,7 +1051,7 @@ _randomread_handler:
 	mov	a,r7
 	inc	dptr
 	movx	@dptr,a
-;	main.c:123: uint16_t t=strtohex(receiver);
+;	main.c:122: uint16_t t=strtohex(receiver);
 	mov	dptr,#_randomread_handler_receiver_65536_110
 	movx	a,@dptr
 	mov	r5,a
@@ -1067,40 +1067,40 @@ _randomread_handler:
 	lcall	_strtohex
 	mov	r6,dpl
 	mov	r7,dph
-;	main.c:124: uint8_t blockno=(t & 0xE00)>>8;
+;	main.c:123: uint8_t blockno=(t & 0xE00)>>8;
 	mov	a,#0x0e
 	anl	a,r7
 	mov	r5,a
-;	main.c:125: if(blockno<7)
+;	main.c:124: if(blockno<7)
 	cjne	r5,#0x07,00117$
 00117$:
 	jnc	00102$
-;	main.c:128: control |=blockno;
+;	main.c:127: control |=blockno;
 	mov	dptr,#_control
 	movx	a,@dptr
 	orl	a,r5
 	movx	@dptr,a
 	sjmp	00103$
 00102$:
-;	main.c:133: errorflag=1;
+;	main.c:132: errorflag=1;
 	mov	dptr,#_errorflag
 	mov	a,#0x01
 	movx	@dptr,a
 00103$:
-;	main.c:134: if(errorflag)
+;	main.c:133: if(errorflag)
 	mov	dptr,#_errorflag
 	movx	a,@dptr
 	jz	00105$
-;	main.c:136: putstr("Wrong block number. \n\r");
+;	main.c:135: putstr("Wrong block number. \n\r");
 	mov	dptr,#___str_5
 	mov	b,#0x80
 	lcall	_putstr
-;	main.c:137: return -1;
+;	main.c:136: return -1;
 	mov	dptr,#0xffff
 	ret
 00105$:
-;	main.c:142: uint8_t address=(t&0x0FF);
-;	main.c:143: int result =random_read(control,address);
+;	main.c:141: uint8_t address=(t&0x0FF);
+;	main.c:142: int result =random_read(control,address);
 	mov	dptr,#_control
 	movx	a,@dptr
 	mov	r7,a
@@ -1111,14 +1111,14 @@ _randomread_handler:
 	lcall	_random_read
 	mov	r6,dpl
 	mov	r7,dph
-;	main.c:144: errorflag=0;
+;	main.c:143: errorflag=0;
 	mov	dptr,#_errorflag
 	clr	a
 	movx	@dptr,a
-;	main.c:145: return result;
+;	main.c:144: return result;
 	mov	dpl,r6
 	mov	dph,r7
-;	main.c:148: }
+;	main.c:147: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'main'
@@ -1132,24 +1132,24 @@ _randomread_handler:
 ;block2                    Allocated with name '_main_block2_196611_124'
 ;endaddress                Allocated with name '_main_endaddress_196611_124'
 ;------------------------------------------------------------
-;	main.c:150: void main(void)
+;	main.c:149: void main(void)
 ;	-----------------------------------------
 ;	 function main
 ;	-----------------------------------------
 _main:
-;	main.c:152: i2c_reset();
+;	main.c:151: i2c_reset();
 	lcall	_i2c_reset
-;	main.c:153: while(1)
+;	main.c:152: while(1)
 00123$:
-;	main.c:157: errorflag=0;
+;	main.c:156: errorflag=0;
 	mov	dptr,#_errorflag
 	clr	a
 	movx	@dptr,a
-;	main.c:158: putstr("*****************\n\rMENU FOR TESTING I2C FUNCTIONS\n\rPRESS W FOR WRITE BYTE\n\rPRESS R FOR RANDOM READ\n\rPRESS S FOR HEX DUMP\n\r\n\rPRESS X FOR EEPROM RESET\n\r");
+;	main.c:157: putstr("*************************\n\rMENU FOR TESTING I2C FUNCTIONS\n\rPRESS W FOR WRITE BYTE\n\rPRESS R FOR RANDOM READ\n\rPRESS S FOR HEX DUMP\n\rPRESS X FOR EEPROM RESET\n\r");
 	mov	dptr,#___str_6
 	mov	b,#0x80
 	lcall	_putstr
-;	main.c:159: menuselect=getchar();
+;	main.c:158: menuselect=getchar();
 	lcall	_getchar
 	mov	r6,dpl
 	mov	r7,dph
@@ -1159,15 +1159,15 @@ _main:
 	mov	a,r7
 	inc	dptr
 	movx	@dptr,a
-;	main.c:161: putchar(menuselect);
+;	main.c:160: putchar(menuselect);
 	mov	dpl,r6
 	mov	dph,r7
 	lcall	_putchar
-;	main.c:162: putstr("\n\r");
+;	main.c:161: putstr("\n\r");
 	mov	dptr,#___str_4
 	mov	b,#0x80
 	lcall	_putstr
-;	main.c:164: switch(toupper(menuselect))
+;	main.c:163: switch(toupper(menuselect))
 	mov	dptr,#_menuselect
 	movx	a,@dptr
 	mov	r6,a
@@ -1196,61 +1196,61 @@ _main:
 	ljmp	00119$
 00178$:
 	ljmp	00120$
-;	main.c:167: case 'W':
+;	main.c:166: case 'W':
 00101$:
-;	main.c:168: putstr("ENTER ADDRESS TO BE WRITTEN ,ADDRESS INCLUDES BLOCK NUMBER AND WORD ADRRESS TOGETHER IN HEX\n\r");
+;	main.c:167: putstr("ENTER ADDRESS TO BE WRITTEN ,ADDRESS INCLUDES BLOCK NUMBER AND WORD ADRRESS TOGETHER IN HEX\n\r");
 	mov	dptr,#___str_7
 	mov	b,#0x80
 	lcall	_putstr
-;	main.c:170: gets(addressreceiver);
+;	main.c:169: gets(addressreceiver);
 	mov	dptr,#_addressreceiver
 	mov	b,#0x00
 	lcall	_gets
-;	main.c:171: inputchecker(addressreceiver);
+;	main.c:170: inputchecker(addressreceiver);
 	mov	dptr,#_addressreceiver
 	mov	b,#0x00
 	lcall	_inputchecker
-;	main.c:172: if(!flag_inputcheck)
+;	main.c:171: if(!flag_inputcheck)
 	mov	dptr,#_flag_inputcheck
 	movx	a,@dptr
 	mov	b,a
 	inc	dptr
 	movx	a,@dptr
 	orl	a,b
-;	main.c:173: writebytehandler(addressreceiver);
+;	main.c:172: writebytehandler(addressreceiver);
 	jnz	00103$
 	mov	dptr,#_addressreceiver
 	mov	b,a
 	lcall	_writebytehandler
 00103$:
-;	main.c:174: control=0xA0;
+;	main.c:173: control=0xA0;
 	mov	dptr,#_control
 	mov	a,#0xa0
 	movx	@dptr,a
-;	main.c:175: break;
+;	main.c:174: break;
 	ljmp	00123$
-;	main.c:177: case 'R':
+;	main.c:176: case 'R':
 00104$:
-;	main.c:178: putstr("ENTER ADDRESS TO BE READ,ADDRESS INCLUDES BLOCK NUMBER AND WORD ADRRESS TOGETHER SEPERATED  in HEX\n\r");
+;	main.c:177: putstr("ENTER ADDRESS TO BE READ,ADDRESS INCLUDES BLOCK NUMBER AND WORD ADRRESS TOGETHER in HEX\n\r");
 	mov	dptr,#___str_8
 	mov	b,#0x80
 	lcall	_putstr
-;	main.c:179: gets(addressreceiver);
+;	main.c:178: gets(addressreceiver);
 	mov	dptr,#_addressreceiver
 	mov	b,#0x00
 	lcall	_gets
-;	main.c:180: inputchecker(addressreceiver);
+;	main.c:179: inputchecker(addressreceiver);
 	mov	dptr,#_addressreceiver
 	mov	b,#0x00
 	lcall	_inputchecker
-;	main.c:181: if(!flag_inputcheck)
+;	main.c:180: if(!flag_inputcheck)
 	mov	dptr,#_flag_inputcheck
 	movx	a,@dptr
 	mov	b,a
 	inc	dptr
 	movx	a,@dptr
 	orl	a,b
-;	main.c:184: output=randomread_handler(addressreceiver);
+;	main.c:183: output=randomread_handler(addressreceiver);
 	jnz	00108$
 	mov	dptr,#_addressreceiver
 	mov	b,a
@@ -1260,11 +1260,11 @@ _main:
 	mov	dptr,#_output
 	mov	a,r6
 	movx	@dptr,a
-;	main.c:185: if(errorflag==0)
+;	main.c:184: if(errorflag==0)
 	mov	dptr,#_errorflag
 	movx	a,@dptr
 	jnz	00108$
-;	main.c:186: printf("Read value is 0x%X\n\r",output);
+;	main.c:185: printf("Read value is 0x%X\n\r",output);
 	mov	dptr,#_output
 	movx	a,@dptr
 	mov	r7,a
@@ -1282,31 +1282,31 @@ _main:
 	add	a,#0xfb
 	mov	sp,a
 00108$:
-;	main.c:188: control=0xA0;
+;	main.c:187: control=0xA0;
 	mov	dptr,#_control
 	mov	a,#0xa0
 	movx	@dptr,a
-;	main.c:190: break;
+;	main.c:189: break;
 	ljmp	00123$
-;	main.c:191: case 'S':
+;	main.c:190: case 'S':
 00109$:
-;	main.c:192: putstr("ENTER ADDRESS TO BE READ,ADDRESS INCLUDES BLOCK NUMBER AND WORD ADRRESS TOGETHER SEPERATED BY 0 in HEX\n\r");
+;	main.c:191: putstr("\n\r");
+	mov	dptr,#___str_4
+	mov	b,#0x80
+	lcall	_putstr
+;	main.c:194: putstr("Enter first address\n\r");
 	mov	dptr,#___str_10
 	mov	b,#0x80
 	lcall	_putstr
-;	main.c:195: putstr("Enter first address\n\r");
-	mov	dptr,#___str_11
-	mov	b,#0x80
-	lcall	_putstr
-;	main.c:196: gets(addressreceiver1);
+;	main.c:195: gets(addressreceiver1);
 	mov	dptr,#_main_addressreceiver1_196609_120
 	mov	b,#0x00
 	lcall	_gets
-;	main.c:197: inputchecker(addressreceiver1);
+;	main.c:196: inputchecker(addressreceiver1);
 	mov	dptr,#_main_addressreceiver1_196609_120
 	mov	b,#0x00
 	lcall	_inputchecker
-;	main.c:198: if(flag_inputcheck)
+;	main.c:197: if(flag_inputcheck)
 	mov	dptr,#_flag_inputcheck
 	movx	a,@dptr
 	mov	b,a
@@ -1314,42 +1314,42 @@ _main:
 	movx	a,@dptr
 	orl	a,b
 	jz	00111$
-;	main.c:200: putstr("Error in input");
-	mov	dptr,#___str_12
+;	main.c:199: putstr("Error in input");
+	mov	dptr,#___str_11
 	mov	b,#0x80
 	lcall	_putstr
-;	main.c:201: putstr(newl);
+;	main.c:200: putstr(newl);
 	mov	dptr,#___str_4
 	mov	b,#0x80
 	lcall	_putstr
-;	main.c:202: break;
+;	main.c:201: break;
 	ljmp	00123$
 00111$:
-;	main.c:206: uint16_t address1=strtohex(addressreceiver1);
+;	main.c:205: uint16_t address1=strtohex(addressreceiver1);
 	mov	dptr,#_main_addressreceiver1_196609_120
 	mov	b,#0x00
 	lcall	_strtohex
 	mov	r6,dpl
 	mov	r7,dph
-;	main.c:208: uint8_t block1=(address1 & 0xE00)>>8;
+;	main.c:207: uint8_t block1=(address1 & 0xE00)>>8;
 	mov	a,#0x0e
 	anl	a,r7
 	mov	r5,a
-;	main.c:209: uint8_t startaddress=(address1&0x0FF);
+;	main.c:208: uint8_t startaddress=(address1&0x0FF);
 	mov	ar4,r6
-;	main.c:214: putstr("Enter second address\n\r");
-	mov	dptr,#___str_13
+;	main.c:213: putstr("Enter second address\n\r");
+	mov	dptr,#___str_12
 	mov	b,#0x80
 	push	ar7
 	push	ar6
 	push	ar5
 	push	ar4
 	lcall	_putstr
-;	main.c:215: gets(addressreceiver2);
+;	main.c:214: gets(addressreceiver2);
 	mov	dptr,#_main_addressreceiver2_196610_122
 	mov	b,#0x00
 	lcall	_gets
-;	main.c:216: inputchecker(addressreceiver2);
+;	main.c:215: inputchecker(addressreceiver2);
 	mov	dptr,#_main_addressreceiver2_196610_122
 	mov	b,#0x00
 	lcall	_inputchecker
@@ -1357,7 +1357,7 @@ _main:
 	pop	ar5
 	pop	ar6
 	pop	ar7
-;	main.c:217: if(flag_inputcheck)
+;	main.c:216: if(flag_inputcheck)
 	mov	dptr,#_flag_inputcheck
 	movx	a,@dptr
 	mov	b,a
@@ -1365,18 +1365,18 @@ _main:
 	movx	a,@dptr
 	orl	a,b
 	jz	00113$
-;	main.c:219: putstr("Error in input");
-	mov	dptr,#___str_12
+;	main.c:218: putstr("Error in input");
+	mov	dptr,#___str_11
 	mov	b,#0x80
 	lcall	_putstr
-;	main.c:220: putstr(newl);
+;	main.c:219: putstr(newl);
 	mov	dptr,#___str_4
 	mov	b,#0x80
 	lcall	_putstr
-;	main.c:221: break;
+;	main.c:220: break;
 	ljmp	00123$
 00113$:
-;	main.c:225: uint16_t address2=strtohex(addressreceiver2);
+;	main.c:224: uint16_t address2=strtohex(addressreceiver2);
 	mov	dptr,#_main_addressreceiver2_196610_122
 	mov	b,#0x00
 	push	ar7
@@ -1390,13 +1390,13 @@ _main:
 	pop	ar5
 	pop	ar6
 	pop	ar7
-;	main.c:226: uint8_t block2=(address2 & 0xE00)>>8;
+;	main.c:225: uint8_t block2=(address2 & 0xE00)>>8;
 	mov	a,#0x0e
 	anl	a,r3
 	mov	r1,a
-;	main.c:227: uint8_t endaddress=(address2&0x0FF);
+;	main.c:226: uint8_t endaddress=(address2&0x0FF);
 	mov	ar0,r2
-;	main.c:229: if(block1>7 || block2>7)
+;	main.c:228: if(block1>7 || block2>7)
 	mov	a,r5
 	add	a,#0xff - 0x07
 	jc	00114$
@@ -1404,24 +1404,24 @@ _main:
 	add	a,#0xff - 0x07
 	jnc	00115$
 00114$:
-;	main.c:232: putstr("Block numbers are invalid\n\r");
-	mov	dptr,#___str_14
+;	main.c:231: putstr("Block numbers are invalid\n\r");
+	mov	dptr,#___str_13
 	mov	b,#0x80
 	lcall	_putstr
-;	main.c:233: break;
+;	main.c:232: break;
 	ljmp	00123$
 00115$:
-;	main.c:235: if(address1>address2)
+;	main.c:234: if(address1>address2)
 	clr	c
 	mov	a,r2
 	subb	a,r6
 	mov	a,r3
 	subb	a,r7
 	jnc	00118$
-;	main.c:237: printf("Initial address is greater than Second address\n\r");
-	mov	a,#___str_15
+;	main.c:236: printf("Initial address is greater than Second address\n\r");
+	mov	a,#___str_14
 	push	acc
-	mov	a,#(___str_15 >> 8)
+	mov	a,#(___str_14 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -1429,10 +1429,10 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	main.c:238: break;
+;	main.c:237: break;
 	ljmp	00123$
 00118$:
-;	main.c:244: seq_read(control,startaddress,endaddress,block1,block2);
+;	main.c:243: seq_read(control,startaddress,endaddress,block1,block2);
 	mov	dptr,#_control
 	movx	a,@dptr
 	mov	r7,a
@@ -1450,33 +1450,33 @@ _main:
 	movx	@dptr,a
 	mov	dpl,r7
 	lcall	_seq_read
-;	main.c:250: control=0xA0;
+;	main.c:249: control=0xA0;
 	mov	dptr,#_control
 	mov	a,#0xa0
 	movx	@dptr,a
-;	main.c:252: break;
+;	main.c:251: break;
 	ljmp	00123$
-;	main.c:253: case 'X':
+;	main.c:252: case 'X':
 00119$:
-;	main.c:254: restart_i2c();
+;	main.c:253: restart_i2c();
 	lcall	_restart_i2c
-;	main.c:255: i2c_write(0xFF);
+;	main.c:254: i2c_write(0xFF);
 	mov	dptr,#0x00ff
 	lcall	_i2c_write
-;	main.c:256: i2c_nack();
+;	main.c:255: i2c_nack();
 	lcall	_i2c_nack
-;	main.c:257: restart_i2c();
+;	main.c:256: restart_i2c();
 	lcall	_restart_i2c
-;	main.c:258: i2c_stop();
+;	main.c:257: i2c_stop();
 	lcall	_i2c_stop
-;	main.c:259: break;
+;	main.c:258: break;
 	ljmp	00123$
-;	main.c:260: default:
+;	main.c:259: default:
 00120$:
-;	main.c:261: printf("No function attached to input\r\n");
-	mov	a,#___str_16
+;	main.c:260: printf("No function attached to input\r\n");
+	mov	a,#___str_15
 	push	acc
-	mov	a,#(___str_16 >> 8)
+	mov	a,#(___str_15 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -1484,8 +1484,8 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	main.c:274: }
-;	main.c:278: }
+;	main.c:273: }
+;	main.c:277: }
 	ljmp	00123$
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
@@ -1532,7 +1532,7 @@ ___str_5:
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_6:
-	.ascii "*****************"
+	.ascii "*************************"
 	.db 0x0a
 	.db 0x0d
 	.ascii "MENU FOR TESTING I2C FUNCTIONS"
@@ -1545,8 +1545,6 @@ ___str_6:
 	.db 0x0a
 	.db 0x0d
 	.ascii "PRESS S FOR HEX DUMP"
-	.db 0x0a
-	.db 0x0d
 	.db 0x0a
 	.db 0x0d
 	.ascii "PRESS X FOR EEPROM RESET"
@@ -1565,7 +1563,7 @@ ___str_7:
 	.area CONST   (CODE)
 ___str_8:
 	.ascii "ENTER ADDRESS TO BE READ,ADDRESS INCLUDES BLOCK NUMBER AND W"
-	.ascii "ORD ADRRESS TOGETHER SEPERATED  in HEX"
+	.ascii "ORD ADRRESS TOGETHER in HEX"
 	.db 0x0a
 	.db 0x0d
 	.db 0x00
@@ -1579,47 +1577,39 @@ ___str_9:
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_10:
-	.ascii "ENTER ADDRESS TO BE READ,ADDRESS INCLUDES BLOCK NUMBER AND W"
-	.ascii "ORD ADRRESS TOGETHER SEPERATED BY 0 in HEX"
-	.db 0x0a
-	.db 0x0d
-	.db 0x00
-	.area CSEG    (CODE)
-	.area CONST   (CODE)
-___str_11:
 	.ascii "Enter first address"
 	.db 0x0a
 	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_12:
+___str_11:
 	.ascii "Error in input"
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_13:
+___str_12:
 	.ascii "Enter second address"
 	.db 0x0a
 	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_14:
+___str_13:
 	.ascii "Block numbers are invalid"
 	.db 0x0a
 	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_15:
+___str_14:
 	.ascii "Initial address is greater than Second address"
 	.db 0x0a
 	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
-___str_16:
+___str_15:
 	.ascii "No function attached to input"
 	.db 0x0d
 	.db 0x0a

@@ -802,9 +802,9 @@
       002DDF C0 06            [24]  802 	push	ar6
       002DE1 C0 05            [24]  803 	push	ar5
       002DE3 C0 04            [24]  804 	push	ar4
-      002DE5 74 07            [12]  805 	mov	a,#___str_0
+      002DE5 74 F4            [12]  805 	mov	a,#___str_0
       002DE7 C0 E0            [24]  806 	push	acc
-      002DE9 74 44            [12]  807 	mov	a,#(___str_0 >> 8)
+      002DE9 74 43            [12]  807 	mov	a,#(___str_0 >> 8)
       002DEB C0 E0            [24]  808 	push	acc
       002DED 74 80            [12]  809 	mov	a,#0x80
       002DEF C0 E0            [24]  810 	push	acc
@@ -838,9 +838,9 @@
       002E19 C0 05            [24]  838 	push	ar5
       002E1B C0 04            [24]  839 	push	ar4
       002E1D C0 03            [24]  840 	push	ar3
-      002E1F 74 07            [12]  841 	mov	a,#___str_0
+      002E1F 74 F4            [12]  841 	mov	a,#___str_0
       002E21 C0 E0            [24]  842 	push	acc
-      002E23 74 44            [12]  843 	mov	a,#(___str_0 >> 8)
+      002E23 74 43            [12]  843 	mov	a,#(___str_0 >> 8)
       002E25 C0 E0            [24]  844 	push	acc
       002E27 74 80            [12]  845 	mov	a,#0x80
       002E29 C0 E0            [24]  846 	push	acc
@@ -861,9 +861,9 @@
       002E46 C0 03            [24]  861 	push	ar3
       002E48 C0 07            [24]  862 	push	ar7
       002E4A C0 06            [24]  863 	push	ar6
-      002E4C 74 0A            [12]  864 	mov	a,#___str_1
+      002E4C 74 F7            [12]  864 	mov	a,#___str_1
       002E4E C0 E0            [24]  865 	push	acc
-      002E50 74 44            [12]  866 	mov	a,#(___str_1 >> 8)
+      002E50 74 43            [12]  866 	mov	a,#(___str_1 >> 8)
       002E52 C0 E0            [24]  867 	push	acc
       002E54 74 80            [12]  868 	mov	a,#0x80
       002E56 C0 E0            [24]  869 	push	acc
@@ -899,9 +899,9 @@
       002E8A C0 03            [24]  899 	push	ar3
       002E8C C0 01            [24]  900 	push	ar1
       002E8E C0 02            [24]  901 	push	ar2
-      002E90 74 0F            [12]  902 	mov	a,#___str_2
+      002E90 74 FC            [12]  902 	mov	a,#___str_2
       002E92 C0 E0            [24]  903 	push	acc
-      002E94 74 44            [12]  904 	mov	a,#(___str_2 >> 8)
+      002E94 74 43            [12]  904 	mov	a,#(___str_2 >> 8)
       002E96 C0 E0            [24]  905 	push	acc
       002E98 74 80            [12]  906 	mov	a,#0x80
       002E9A C0 E0            [24]  907 	push	acc
@@ -949,9 +949,9 @@
       002EE3 C0 06            [24]  949 	push	ar6
       002EE5 C0 05            [24]  950 	push	ar5
       002EE7 C0 04            [24]  951 	push	ar4
-      002EE9 74 07            [12]  952 	mov	a,#___str_0
+      002EE9 74 F4            [12]  952 	mov	a,#___str_0
       002EEB C0 E0            [24]  953 	push	acc
-      002EED 74 44            [12]  954 	mov	a,#(___str_0 >> 8)
+      002EED 74 43            [12]  954 	mov	a,#(___str_0 >> 8)
       002EEF C0 E0            [24]  955 	push	acc
       002EF1 74 80            [12]  956 	mov	a,#0x80
       002EF3 C0 E0            [24]  957 	push	acc
@@ -968,7 +968,7 @@
       002F08 C0 04            [24]  968 	push	ar4
       002F0A C0 07            [24]  969 	push	ar7
       002F0C C0 06            [24]  970 	push	ar6
-      002F0E 74 14            [12]  971 	mov	a,#___str_3
+      002F0E 74 01            [12]  971 	mov	a,#___str_3
       002F10 C0 E0            [24]  972 	push	acc
       002F12 74 44            [12]  973 	mov	a,#(___str_3 >> 8)
       002F14 C0 E0            [24]  974 	push	acc
@@ -984,9 +984,9 @@
                                     984 ;	eeprom.c:98: printf(" %X ",s);
       002F27 C0 04            [24]  985 	push	ar4
       002F29 C0 05            [24]  986 	push	ar5
-      002F2B 74 0F            [12]  987 	mov	a,#___str_2
+      002F2B 74 FC            [12]  987 	mov	a,#___str_2
       002F2D C0 E0            [24]  988 	push	acc
-      002F2F 74 44            [12]  989 	mov	a,#(___str_2 >> 8)
+      002F2F 74 43            [12]  989 	mov	a,#(___str_2 >> 8)
       002F31 C0 E0            [24]  990 	push	acc
       002F33 74 80            [12]  991 	mov	a,#0x80
       002F35 C0 E0            [24]  992 	push	acc
@@ -995,9 +995,9 @@
       002F3C 24 FB            [12]  995 	add	a,#0xfb
       002F3E F5 81            [12]  996 	mov	sp,a
                                     997 ;	eeprom.c:99: printf(newl);
-      002F40 74 07            [12]  998 	mov	a,#___str_0
+      002F40 74 F4            [12]  998 	mov	a,#___str_0
       002F42 C0 E0            [24]  999 	push	acc
-      002F44 74 44            [12] 1000 	mov	a,#(___str_0 >> 8)
+      002F44 74 43            [12] 1000 	mov	a,#(___str_0 >> 8)
       002F46 C0 E0            [24] 1001 	push	acc
       002F48 74 80            [12] 1002 	mov	a,#0x80
       002F4A C0 E0            [24] 1003 	push	acc
@@ -1020,25 +1020,25 @@
                                    1020 	.area CSEG    (CODE)
                                    1021 	.area CONST   (CODE)
                                    1022 	.area CONST   (CODE)
-      004407                       1023 ___str_0:
-      004407 0A                    1024 	.db 0x0a
-      004408 0D                    1025 	.db 0x0d
-      004409 00                    1026 	.db 0x00
+      0043F4                       1023 ___str_0:
+      0043F4 0A                    1024 	.db 0x0a
+      0043F5 0D                    1025 	.db 0x0d
+      0043F6 00                    1026 	.db 0x00
                                    1027 	.area CSEG    (CODE)
                                    1028 	.area CONST   (CODE)
-      00440A                       1029 ___str_1:
-      00440A 25 33 58 3A           1030 	.ascii "%3X:"
-      00440E 00                    1031 	.db 0x00
+      0043F7                       1029 ___str_1:
+      0043F7 25 33 58 3A           1030 	.ascii "%3X:"
+      0043FB 00                    1031 	.db 0x00
                                    1032 	.area CSEG    (CODE)
                                    1033 	.area CONST   (CODE)
-      00440F                       1034 ___str_2:
-      00440F 20 25 58 20           1035 	.ascii " %X "
-      004413 00                    1036 	.db 0x00
+      0043FC                       1034 ___str_2:
+      0043FC 20 25 58 20           1035 	.ascii " %X "
+      004400 00                    1036 	.db 0x00
                                    1037 	.area CSEG    (CODE)
                                    1038 	.area CONST   (CODE)
-      004414                       1039 ___str_3:
-      004414 25 58 3A              1040 	.ascii "%X:"
-      004417 00                    1041 	.db 0x00
+      004401                       1039 ___str_3:
+      004401 25 58 3A              1040 	.ascii "%X:"
+      004404 00                    1041 	.db 0x00
                                    1042 	.area CSEG    (CODE)
                                    1043 	.area XINIT   (CODE)
                                    1044 	.area CABS    (ABS,CODE)

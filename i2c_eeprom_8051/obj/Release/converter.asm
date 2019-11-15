@@ -186,7 +186,7 @@ _strtohex:
 	ljmp	00104$
 ;	converter.c:15: case 2:
 00102$:
-;	converter.c:16: printf("Two digits detected");f[0]='0';f[1]=l[0];f[2]=l[1];break;
+;	converter.c:16: printf("");f[0]='0';f[1]=l[0];f[2]=l[1];break;
 	push	ar7
 	push	ar6
 	mov	a,#___str_0
@@ -1427,7 +1427,6 @@ _strtohex:
 	.area CONST   (CODE)
 	.area CONST   (CODE)
 ___str_0:
-	.ascii "Two digits detected"
 	.db 0x00
 	.area CSEG    (CODE)
 	.area XINIT   (CODE)

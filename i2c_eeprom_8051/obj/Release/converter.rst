@@ -186,7 +186,7 @@
       00262C 02 26 C4         [24]  186 	ljmp	00104$
                                     187 ;	converter.c:15: case 2:
       00262F                        188 00102$:
-                                    189 ;	converter.c:16: printf("Two digits detected");f[0]='0';f[1]=l[0];f[2]=l[1];break;
+                                    189 ;	converter.c:16: printf("");f[0]='0';f[1]=l[0];f[2]=l[1];break;
       00262F C0 07            [24]  190 	push	ar7
       002631 C0 06            [24]  191 	push	ar6
       002633 74 F3            [12]  192 	mov	a,#___str_0
@@ -1427,10 +1427,7 @@
                                    1427 	.area CONST   (CODE)
                                    1428 	.area CONST   (CODE)
       0043F3                       1429 ___str_0:
-      0043F3 54 77 6F 20 64 69 67  1430 	.ascii "Two digits detected"
-             69 74 73 20 64 65 74
-             65 63 74 65 64
-      004406 00                    1431 	.db 0x00
-                                   1432 	.area CSEG    (CODE)
-                                   1433 	.area XINIT   (CODE)
-                                   1434 	.area CABS    (ABS,CODE)
+      0043F3 00                    1430 	.db 0x00
+                                   1431 	.area CSEG    (CODE)
+                                   1432 	.area XINIT   (CODE)
+                                   1433 	.area CABS    (ABS,CODE)

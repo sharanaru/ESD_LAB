@@ -13,7 +13,7 @@ case 1:
     f[0]='0';f[1]='0';f[2]=l[0];
 break;
 case 2:
-    printf("Two digits detected");f[0]='0';f[1]=l[0];f[2]=l[1];break;
+    printf("");f[0]='0';f[1]=l[0];f[2]=l[1];break;
 case 3:
     f[0]=l[0];f[1]=l[1];f[2]=l[2];break;
 }

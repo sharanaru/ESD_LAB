@@ -36,7 +36,7 @@
 1573722627 source:c:\users\shara\documents\courses\pes\project 3\i2c_eeprom_8051\converter.c
 	"converter.h"
 
-1573805815 source:c:\users\shara\music\esd_lab-lab4\i2c_eeprom_8051\converter.c
+1573808301 source:c:\users\shara\music\esd_lab-lab4\i2c_eeprom_8051\converter.c
 	"converter.h"
 
 1573801564 c:\users\shara\music\esd_lab-lab4\i2c_eeprom_8051\converter.h
@@ -45,7 +45,7 @@
 	"stdint.h"
 	<stdio.h>
 
-1573807306 source:c:\users\shara\music\esd_lab-lab4\i2c_eeprom_8051\eeprom.c
+1573807676 source:c:\users\shara\music\esd_lab-lab4\i2c_eeprom_8051\eeprom.c
 	"eeprom.h"
 	"stdio.h"
 
