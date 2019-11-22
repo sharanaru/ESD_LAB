@@ -453,10 +453,10 @@
                                     453 ; external ram data
                                     454 ;--------------------------------------------------------
                                     455 	.area XSEG    (XDATA)
-      000016                        456 _i2c_write_k_65536_72:
-      000016                        457 	.ds 2
-      000018                        458 _i2c_read_reader_65536_81:
-      000018                        459 	.ds 2
+      000012                        456 _i2c_write_k_65536_72:
+      000012                        457 	.ds 2
+      000014                        458 _i2c_read_reader_65536_81:
+      000014                        459 	.ds 2
                                     460 ;--------------------------------------------------------
                                     461 ; absolute external ram data
                                     462 ;--------------------------------------------------------
@@ -498,7 +498,7 @@
                                     498 ;	-----------------------------------------
                                     499 ;	 function delay
                                     500 ;	-----------------------------------------
-      002F67                        501 _delay:
+      003099                        501 _delay:
                            000007   502 	ar7 = 0x07
                            000006   503 	ar6 = 0x06
                            000005   504 	ar5 = 0x05
@@ -508,12 +508,12 @@
                            000001   508 	ar1 = 0x01
                            000000   509 	ar0 = 0x00
                                     510 ;	i2c.c:10: __endasm;
-      002F67 74 03            [12]  511 	mov	a,#3
-      002F69                        512 	    l1:
-      002F69 14               [12]  513 	dec	a
-      002F6A B4 00 FC         [24]  514 	cjne	a,#0,l1
+      003099 74 03            [12]  511 	mov	a,#3
+      00309B                        512 	    l1:
+      00309B 14               [12]  513 	dec	a
+      00309C B4 00 FC         [24]  514 	cjne	a,#0,l1
                                     515 ;	i2c.c:11: }
-      002F6D 22               [24]  516 	ret
+      00309F 22               [24]  516 	ret
                                     517 ;------------------------------------------------------------
                                     518 ;Allocation info for local variables in function 'i2c_reset'
                                     519 ;------------------------------------------------------------
@@ -521,22 +521,22 @@
                                     521 ;	-----------------------------------------
                                     522 ;	 function i2c_reset
                                     523 ;	-----------------------------------------
-      002F6E                        524 _i2c_reset:
+      0030A0                        524 _i2c_reset:
                                     525 ;	i2c.c:14: clearSCL;
                                     526 ;	assignBit
-      002F6E C2 94            [12]  527 	clr	_P1_4
+      0030A0 C2 94            [12]  527 	clr	_P1_4
                                     528 ;	i2c.c:15: clearSDA;
                                     529 ;	assignBit
-      002F70 C2 95            [12]  530 	clr	_P1_5
+      0030A2 C2 95            [12]  530 	clr	_P1_5
                                     531 ;	i2c.c:17: setSDA;
                                     532 ;	assignBit
-      002F72 D2 95            [12]  533 	setb	_P1_5
+      0030A4 D2 95            [12]  533 	setb	_P1_5
                                     534 ;	i2c.c:18: setSCL;
                                     535 ;	assignBit
-      002F74 D2 94            [12]  536 	setb	_P1_4
+      0030A6 D2 94            [12]  536 	setb	_P1_4
                                     537 ;	i2c.c:19: delay();
                                     538 ;	i2c.c:20: }
-      002F76 02 2F 67         [24]  539 	ljmp	_delay
+      0030A8 02 30 99         [24]  539 	ljmp	_delay
                                     540 ;------------------------------------------------------------
                                     541 ;Allocation info for local variables in function 'i2c_start'
                                     542 ;------------------------------------------------------------
@@ -544,18 +544,18 @@
                                     544 ;	-----------------------------------------
                                     545 ;	 function i2c_start
                                     546 ;	-----------------------------------------
-      002F79                        547 _i2c_start:
+      0030AB                        547 _i2c_start:
                                     548 ;	i2c.c:23: clearSDA;
                                     549 ;	assignBit
-      002F79 C2 95            [12]  550 	clr	_P1_5
+      0030AB C2 95            [12]  550 	clr	_P1_5
                                     551 ;	i2c.c:24: delay();
-      002F7B 12 2F 67         [24]  552 	lcall	_delay
+      0030AD 12 30 99         [24]  552 	lcall	_delay
                                     553 ;	i2c.c:25: clearSCL;
                                     554 ;	assignBit
-      002F7E C2 94            [12]  555 	clr	_P1_4
+      0030B0 C2 94            [12]  555 	clr	_P1_4
                                     556 ;	i2c.c:26: delay();
                                     557 ;	i2c.c:28: }
-      002F80 02 2F 67         [24]  558 	ljmp	_delay
+      0030B2 02 30 99         [24]  558 	ljmp	_delay
                                     559 ;------------------------------------------------------------
                                     560 ;Allocation info for local variables in function 'i2c_stop'
                                     561 ;------------------------------------------------------------
@@ -563,21 +563,21 @@
                                     563 ;	-----------------------------------------
                                     564 ;	 function i2c_stop
                                     565 ;	-----------------------------------------
-      002F83                        566 _i2c_stop:
+      0030B5                        566 _i2c_stop:
                                     567 ;	i2c.c:31: clearSDA;
                                     568 ;	assignBit
-      002F83 C2 95            [12]  569 	clr	_P1_5
+      0030B5 C2 95            [12]  569 	clr	_P1_5
                                     570 ;	i2c.c:32: setSCL;
                                     571 ;	assignBit
-      002F85 D2 94            [12]  572 	setb	_P1_4
+      0030B7 D2 94            [12]  572 	setb	_P1_4
                                     573 ;	i2c.c:33: delay();
-      002F87 12 2F 67         [24]  574 	lcall	_delay
+      0030B9 12 30 99         [24]  574 	lcall	_delay
                                     575 ;	i2c.c:34: setSDA; //low to high transition of sda marks stop
                                     576 ;	assignBit
-      002F8A D2 95            [12]  577 	setb	_P1_5
+      0030BC D2 95            [12]  577 	setb	_P1_5
                                     578 ;	i2c.c:35: delay();
                                     579 ;	i2c.c:37: }
-      002F8C 02 2F 67         [24]  580 	ljmp	_delay
+      0030BE 02 30 99         [24]  580 	ljmp	_delay
                                     581 ;------------------------------------------------------------
                                     582 ;Allocation info for local variables in function 'long_delay'
                                     583 ;------------------------------------------------------------
@@ -587,29 +587,29 @@
                                     587 ;	-----------------------------------------
                                     588 ;	 function long_delay
                                     589 ;	-----------------------------------------
-      002F8F                        590 _long_delay:
+      0030C1                        590 _long_delay:
                                     591 ;	i2c.c:40: for(uint16_t i=800;i!=0;i--)
-      002F8F 7E 20            [12]  592 	mov	r6,#0x20
-      002F91 7F 03            [12]  593 	mov	r7,#0x03
-      002F93                        594 00103$:
-      002F93 EE               [12]  595 	mov	a,r6
-      002F94 4F               [12]  596 	orl	a,r7
-      002F95 60 12            [24]  597 	jz	00105$
+      0030C1 7E 20            [12]  592 	mov	r6,#0x20
+      0030C3 7F 03            [12]  593 	mov	r7,#0x03
+      0030C5                        594 00103$:
+      0030C5 EE               [12]  595 	mov	a,r6
+      0030C6 4F               [12]  596 	orl	a,r7
+      0030C7 60 12            [24]  597 	jz	00105$
                                     598 ;	i2c.c:42: delay();
-      002F97 C0 07            [24]  599 	push	ar7
-      002F99 C0 06            [24]  600 	push	ar6
-      002F9B 12 2F 67         [24]  601 	lcall	_delay
-      002F9E D0 06            [24]  602 	pop	ar6
-      002FA0 D0 07            [24]  603 	pop	ar7
+      0030C9 C0 07            [24]  599 	push	ar7
+      0030CB C0 06            [24]  600 	push	ar6
+      0030CD 12 30 99         [24]  601 	lcall	_delay
+      0030D0 D0 06            [24]  602 	pop	ar6
+      0030D2 D0 07            [24]  603 	pop	ar7
                                     604 ;	i2c.c:40: for(uint16_t i=800;i!=0;i--)
-      002FA2 1E               [12]  605 	dec	r6
-      002FA3 BE FF 01         [24]  606 	cjne	r6,#0xff,00117$
-      002FA6 1F               [12]  607 	dec	r7
-      002FA7                        608 00117$:
-      002FA7 80 EA            [24]  609 	sjmp	00103$
-      002FA9                        610 00105$:
+      0030D4 1E               [12]  605 	dec	r6
+      0030D5 BE FF 01         [24]  606 	cjne	r6,#0xff,00117$
+      0030D8 1F               [12]  607 	dec	r7
+      0030D9                        608 00117$:
+      0030D9 80 EA            [24]  609 	sjmp	00103$
+      0030DB                        610 00105$:
                                     611 ;	i2c.c:44: }
-      002FA9 22               [24]  612 	ret
+      0030DB 22               [24]  612 	ret
                                     613 ;------------------------------------------------------------
                                     614 ;Allocation info for local variables in function 'restart_i2c'
                                     615 ;------------------------------------------------------------
@@ -617,20 +617,20 @@
                                     617 ;	-----------------------------------------
                                     618 ;	 function restart_i2c
                                     619 ;	-----------------------------------------
-      002FAA                        620 _restart_i2c:
+      0030DC                        620 _restart_i2c:
                                     621 ;	i2c.c:47: setSCL;
                                     622 ;	assignBit
-      002FAA D2 94            [12]  623 	setb	_P1_4
+      0030DC D2 94            [12]  623 	setb	_P1_4
                                     624 ;	i2c.c:48: clearSDA;
                                     625 ;	assignBit
-      002FAC C2 95            [12]  626 	clr	_P1_5
+      0030DE C2 95            [12]  626 	clr	_P1_5
                                     627 ;	i2c.c:49: delay();
-      002FAE 12 2F 67         [24]  628 	lcall	_delay
+      0030E0 12 30 99         [24]  628 	lcall	_delay
                                     629 ;	i2c.c:50: clearSCL;
                                     630 ;	assignBit
-      002FB1 C2 94            [12]  631 	clr	_P1_4
+      0030E3 C2 94            [12]  631 	clr	_P1_4
                                     632 ;	i2c.c:51: }
-      002FB3 22               [24]  633 	ret
+      0030E5 22               [24]  633 	ret
                                     634 ;------------------------------------------------------------
                                     635 ;Allocation info for local variables in function 'i2c_write'
                                     636 ;------------------------------------------------------------
@@ -642,125 +642,125 @@
                                     642 ;	-----------------------------------------
                                     643 ;	 function i2c_write
                                     644 ;	-----------------------------------------
-      002FB4                        645 _i2c_write:
-      002FB4 AF 83            [24]  646 	mov	r7,dph
-      002FB6 E5 82            [12]  647 	mov	a,dpl
-      002FB8 90 00 16         [24]  648 	mov	dptr,#_i2c_write_k_65536_72
-      002FBB F0               [24]  649 	movx	@dptr,a
-      002FBC EF               [12]  650 	mov	a,r7
-      002FBD A3               [24]  651 	inc	dptr
-      002FBE F0               [24]  652 	movx	@dptr,a
+      0030E6                        645 _i2c_write:
+      0030E6 AF 83            [24]  646 	mov	r7,dph
+      0030E8 E5 82            [12]  647 	mov	a,dpl
+      0030EA 90 00 12         [24]  648 	mov	dptr,#_i2c_write_k_65536_72
+      0030ED F0               [24]  649 	movx	@dptr,a
+      0030EE EF               [12]  650 	mov	a,r7
+      0030EF A3               [24]  651 	inc	dptr
+      0030F0 F0               [24]  652 	movx	@dptr,a
                                     653 ;	i2c.c:57: for(int i=0; i<8; i++)
-      002FBF 7E 00            [12]  654 	mov	r6,#0x00
-      002FC1 7F 00            [12]  655 	mov	r7,#0x00
-      002FC3                        656 00106$:
-      002FC3 C3               [12]  657 	clr	c
-      002FC4 EE               [12]  658 	mov	a,r6
-      002FC5 94 08            [12]  659 	subb	a,#0x08
-      002FC7 EF               [12]  660 	mov	a,r7
-      002FC8 64 80            [12]  661 	xrl	a,#0x80
-      002FCA 94 80            [12]  662 	subb	a,#0x80
-      002FCC 50 57            [24]  663 	jnc	00104$
+      0030F1 7E 00            [12]  654 	mov	r6,#0x00
+      0030F3 7F 00            [12]  655 	mov	r7,#0x00
+      0030F5                        656 00106$:
+      0030F5 C3               [12]  657 	clr	c
+      0030F6 EE               [12]  658 	mov	a,r6
+      0030F7 94 08            [12]  659 	subb	a,#0x08
+      0030F9 EF               [12]  660 	mov	a,r7
+      0030FA 64 80            [12]  661 	xrl	a,#0x80
+      0030FC 94 80            [12]  662 	subb	a,#0x80
+      0030FE 50 57            [24]  663 	jnc	00104$
                                     664 ;	i2c.c:60: if(k & 128)
-      002FCE 90 00 16         [24]  665 	mov	dptr,#_i2c_write_k_65536_72
-      002FD1 E0               [24]  666 	movx	a,@dptr
-      002FD2 FC               [12]  667 	mov	r4,a
-      002FD3 A3               [24]  668 	inc	dptr
-      002FD4 E0               [24]  669 	movx	a,@dptr
-      002FD5 EC               [12]  670 	mov	a,r4
-      002FD6 30 E7 13         [24]  671 	jnb	acc.7,00102$
+      003100 90 00 12         [24]  665 	mov	dptr,#_i2c_write_k_65536_72
+      003103 E0               [24]  666 	movx	a,@dptr
+      003104 FC               [12]  667 	mov	r4,a
+      003105 A3               [24]  668 	inc	dptr
+      003106 E0               [24]  669 	movx	a,@dptr
+      003107 EC               [12]  670 	mov	a,r4
+      003108 30 E7 13         [24]  671 	jnb	acc.7,00102$
                                     672 ;	i2c.c:62: setSDA;
                                     673 ;	assignBit
-      002FD9 D2 95            [12]  674 	setb	_P1_5
+      00310B D2 95            [12]  674 	setb	_P1_5
                                     675 ;	i2c.c:63: setSCL;
                                     676 ;	assignBit
-      002FDB D2 94            [12]  677 	setb	_P1_4
+      00310D D2 94            [12]  677 	setb	_P1_4
                                     678 ;	i2c.c:64: delay();
-      002FDD C0 07            [24]  679 	push	ar7
-      002FDF C0 06            [24]  680 	push	ar6
-      002FE1 12 2F 67         [24]  681 	lcall	_delay
-      002FE4 D0 06            [24]  682 	pop	ar6
-      002FE6 D0 07            [24]  683 	pop	ar7
+      00310F C0 07            [24]  679 	push	ar7
+      003111 C0 06            [24]  680 	push	ar6
+      003113 12 30 99         [24]  681 	lcall	_delay
+      003116 D0 06            [24]  682 	pop	ar6
+      003118 D0 07            [24]  683 	pop	ar7
                                     684 ;	i2c.c:65: clearSCL;
                                     685 ;	assignBit
-      002FE8 C2 94            [12]  686 	clr	_P1_4
-      002FEA 80 11            [24]  687 	sjmp	00103$
-      002FEC                        688 00102$:
+      00311A C2 94            [12]  686 	clr	_P1_4
+      00311C 80 11            [24]  687 	sjmp	00103$
+      00311E                        688 00102$:
                                     689 ;	i2c.c:72: clearSDA;
                                     690 ;	assignBit
-      002FEC C2 95            [12]  691 	clr	_P1_5
+      00311E C2 95            [12]  691 	clr	_P1_5
                                     692 ;	i2c.c:73: setSCL;
                                     693 ;	assignBit
-      002FEE D2 94            [12]  694 	setb	_P1_4
+      003120 D2 94            [12]  694 	setb	_P1_4
                                     695 ;	i2c.c:74: delay();
-      002FF0 C0 07            [24]  696 	push	ar7
-      002FF2 C0 06            [24]  697 	push	ar6
-      002FF4 12 2F 67         [24]  698 	lcall	_delay
-      002FF7 D0 06            [24]  699 	pop	ar6
-      002FF9 D0 07            [24]  700 	pop	ar7
+      003122 C0 07            [24]  696 	push	ar7
+      003124 C0 06            [24]  697 	push	ar6
+      003126 12 30 99         [24]  698 	lcall	_delay
+      003129 D0 06            [24]  699 	pop	ar6
+      00312B D0 07            [24]  700 	pop	ar7
                                     701 ;	i2c.c:75: clearSCL;
                                     702 ;	assignBit
-      002FFB C2 94            [12]  703 	clr	_P1_4
-      002FFD                        704 00103$:
+      00312D C2 94            [12]  703 	clr	_P1_4
+      00312F                        704 00103$:
                                     705 ;	i2c.c:83: delay();
-      002FFD C0 07            [24]  706 	push	ar7
-      002FFF C0 06            [24]  707 	push	ar6
-      003001 12 2F 67         [24]  708 	lcall	_delay
-      003004 D0 06            [24]  709 	pop	ar6
-      003006 D0 07            [24]  710 	pop	ar7
+      00312F C0 07            [24]  706 	push	ar7
+      003131 C0 06            [24]  707 	push	ar6
+      003133 12 30 99         [24]  708 	lcall	_delay
+      003136 D0 06            [24]  709 	pop	ar6
+      003138 D0 07            [24]  710 	pop	ar7
                                     711 ;	i2c.c:84: k<<=1;
-      003008 90 00 16         [24]  712 	mov	dptr,#_i2c_write_k_65536_72
-      00300B E0               [24]  713 	movx	a,@dptr
-      00300C FC               [12]  714 	mov	r4,a
-      00300D A3               [24]  715 	inc	dptr
-      00300E E0               [24]  716 	movx	a,@dptr
-      00300F FD               [12]  717 	mov	r5,a
-      003010 EC               [12]  718 	mov	a,r4
-      003011 2C               [12]  719 	add	a,r4
-      003012 FC               [12]  720 	mov	r4,a
-      003013 ED               [12]  721 	mov	a,r5
-      003014 33               [12]  722 	rlc	a
-      003015 FD               [12]  723 	mov	r5,a
-      003016 90 00 16         [24]  724 	mov	dptr,#_i2c_write_k_65536_72
-      003019 EC               [12]  725 	mov	a,r4
-      00301A F0               [24]  726 	movx	@dptr,a
-      00301B ED               [12]  727 	mov	a,r5
-      00301C A3               [24]  728 	inc	dptr
-      00301D F0               [24]  729 	movx	@dptr,a
+      00313A 90 00 12         [24]  712 	mov	dptr,#_i2c_write_k_65536_72
+      00313D E0               [24]  713 	movx	a,@dptr
+      00313E FC               [12]  714 	mov	r4,a
+      00313F A3               [24]  715 	inc	dptr
+      003140 E0               [24]  716 	movx	a,@dptr
+      003141 FD               [12]  717 	mov	r5,a
+      003142 EC               [12]  718 	mov	a,r4
+      003143 2C               [12]  719 	add	a,r4
+      003144 FC               [12]  720 	mov	r4,a
+      003145 ED               [12]  721 	mov	a,r5
+      003146 33               [12]  722 	rlc	a
+      003147 FD               [12]  723 	mov	r5,a
+      003148 90 00 12         [24]  724 	mov	dptr,#_i2c_write_k_65536_72
+      00314B EC               [12]  725 	mov	a,r4
+      00314C F0               [24]  726 	movx	@dptr,a
+      00314D ED               [12]  727 	mov	a,r5
+      00314E A3               [24]  728 	inc	dptr
+      00314F F0               [24]  729 	movx	@dptr,a
                                     730 ;	i2c.c:57: for(int i=0; i<8; i++)
-      00301E 0E               [12]  731 	inc	r6
-      00301F BE 00 A1         [24]  732 	cjne	r6,#0x00,00106$
-      003022 0F               [12]  733 	inc	r7
-      003023 80 9E            [24]  734 	sjmp	00106$
-      003025                        735 00104$:
+      003150 0E               [12]  731 	inc	r6
+      003151 BE 00 A1         [24]  732 	cjne	r6,#0x00,00106$
+      003154 0F               [12]  733 	inc	r7
+      003155 80 9E            [24]  734 	sjmp	00106$
+      003157                        735 00104$:
                                     736 ;	i2c.c:87: setSDA;
                                     737 ;	assignBit
-      003025 D2 95            [12]  738 	setb	_P1_5
+      003157 D2 95            [12]  738 	setb	_P1_5
                                     739 ;	i2c.c:90: __endasm;
-      003027 00               [12]  740 	nop
+      003159 00               [12]  740 	nop
                                     741 ;	i2c.c:91: setSCL;
                                     742 ;	assignBit
-      003028 D2 94            [12]  743 	setb	_P1_4
+      00315A D2 94            [12]  743 	setb	_P1_4
                                     744 ;	i2c.c:93: ack_check |=P1_5;
-      00302A A2 95            [12]  745 	mov	c,_P1_5
-      00302C E4               [12]  746 	clr	a
-      00302D 33               [12]  747 	rlc	a
-      00302E FE               [12]  748 	mov	r6,a
-      00302F 7F 00            [12]  749 	mov	r7,#0x00
+      00315C A2 95            [12]  745 	mov	c,_P1_5
+      00315E E4               [12]  746 	clr	a
+      00315F 33               [12]  747 	rlc	a
+      003160 FE               [12]  748 	mov	r6,a
+      003161 7F 00            [12]  749 	mov	r7,#0x00
                                     750 ;	i2c.c:95: delay();
-      003031 C0 07            [24]  751 	push	ar7
-      003033 C0 06            [24]  752 	push	ar6
-      003035 12 2F 67         [24]  753 	lcall	_delay
-      003038 D0 06            [24]  754 	pop	ar6
-      00303A D0 07            [24]  755 	pop	ar7
+      003163 C0 07            [24]  751 	push	ar7
+      003165 C0 06            [24]  752 	push	ar6
+      003167 12 30 99         [24]  753 	lcall	_delay
+      00316A D0 06            [24]  754 	pop	ar6
+      00316C D0 07            [24]  755 	pop	ar7
                                     756 ;	i2c.c:96: clearSCL;
                                     757 ;	assignBit
-      00303C C2 94            [12]  758 	clr	_P1_4
+      00316E C2 94            [12]  758 	clr	_P1_4
                                     759 ;	i2c.c:97: return ack_check;
-      00303E 8E 82            [24]  760 	mov	dpl,r6
-      003040 8F 83            [24]  761 	mov	dph,r7
+      003170 8E 82            [24]  760 	mov	dpl,r6
+      003172 8F 83            [24]  761 	mov	dph,r7
                                     762 ;	i2c.c:98: }
-      003042 22               [24]  763 	ret
+      003174 22               [24]  763 	ret
                                     764 ;------------------------------------------------------------
                                     765 ;Allocation info for local variables in function 'i2c_ack'
                                     766 ;------------------------------------------------------------
@@ -768,25 +768,25 @@
                                     768 ;	-----------------------------------------
                                     769 ;	 function i2c_ack
                                     770 ;	-----------------------------------------
-      003043                        771 _i2c_ack:
+      003175                        771 _i2c_ack:
                                     772 ;	i2c.c:101: clearSDA;
                                     773 ;	assignBit
-      003043 C2 95            [12]  774 	clr	_P1_5
+      003175 C2 95            [12]  774 	clr	_P1_5
                                     775 ;	i2c.c:102: delay();
-      003045 12 2F 67         [24]  776 	lcall	_delay
+      003177 12 30 99         [24]  776 	lcall	_delay
                                     777 ;	i2c.c:103: setSCL;
                                     778 ;	assignBit
-      003048 D2 94            [12]  779 	setb	_P1_4
+      00317A D2 94            [12]  779 	setb	_P1_4
                                     780 ;	i2c.c:104: delay();
-      00304A 12 2F 67         [24]  781 	lcall	_delay
+      00317C 12 30 99         [24]  781 	lcall	_delay
                                     782 ;	i2c.c:105: clearSCL;
                                     783 ;	assignBit
-      00304D C2 94            [12]  784 	clr	_P1_4
+      00317F C2 94            [12]  784 	clr	_P1_4
                                     785 ;	i2c.c:106: setSDA;
                                     786 ;	assignBit
-      00304F D2 95            [12]  787 	setb	_P1_5
+      003181 D2 95            [12]  787 	setb	_P1_5
                                     788 ;	i2c.c:107: }
-      003051 22               [24]  789 	ret
+      003183 22               [24]  789 	ret
                                     790 ;------------------------------------------------------------
                                     791 ;Allocation info for local variables in function 'i2c_nack'
                                     792 ;------------------------------------------------------------
@@ -794,21 +794,21 @@
                                     794 ;	-----------------------------------------
                                     795 ;	 function i2c_nack
                                     796 ;	-----------------------------------------
-      003052                        797 _i2c_nack:
+      003184                        797 _i2c_nack:
                                     798 ;	i2c.c:110: setSCL;
                                     799 ;	assignBit
-      003052 D2 94            [12]  800 	setb	_P1_4
+      003184 D2 94            [12]  800 	setb	_P1_4
                                     801 ;	i2c.c:111: delay();
-      003054 12 2F 67         [24]  802 	lcall	_delay
+      003186 12 30 99         [24]  802 	lcall	_delay
                                     803 ;	i2c.c:112: setSDA;
                                     804 ;	assignBit
-      003057 D2 95            [12]  805 	setb	_P1_5
+      003189 D2 95            [12]  805 	setb	_P1_5
                                     806 ;	i2c.c:113: clearSCL;
                                     807 ;	assignBit
-      003059 C2 94            [12]  808 	clr	_P1_4
+      00318B C2 94            [12]  808 	clr	_P1_4
                                     809 ;	i2c.c:114: delay();
                                     810 ;	i2c.c:115: }
-      00305B 02 2F 67         [24]  811 	ljmp	_delay
+      00318D 02 30 99         [24]  811 	ljmp	_delay
                                     812 ;------------------------------------------------------------
                                     813 ;Allocation info for local variables in function 'i2c_read'
                                     814 ;------------------------------------------------------------
@@ -819,96 +819,96 @@
                                     819 ;	-----------------------------------------
                                     820 ;	 function i2c_read
                                     821 ;	-----------------------------------------
-      00305E                        822 _i2c_read:
+      003190                        822 _i2c_read:
                                     823 ;	i2c.c:118: int reader=0;
-      00305E 90 00 18         [24]  824 	mov	dptr,#_i2c_read_reader_65536_81
-      003061 E4               [12]  825 	clr	a
-      003062 F0               [24]  826 	movx	@dptr,a
-      003063 A3               [24]  827 	inc	dptr
-      003064 F0               [24]  828 	movx	@dptr,a
+      003190 90 00 14         [24]  824 	mov	dptr,#_i2c_read_reader_65536_81
+      003193 E4               [12]  825 	clr	a
+      003194 F0               [24]  826 	movx	@dptr,a
+      003195 A3               [24]  827 	inc	dptr
+      003196 F0               [24]  828 	movx	@dptr,a
                                     829 ;	i2c.c:119: setSDA;
                                     830 ;	assignBit
-      003065 D2 95            [12]  831 	setb	_P1_5
+      003197 D2 95            [12]  831 	setb	_P1_5
                                     832 ;	i2c.c:121: for (int i=0; i<8; i++)
-      003067 7E 00            [12]  833 	mov	r6,#0x00
-      003069 7F 00            [12]  834 	mov	r7,#0x00
-      00306B                        835 00103$:
-      00306B C3               [12]  836 	clr	c
-      00306C EE               [12]  837 	mov	a,r6
-      00306D 94 08            [12]  838 	subb	a,#0x08
-      00306F EF               [12]  839 	mov	a,r7
-      003070 64 80            [12]  840 	xrl	a,#0x80
-      003072 94 80            [12]  841 	subb	a,#0x80
-      003074 50 48            [24]  842 	jnc	00101$
+      003199 7E 00            [12]  833 	mov	r6,#0x00
+      00319B 7F 00            [12]  834 	mov	r7,#0x00
+      00319D                        835 00103$:
+      00319D C3               [12]  836 	clr	c
+      00319E EE               [12]  837 	mov	a,r6
+      00319F 94 08            [12]  838 	subb	a,#0x08
+      0031A1 EF               [12]  839 	mov	a,r7
+      0031A2 64 80            [12]  840 	xrl	a,#0x80
+      0031A4 94 80            [12]  841 	subb	a,#0x80
+      0031A6 50 48            [24]  842 	jnc	00101$
                                     843 ;	i2c.c:123: reader<<=1;
-      003076 90 00 18         [24]  844 	mov	dptr,#_i2c_read_reader_65536_81
-      003079 E0               [24]  845 	movx	a,@dptr
-      00307A FC               [12]  846 	mov	r4,a
-      00307B A3               [24]  847 	inc	dptr
-      00307C E0               [24]  848 	movx	a,@dptr
-      00307D FD               [12]  849 	mov	r5,a
-      00307E EC               [12]  850 	mov	a,r4
-      00307F 2C               [12]  851 	add	a,r4
-      003080 FC               [12]  852 	mov	r4,a
-      003081 ED               [12]  853 	mov	a,r5
-      003082 33               [12]  854 	rlc	a
-      003083 FD               [12]  855 	mov	r5,a
-      003084 90 00 18         [24]  856 	mov	dptr,#_i2c_read_reader_65536_81
-      003087 EC               [12]  857 	mov	a,r4
-      003088 F0               [24]  858 	movx	@dptr,a
-      003089 ED               [12]  859 	mov	a,r5
-      00308A A3               [24]  860 	inc	dptr
-      00308B F0               [24]  861 	movx	@dptr,a
+      0031A8 90 00 14         [24]  844 	mov	dptr,#_i2c_read_reader_65536_81
+      0031AB E0               [24]  845 	movx	a,@dptr
+      0031AC FC               [12]  846 	mov	r4,a
+      0031AD A3               [24]  847 	inc	dptr
+      0031AE E0               [24]  848 	movx	a,@dptr
+      0031AF FD               [12]  849 	mov	r5,a
+      0031B0 EC               [12]  850 	mov	a,r4
+      0031B1 2C               [12]  851 	add	a,r4
+      0031B2 FC               [12]  852 	mov	r4,a
+      0031B3 ED               [12]  853 	mov	a,r5
+      0031B4 33               [12]  854 	rlc	a
+      0031B5 FD               [12]  855 	mov	r5,a
+      0031B6 90 00 14         [24]  856 	mov	dptr,#_i2c_read_reader_65536_81
+      0031B9 EC               [12]  857 	mov	a,r4
+      0031BA F0               [24]  858 	movx	@dptr,a
+      0031BB ED               [12]  859 	mov	a,r5
+      0031BC A3               [24]  860 	inc	dptr
+      0031BD F0               [24]  861 	movx	@dptr,a
                                     862 ;	i2c.c:124: setSCL;
                                     863 ;	assignBit
-      00308C D2 94            [12]  864 	setb	_P1_4
+      0031BE D2 94            [12]  864 	setb	_P1_4
                                     865 ;	i2c.c:125: delay();
-      00308E C0 07            [24]  866 	push	ar7
-      003090 C0 06            [24]  867 	push	ar6
-      003092 12 2F 67         [24]  868 	lcall	_delay
+      0031C0 C0 07            [24]  866 	push	ar7
+      0031C2 C0 06            [24]  867 	push	ar6
+      0031C4 12 30 99         [24]  868 	lcall	_delay
                                     869 ;	i2c.c:126: reader |=P1_5;
-      003095 90 00 18         [24]  870 	mov	dptr,#_i2c_read_reader_65536_81
-      003098 E0               [24]  871 	movx	a,@dptr
-      003099 FC               [12]  872 	mov	r4,a
-      00309A A3               [24]  873 	inc	dptr
-      00309B E0               [24]  874 	movx	a,@dptr
-      00309C FD               [12]  875 	mov	r5,a
-      00309D A2 95            [12]  876 	mov	c,_P1_5
-      00309F E4               [12]  877 	clr	a
-      0030A0 33               [12]  878 	rlc	a
-      0030A1 FA               [12]  879 	mov	r2,a
-      0030A2 7B 00            [12]  880 	mov	r3,#0x00
-      0030A4 90 00 18         [24]  881 	mov	dptr,#_i2c_read_reader_65536_81
-      0030A7 EA               [12]  882 	mov	a,r2
-      0030A8 4C               [12]  883 	orl	a,r4
-      0030A9 F0               [24]  884 	movx	@dptr,a
-      0030AA EB               [12]  885 	mov	a,r3
-      0030AB 4D               [12]  886 	orl	a,r5
-      0030AC A3               [24]  887 	inc	dptr
-      0030AD F0               [24]  888 	movx	@dptr,a
+      0031C7 90 00 14         [24]  870 	mov	dptr,#_i2c_read_reader_65536_81
+      0031CA E0               [24]  871 	movx	a,@dptr
+      0031CB FC               [12]  872 	mov	r4,a
+      0031CC A3               [24]  873 	inc	dptr
+      0031CD E0               [24]  874 	movx	a,@dptr
+      0031CE FD               [12]  875 	mov	r5,a
+      0031CF A2 95            [12]  876 	mov	c,_P1_5
+      0031D1 E4               [12]  877 	clr	a
+      0031D2 33               [12]  878 	rlc	a
+      0031D3 FA               [12]  879 	mov	r2,a
+      0031D4 7B 00            [12]  880 	mov	r3,#0x00
+      0031D6 90 00 14         [24]  881 	mov	dptr,#_i2c_read_reader_65536_81
+      0031D9 EA               [12]  882 	mov	a,r2
+      0031DA 4C               [12]  883 	orl	a,r4
+      0031DB F0               [24]  884 	movx	@dptr,a
+      0031DC EB               [12]  885 	mov	a,r3
+      0031DD 4D               [12]  886 	orl	a,r5
+      0031DE A3               [24]  887 	inc	dptr
+      0031DF F0               [24]  888 	movx	@dptr,a
                                     889 ;	i2c.c:127: clearSCL;
                                     890 ;	assignBit
-      0030AE C2 94            [12]  891 	clr	_P1_4
+      0031E0 C2 94            [12]  891 	clr	_P1_4
                                     892 ;	i2c.c:128: delay();
-      0030B0 12 2F 67         [24]  893 	lcall	_delay
-      0030B3 D0 06            [24]  894 	pop	ar6
-      0030B5 D0 07            [24]  895 	pop	ar7
+      0031E2 12 30 99         [24]  893 	lcall	_delay
+      0031E5 D0 06            [24]  894 	pop	ar6
+      0031E7 D0 07            [24]  895 	pop	ar7
                                     896 ;	i2c.c:121: for (int i=0; i<8; i++)
-      0030B7 0E               [12]  897 	inc	r6
-      0030B8 BE 00 B0         [24]  898 	cjne	r6,#0x00,00103$
-      0030BB 0F               [12]  899 	inc	r7
-      0030BC 80 AD            [24]  900 	sjmp	00103$
-      0030BE                        901 00101$:
+      0031E9 0E               [12]  897 	inc	r6
+      0031EA BE 00 B0         [24]  898 	cjne	r6,#0x00,00103$
+      0031ED 0F               [12]  899 	inc	r7
+      0031EE 80 AD            [24]  900 	sjmp	00103$
+      0031F0                        901 00101$:
                                     902 ;	i2c.c:134: return reader;
-      0030BE 90 00 18         [24]  903 	mov	dptr,#_i2c_read_reader_65536_81
-      0030C1 E0               [24]  904 	movx	a,@dptr
-      0030C2 FE               [12]  905 	mov	r6,a
-      0030C3 A3               [24]  906 	inc	dptr
-      0030C4 E0               [24]  907 	movx	a,@dptr
+      0031F0 90 00 14         [24]  903 	mov	dptr,#_i2c_read_reader_65536_81
+      0031F3 E0               [24]  904 	movx	a,@dptr
+      0031F4 FE               [12]  905 	mov	r6,a
+      0031F5 A3               [24]  906 	inc	dptr
+      0031F6 E0               [24]  907 	movx	a,@dptr
                                     908 ;	i2c.c:136: }
-      0030C5 8E 82            [24]  909 	mov	dpl,r6
-      0030C7 F5 83            [12]  910 	mov	dph,a
-      0030C9 22               [24]  911 	ret
+      0031F7 8E 82            [24]  909 	mov	dpl,r6
+      0031F9 F5 83            [12]  910 	mov	dph,a
+      0031FB 22               [24]  911 	ret
                                     912 	.area CSEG    (CODE)
                                     913 	.area CONST   (CODE)
                                     914 	.area XINIT   (CODE)

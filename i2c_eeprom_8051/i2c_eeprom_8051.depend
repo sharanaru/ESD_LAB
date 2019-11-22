@@ -2,10 +2,10 @@
 1573630552 source:c:\users\shara\documents\courses\pes\project 3\i2c_eeprom_8051\i2c.c
 	"i2c.h"
 
-1573722522 source:c:\users\shara\documents\courses\pes\project 3\i2c_eeprom_8051\main.c
+1573796563 source:c:\users\shara\documents\courses\pes\project 3\i2c_eeprom_8051\main.c
 	<stdlib.h>
 	<stdio.h>
-	<stdint.h>
+	"stdint.h"
 	<ctype.h>
 	"at89c51ed2.h"
 	"string.h"
@@ -20,11 +20,12 @@
 	<ctype.h>
 	"at89c51ed2.h"
 
-1573719261 source:c:\users\shara\documents\courses\pes\project 3\i2c_eeprom_8051\eeprom.c
+1573796066 source:c:\users\shara\documents\courses\pes\project 3\i2c_eeprom_8051\eeprom.c
 	"eeprom.h"
 	"stdio.h"
+	"converter.h"
 
-1573713033 c:\users\shara\documents\courses\pes\project 3\i2c_eeprom_8051\eeprom.h
+1573796563 c:\users\shara\documents\courses\pes\project 3\i2c_eeprom_8051\eeprom.h
 	"i2c.h"
 	"stdio.h"
 
@@ -33,44 +34,6 @@
 	"ctype.h"
 	"stdint.h"
 
-1573722627 source:c:\users\shara\documents\courses\pes\project 3\i2c_eeprom_8051\converter.c
-	"converter.h"
-
-1573808301 source:c:\users\shara\music\esd_lab-lab4\i2c_eeprom_8051\converter.c
-	"converter.h"
-
-1573801564 c:\users\shara\music\esd_lab-lab4\i2c_eeprom_8051\converter.h
-	"string.h"
-	"ctype.h"
-	"stdint.h"
-	<stdio.h>
-
-1573807676 source:c:\users\shara\music\esd_lab-lab4\i2c_eeprom_8051\eeprom.c
-	"eeprom.h"
-	"stdio.h"
-
-1573796901 c:\users\shara\music\esd_lab-lab4\i2c_eeprom_8051\eeprom.h
-	"i2c.h"
-	"stdio.h"
-
-1573796901 c:\users\shara\music\esd_lab-lab4\i2c_eeprom_8051\i2c.h
-	<stdlib.h>
-	<stdio.h>
-	<stdint.h>
-	<ctype.h>
-	"at89c51ed2.h"
-
-1573796901 source:c:\users\shara\music\esd_lab-lab4\i2c_eeprom_8051\i2c.c
-	"i2c.h"
-
-1573835969 source:c:\users\shara\music\esd_lab-lab4\i2c_eeprom_8051\main.c
-	<stdlib.h>
-	<stdio.h>
-	<stdint.h>
-	<ctype.h>
-	"at89c51ed2.h"
-	"string.h"
-	"i2c.h"
-	"eeprom.h"
+1573792186 source:c:\users\shara\documents\courses\pes\project 3\i2c_eeprom_8051\converter.c
 	"converter.h"
 

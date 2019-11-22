@@ -8,6 +8,7 @@
 ;--------------------------------------------------------
 ; Public variables in this module
 ;--------------------------------------------------------
+	.globl _strtohex
 	.globl _i2c_read
 	.globl _i2c_nack
 	.globl _i2c_ack
@@ -16,6 +17,7 @@
 	.globl _long_delay
 	.globl _i2c_stop
 	.globl _delay
+	.globl _gets
 	.globl _printf
 	.globl _P5_7
 	.globl _P5_6
@@ -213,10 +215,6 @@
 	.globl _DPL
 	.globl _SP
 	.globl _P0
-	.globl _seq_read_PARM_5
-	.globl _seq_read_PARM_4
-	.globl _seq_read_PARM_3
-	.globl _seq_read_PARM_2
 	.globl _random_read_PARM_2
 	.globl _byte_write_PARM_3
 	.globl _byte_write_PARM_2
@@ -466,23 +464,15 @@ _byte_write_PARM_2:
 	.ds 1
 _byte_write_PARM_3:
 	.ds 1
-_byte_write_controlcode_65536_67:
+_byte_write_controlcode_65536_89:
 	.ds 1
-_byte_write_t_65537_69:
+_byte_write_t_65537_91:
 	.ds 2
 _random_read_PARM_2:
 	.ds 1
-_random_read_controlcode_65536_71:
+_random_read_controlcode_65536_93:
 	.ds 1
-_seq_read_PARM_2:
-	.ds 1
-_seq_read_PARM_3:
-	.ds 1
-_seq_read_PARM_4:
-	.ds 1
-_seq_read_PARM_5:
-	.ds 1
-_seq_read_controlcode_65536_74:
+_seq_read_controlcode_65536_96:
 	.ds 1
 ;--------------------------------------------------------
 ; absolute external ram data
@@ -523,10 +513,10 @@ _seq_read_controlcode_65536_74:
 ;------------------------------------------------------------
 ;byte_address              Allocated with name '_byte_write_PARM_2'
 ;writedata                 Allocated with name '_byte_write_PARM_3'
-;controlcode               Allocated with name '_byte_write_controlcode_65536_67'
-;t                         Allocated with name '_byte_write_t_65537_69'
+;controlcode               Allocated with name '_byte_write_controlcode_65536_89'
+;t                         Allocated with name '_byte_write_t_65537_91'
 ;------------------------------------------------------------
-;	eeprom.c:3: void byte_write(uint8_t controlcode,uint8_t byte_address,char writedata)
+;	eeprom.c:4: void byte_write(uint8_t controlcode,uint8_t byte_address,char writedata)
 ;	-----------------------------------------
 ;	 function byte_write
 ;	-----------------------------------------
@@ -540,12 +530,12 @@ _byte_write:
 	ar1 = 0x01
 	ar0 = 0x00
 	mov	a,dpl
-	mov	dptr,#_byte_write_controlcode_65536_67
+	mov	dptr,#_byte_write_controlcode_65536_89
 	movx	@dptr,a
-;	eeprom.c:5: restart_i2c();
+;	eeprom.c:6: restart_i2c();
 	lcall	_restart_i2c
-;	eeprom.c:6: i2c_write(controlcode);
-	mov	dptr,#_byte_write_controlcode_65536_67
+;	eeprom.c:7: i2c_write(controlcode);
+	mov	dptr,#_byte_write_controlcode_65536_89
 	movx	a,@dptr
 	mov	r6,a
 	mov	r7,#0x00
@@ -554,9 +544,9 @@ _byte_write:
 	push	ar7
 	push	ar6
 	lcall	_i2c_write
-;	eeprom.c:7: delay();
+;	eeprom.c:8: delay();
 	lcall	_delay
-;	eeprom.c:8: i2c_write(byte_address);
+;	eeprom.c:9: i2c_write(byte_address);
 	mov	dptr,#_byte_write_PARM_2
 	movx	a,@dptr
 	mov	r5,a
@@ -564,9 +554,9 @@ _byte_write:
 	mov	dpl,r5
 	mov	dph,r4
 	lcall	_i2c_write
-;	eeprom.c:9: delay();
+;	eeprom.c:10: delay();
 	lcall	_delay
-;	eeprom.c:10: i2c_write(writedata);
+;	eeprom.c:11: i2c_write(writedata);
 	mov	dptr,#_byte_write_PARM_3
 	movx	a,@dptr
 	mov	r5,a
@@ -574,37 +564,37 @@ _byte_write:
 	mov	dpl,r5
 	mov	dph,r4
 	lcall	_i2c_write
-;	eeprom.c:11: delay();
+;	eeprom.c:12: delay();
 	lcall	_delay
-;	eeprom.c:12: i2c_stop();
+;	eeprom.c:13: i2c_stop();
 	lcall	_i2c_stop
-;	eeprom.c:13: long_delay();
+;	eeprom.c:14: long_delay();
 	lcall	_long_delay
 	pop	ar6
 	pop	ar7
-;	eeprom.c:15: int t=1;
-	mov	dptr,#_byte_write_t_65537_69
+;	eeprom.c:16: int t=1;
+	mov	dptr,#_byte_write_t_65537_91
 	mov	a,#0x01
 	movx	@dptr,a
 	clr	a
 	inc	dptr
 	movx	@dptr,a
-;	eeprom.c:16: while(t) //ack polling
+;	eeprom.c:17: while(t) //ack polling
 00101$:
-	mov	dptr,#_byte_write_t_65537_69
+	mov	dptr,#_byte_write_t_65537_91
 	movx	a,@dptr
 	mov	b,a
 	inc	dptr
 	movx	a,@dptr
 	orl	a,b
 	jz	00103$
-;	eeprom.c:19: restart_i2c();
+;	eeprom.c:20: restart_i2c();
 	push	ar7
 	push	ar6
 	lcall	_restart_i2c
 	pop	ar6
 	pop	ar7
-;	eeprom.c:20: t=i2c_write(controlcode);
+;	eeprom.c:21: t=i2c_write(controlcode);
 	mov	dpl,r6
 	mov	dph,r7
 	push	ar7
@@ -612,39 +602,39 @@ _byte_write:
 	lcall	_i2c_write
 	mov	a,dpl
 	mov	b,dph
-	mov	dptr,#_byte_write_t_65537_69
+	mov	dptr,#_byte_write_t_65537_91
 	movx	@dptr,a
 	mov	a,b
 	inc	dptr
 	movx	@dptr,a
-;	eeprom.c:21: delay();
+;	eeprom.c:22: delay();
 	lcall	_delay
 	pop	ar6
 	pop	ar7
 	sjmp	00101$
 00103$:
-;	eeprom.c:24: i2c_stop();
-;	eeprom.c:25: }
+;	eeprom.c:25: i2c_stop();
+;	eeprom.c:26: }
 	ljmp	_i2c_stop
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'random_read'
 ;------------------------------------------------------------
 ;byte_address              Allocated with name '_random_read_PARM_2'
-;controlcode               Allocated with name '_random_read_controlcode_65536_71'
-;s                         Allocated with name '_random_read_s_65537_73'
+;controlcode               Allocated with name '_random_read_controlcode_65536_93'
+;s                         Allocated with name '_random_read_s_65537_95'
 ;------------------------------------------------------------
-;	eeprom.c:28: int random_read(uint8_t controlcode,uint8_t byte_address)
+;	eeprom.c:29: int random_read(uint8_t controlcode,uint8_t byte_address)
 ;	-----------------------------------------
 ;	 function random_read
 ;	-----------------------------------------
 _random_read:
 	mov	a,dpl
-	mov	dptr,#_random_read_controlcode_65536_71
+	mov	dptr,#_random_read_controlcode_65536_93
 	movx	@dptr,a
-;	eeprom.c:30: restart_i2c();
+;	eeprom.c:31: restart_i2c();
 	lcall	_restart_i2c
-;	eeprom.c:31: i2c_write(controlcode);
-	mov	dptr,#_random_read_controlcode_65536_71
+;	eeprom.c:32: i2c_write(controlcode);
+	mov	dptr,#_random_read_controlcode_65536_93
 	movx	a,@dptr
 	mov	r7,a
 	mov	r6,#0x00
@@ -653,9 +643,9 @@ _random_read:
 	push	ar7
 	push	ar6
 	lcall	_i2c_write
-;	eeprom.c:32: delay();
+;	eeprom.c:33: delay();
 	lcall	_delay
-;	eeprom.c:33: i2c_write(byte_address);
+;	eeprom.c:34: i2c_write(byte_address);
 	mov	dptr,#_random_read_PARM_2
 	movx	a,@dptr
 	mov	r5,a
@@ -663,13 +653,13 @@ _random_read:
 	mov	dpl,r5
 	mov	dph,r4
 	lcall	_i2c_write
-;	eeprom.c:34: delay();
+;	eeprom.c:35: delay();
 	lcall	_delay
-;	eeprom.c:35: restart_i2c();
+;	eeprom.c:36: restart_i2c();
 	lcall	_restart_i2c
 	pop	ar6
 	pop	ar7
-;	eeprom.c:36: i2c_write((controlcode+1)); //change to read operation
+;	eeprom.c:37: i2c_write((controlcode+1)); //change to read operation
 	inc	r7
 	cjne	r7,#0x00,00103$
 	inc	r6
@@ -677,131 +667,45 @@ _random_read:
 	mov	dpl,r7
 	mov	dph,r6
 	lcall	_i2c_write
-;	eeprom.c:38: s=i2c_read();
+;	eeprom.c:39: s=i2c_read();
 	lcall	_i2c_read
 	mov	r6,dpl
 	mov	r7,dph
-;	eeprom.c:39: i2c_nack();
+;	eeprom.c:40: i2c_nack();
 	push	ar7
 	push	ar6
 	lcall	_i2c_nack
-;	eeprom.c:41: i2c_stop();
+;	eeprom.c:42: i2c_stop();
 	lcall	_i2c_stop
-;	eeprom.c:44: long_delay();
+;	eeprom.c:45: long_delay();
 	lcall	_long_delay
 	pop	ar6
 	pop	ar7
-;	eeprom.c:45: return s;
+;	eeprom.c:46: return s;
 	mov	dpl,r6
 	mov	dph,r7
-;	eeprom.c:47: }
+;	eeprom.c:48: }
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'seq_read'
 ;------------------------------------------------------------
-;address1                  Allocated with name '_seq_read_PARM_2'
-;address2                  Allocated with name '_seq_read_PARM_3'
-;block1                    Allocated with name '_seq_read_PARM_4'
-;block2                    Allocated with name '_seq_read_PARM_5'
-;controlcode               Allocated with name '_seq_read_controlcode_65536_74'
-;blocknumber               Allocated with name '_seq_read_blocknumber_65537_76'
-;s                         Allocated with name '_seq_read_s_65537_76'
-;starter                   Allocated with name '_seq_read_starter_65538_77'
-;ender                     Allocated with name '_seq_read_ender_65539_78'
-;k                         Allocated with name '_seq_read_k_65540_79'
-;t                         Allocated with name '_seq_read_t_65540_79'
+;controlcode               Allocated with name '_seq_read_controlcode_65536_96'
+;addressreceiver1          Allocated with name '_seq_read_addressreceiver1_65536_97'
+;address1                  Allocated with name '_seq_read_address1_65537_98'
+;address2                  Allocated with name '_seq_read_address2_65538_99'
+;s                         Allocated with name '_seq_read_s_65539_100'
+;k                         Allocated with name '_seq_read_k_65539_100'
+;t                         Allocated with name '_seq_read_t_65540_101'
 ;------------------------------------------------------------
-;	eeprom.c:48: void seq_read(uint8_t controlcode,uint8_t address1,uint8_t address2,uint8_t block1,uint8_t block2)
+;	eeprom.c:49: void seq_read(uint8_t controlcode)
 ;	-----------------------------------------
 ;	 function seq_read
 ;	-----------------------------------------
 _seq_read:
 	mov	a,dpl
-	mov	dptr,#_seq_read_controlcode_65536_74
+	mov	dptr,#_seq_read_controlcode_65536_96
 	movx	@dptr,a
-;	eeprom.c:50: restart_i2c();
-	lcall	_restart_i2c
-;	eeprom.c:51: i2c_write(0xFF);
-	mov	dptr,#0x00ff
-	lcall	_i2c_write
-;	eeprom.c:52: i2c_nack();
-	lcall	_i2c_nack
-;	eeprom.c:53: restart_i2c();
-	lcall	_restart_i2c
-;	eeprom.c:54: i2c_stop();
-	lcall	_i2c_stop
-;	eeprom.c:55: restart_i2c();
-	lcall	_restart_i2c
-;	eeprom.c:56: i2c_write(controlcode);
-	mov	dptr,#_seq_read_controlcode_65536_74
-	movx	a,@dptr
-	mov	r7,a
-	mov	r6,#0x00
-	mov	dpl,r7
-	mov	dph,r6
-	push	ar7
-	push	ar6
-	lcall	_i2c_write
-;	eeprom.c:57: delay();
-	lcall	_delay
-;	eeprom.c:58: i2c_write(address1);
-	mov	dptr,#_seq_read_PARM_2
-	movx	a,@dptr
-	mov	r5,a
-	mov	r3,a
-	mov	r4,#0x00
-	mov	dpl,r3
-	mov	dph,r4
-	push	ar5
-	lcall	_i2c_write
-;	eeprom.c:59: delay();
-	lcall	_delay
-;	eeprom.c:60: restart_i2c();
-	lcall	_restart_i2c
-	pop	ar5
-	pop	ar6
-	pop	ar7
-;	eeprom.c:62: i2c_write((controlcode+1));//change to read operation
-	inc	r7
-	cjne	r7,#0x00,00127$
-	inc	r6
-00127$:
-	mov	dpl,r7
-	mov	dph,r6
-	push	ar5
-	lcall	_i2c_write
-	pop	ar5
-;	eeprom.c:64: starter|=block1;
-	mov	dptr,#_seq_read_PARM_4
-	movx	a,@dptr
-;	eeprom.c:65: starter=starter<<8;
-	mov	r6,a
-;	eeprom.c:66: starter|=address1;
-	clr	a
-	mov	r7,a
-	mov	r4,a
-	mov	a,r5
-	orl	ar7,a
-	mov	a,r4
-	orl	ar6,a
-;	eeprom.c:68: ender|=block2;
-	mov	dptr,#_seq_read_PARM_5
-	movx	a,@dptr
-;	eeprom.c:69: ender=ender<<8;
-	mov	r4,a
-	mov	r5,#0x00
-;	eeprom.c:70: ender|=address2;
-	mov	dptr,#_seq_read_PARM_3
-	movx	a,@dptr
-	mov	r2,#0x00
-	orl	ar5,a
-	mov	a,r2
-	orl	ar4,a
-;	eeprom.c:74: printf("\n\r");
-	push	ar7
-	push	ar6
-	push	ar5
-	push	ar4
+;	eeprom.c:53: printf("Enter first address\n\r");
 	mov	a,#___str_0
 	push	acc
 	mov	a,#(___str_0 >> 8)
@@ -812,55 +716,21 @@ _seq_read:
 	dec	sp
 	dec	sp
 	dec	sp
-	pop	ar4
-	pop	ar5
-	pop	ar6
-	pop	ar7
-;	eeprom.c:77: while(t<(ender)){
-	mov	r3,#0x00
-00103$:
-	clr	c
-	mov	a,r7
-	subb	a,r5
-	mov	a,r6
-	subb	a,r4
-	jc	00128$
-	ljmp	00105$
-00128$:
-;	eeprom.c:78: if(k%16==0)
-	mov	ar1,r3
-	mov	a,r1
-	anl	a,#0x0f
-	jnz	00102$
-;	eeprom.c:80: printf("\n\r");
+;	eeprom.c:54: gets(addressreceiver1);
+	mov	dptr,#0x0000
+	mov	b,#0x00
+	lcall	_gets
+;	eeprom.c:55: uint16_t address1=strtohex(addressreceiver1);
+	mov	dptr,#0x0000
+	mov	b,#0x00
+	lcall	_strtohex
+	mov	r6,dpl
+	mov	r7,dph
+;	eeprom.c:56: printf("%address 1d\n\r",address1);
 	push	ar7
 	push	ar6
-	push	ar5
-	push	ar4
-	push	ar3
-	mov	a,#___str_0
-	push	acc
-	mov	a,#(___str_0 >> 8)
-	push	acc
-	mov	a,#0x80
-	push	acc
-	lcall	_printf
-	dec	sp
-	dec	sp
-	dec	sp
-	pop	ar3
-	pop	ar4
-	pop	ar5
-	pop	ar6
-	pop	ar7
-;	eeprom.c:81: printf("%3X:",t);
-	push	ar7
 	push	ar6
-	push	ar5
-	push	ar4
-	push	ar3
 	push	ar7
-	push	ar6
 	mov	a,#___str_1
 	push	acc
 	mov	a,#(___str_1 >> 8)
@@ -871,34 +741,7 @@ _seq_read:
 	mov	a,sp
 	add	a,#0xfb
 	mov	sp,a
-	pop	ar3
-	pop	ar4
-	pop	ar5
-	pop	ar6
-	pop	ar7
-00102$:
-;	eeprom.c:83: s=i2c_read();
-	push	ar7
-	push	ar6
-	push	ar5
-	push	ar4
-	push	ar3
-	lcall	_i2c_read
-	mov	r1,dpl
-	mov	r2,dph
-;	eeprom.c:84: i2c_ack();
-	push	ar2
-	push	ar1
-	lcall	_i2c_ack
-	pop	ar1
-	pop	ar2
-	pop	ar3
-;	eeprom.c:85: k++;
-	inc	r3
-;	eeprom.c:86: printf(" %X ",s);t++;
-	push	ar3
-	push	ar1
-	push	ar2
+;	eeprom.c:57: printf("Enter second address\n\r");
 	mov	a,#___str_2
 	push	acc
 	mov	a,#(___str_2 >> 8)
@@ -906,52 +749,380 @@ _seq_read:
 	mov	a,#0x80
 	push	acc
 	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+;	eeprom.c:58: gets(addressreceiver1);
+	mov	dptr,#0x0000
+	mov	b,#0x00
+	lcall	_gets
+;	eeprom.c:59: uint16_t address2=strtohex(addressreceiver1);
+	mov	dptr,#0x0000
+	mov	b,#0x00
+	lcall	_strtohex
+	mov	r4,dpl
+	mov	r5,dph
+;	eeprom.c:60: printf("%address 1d\n\r",address2);
+	push	ar5
+	push	ar4
+	push	ar4
+	push	ar5
+	mov	a,#___str_1
+	push	acc
+	mov	a,#(___str_1 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
 	mov	a,sp
 	add	a,#0xfb
 	mov	sp,a
+	pop	ar4
+	pop	ar5
+	pop	ar6
+	pop	ar7
+;	eeprom.c:61: printf("%d %d\n\r",address1,address2);
+	push	ar7
+	push	ar6
+	push	ar5
+	push	ar4
+	push	ar4
+	push	ar5
+	push	ar6
+	push	ar7
+	mov	a,#___str_3
+	push	acc
+	mov	a,#(___str_3 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	mov	a,sp
+	add	a,#0xf9
+	mov	sp,a
+	pop	ar4
+	pop	ar5
+	pop	ar6
+	pop	ar7
+;	eeprom.c:62: printf("Starter: %d Ender %d\n\r",address1,address2);
+	push	ar7
+	push	ar6
+	push	ar5
+	push	ar4
+	push	ar4
+	push	ar5
+	push	ar6
+	push	ar7
+	mov	a,#___str_4
+	push	acc
+	mov	a,#(___str_4 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	mov	a,sp
+	add	a,#0xf9
+	mov	sp,a
+	pop	ar4
+	pop	ar5
+	pop	ar6
+	pop	ar7
+;	eeprom.c:63: printf("difference is %d\n\r",address2-address1);
+	mov	a,r4
+	clr	c
+	subb	a,r6
+	mov	r2,a
+	mov	a,r5
+	subb	a,r7
+	mov	r3,a
+	push	ar7
+	push	ar6
+	push	ar5
+	push	ar4
+	push	ar2
+	push	ar3
+	mov	a,#___str_5
+	push	acc
+	mov	a,#(___str_5 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	mov	a,sp
+	add	a,#0xfb
+	mov	sp,a
+;	eeprom.c:67: restart_i2c();
+	lcall	_restart_i2c
+;	eeprom.c:68: i2c_write(0xFF);
+	mov	dptr,#0x00ff
+	lcall	_i2c_write
+;	eeprom.c:69: i2c_nack();
+	lcall	_i2c_nack
+;	eeprom.c:70: restart_i2c();
+	lcall	_restart_i2c
+;	eeprom.c:71: i2c_stop();
+	lcall	_i2c_stop
+;	eeprom.c:72: restart_i2c();
+	lcall	_restart_i2c
+;	eeprom.c:73: i2c_write(controlcode);
+	mov	dptr,#_seq_read_controlcode_65536_96
+	movx	a,@dptr
+	mov	r3,a
+	mov	r2,#0x00
+	mov	dpl,r3
+	mov	dph,r2
+	push	ar3
+	push	ar2
+	lcall	_i2c_write
+;	eeprom.c:74: delay();
+	lcall	_delay
+	pop	ar2
 	pop	ar3
 	pop	ar4
 	pop	ar5
 	pop	ar6
 	pop	ar7
-	inc	r7
-	cjne	r7,#0x00,00131$
+;	eeprom.c:75: i2c_write(address1);
+	mov	dpl,r6
+	mov	dph,r7
+	push	ar7
+	push	ar6
+	push	ar5
+	push	ar4
+	push	ar3
+	push	ar2
+	lcall	_i2c_write
+;	eeprom.c:76: delay();
+	lcall	_delay
+;	eeprom.c:77: restart_i2c();
+	lcall	_restart_i2c
+	pop	ar2
+	pop	ar3
+	pop	ar4
+	pop	ar5
+	pop	ar6
+	pop	ar7
+;	eeprom.c:80: i2c_write((controlcode+1));//change to read operation
+	inc	r3
+	cjne	r3,#0x00,00127$
+	inc	r2
+00127$:
+	mov	dpl,r3
+	mov	dph,r2
+	push	ar7
+	push	ar6
+	push	ar5
+	push	ar4
+	lcall	_i2c_write
+	pop	ar4
+	pop	ar5
+	pop	ar6
+	pop	ar7
+;	eeprom.c:87: while(t<(address2))
+	mov	r2,#0x00
+	mov	r3,#0x00
+00103$:
+	clr	c
+	mov	a,r6
+	subb	a,r4
+	mov	a,r7
+	subb	a,r5
+	jc	00128$
+	ljmp	00105$
+00128$:
+;	eeprom.c:89: if(k%16==0)
+	mov	dptr,#__modsint_PARM_2
+	mov	a,#0x10
+	movx	@dptr,a
+	clr	a
+	inc	dptr
+	movx	@dptr,a
+	mov	dpl,r2
+	mov	dph,r3
+	push	ar7
+	push	ar6
+	push	ar5
+	push	ar4
+	push	ar3
+	push	ar2
+	lcall	__modsint
+	mov	a,dpl
+	mov	b,dph
+	pop	ar2
+	pop	ar3
+	pop	ar4
+	pop	ar5
+	pop	ar6
+	pop	ar7
+	orl	a,b
+	jnz	00102$
+;	eeprom.c:91: printf("\n\r");
+	push	ar7
+	push	ar6
+	push	ar5
+	push	ar4
+	push	ar3
+	push	ar2
+	mov	a,#___str_6
+	push	acc
+	mov	a,#(___str_6 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	dec	sp
+	dec	sp
+	dec	sp
+	pop	ar2
+	pop	ar3
+	pop	ar4
+	pop	ar5
+	pop	ar6
+	pop	ar7
+;	eeprom.c:92: printf("%3X:",t);
+	push	ar7
+	push	ar6
+	push	ar5
+	push	ar4
+	push	ar3
+	push	ar2
+	push	ar6
+	push	ar7
+	mov	a,#___str_7
+	push	acc
+	mov	a,#(___str_7 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	mov	a,sp
+	add	a,#0xfb
+	mov	sp,a
+	pop	ar2
+	pop	ar3
+	pop	ar4
+	pop	ar5
+	pop	ar6
+	pop	ar7
+00102$:
+;	eeprom.c:94: s=i2c_read();
+	push	ar7
+	push	ar6
+	push	ar5
+	push	ar4
+	push	ar3
+	push	ar2
+	lcall	_i2c_read
+	mov	r0,dpl
+	mov	r1,dph
+;	eeprom.c:95: i2c_ack();
+	push	ar1
+	push	ar0
+	lcall	_i2c_ack
+	pop	ar0
+	pop	ar1
+	pop	ar2
+	pop	ar3
+	pop	ar4
+	pop	ar5
+	pop	ar6
+	pop	ar7
+;	eeprom.c:96: k++;
+	inc	r2
+	cjne	r2,#0x00,00130$
+	inc	r3
+00130$:
+;	eeprom.c:97: printf(" %X ",s);
+	push	ar7
+	push	ar6
+	push	ar5
+	push	ar4
+	push	ar3
+	push	ar2
+	push	ar0
+	push	ar1
+	mov	a,#___str_8
+	push	acc
+	mov	a,#(___str_8 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	mov	a,sp
+	add	a,#0xfb
+	mov	sp,a
+	pop	ar2
+	pop	ar3
+	pop	ar4
+	pop	ar5
+	pop	ar6
+	pop	ar7
+;	eeprom.c:98: t++;
 	inc	r6
+	cjne	r6,#0x00,00131$
+	inc	r7
 00131$:
 	ljmp	00103$
 00105$:
-;	eeprom.c:89: s=i2c_read();
+;	eeprom.c:101: s=i2c_read();
 	push	ar7
 	push	ar6
 	push	ar3
+	push	ar2
 	lcall	_i2c_read
 	mov	r4,dpl
 	mov	r5,dph
+	pop	ar2
 	pop	ar3
-;	eeprom.c:90: i2c_nack();
+;	eeprom.c:102: i2c_nack();
 	push	ar5
 	push	ar4
 	push	ar3
+	push	ar2
 	lcall	_i2c_nack
-;	eeprom.c:91: i2c_stop();
+;	eeprom.c:103: i2c_stop();
 	lcall	_i2c_stop
+	pop	ar2
 	pop	ar3
 	pop	ar4
 	pop	ar5
 	pop	ar6
 	pop	ar7
-;	eeprom.c:93: if(k%16==0)
-	mov	a,r3
-	anl	a,#0x0f
-	jnz	00107$
-;	eeprom.c:95: printf("\n\r");
+;	eeprom.c:104: k++;
+	inc	r2
+	cjne	r2,#0x00,00132$
+	inc	r3
+00132$:
+;	eeprom.c:105: if(k%16==0)
+	mov	dptr,#__modsint_PARM_2
+	mov	a,#0x10
+	movx	@dptr,a
+	clr	a
+	inc	dptr
+	movx	@dptr,a
+	mov	dpl,r2
+	mov	dph,r3
 	push	ar7
 	push	ar6
 	push	ar5
 	push	ar4
-	mov	a,#___str_0
+	lcall	__modsint
+	mov	a,dpl
+	mov	b,dph
+	pop	ar4
+	pop	ar5
+	pop	ar6
+	pop	ar7
+	orl	a,b
+	jnz	00107$
+;	eeprom.c:107: printf("\n\r");
+	push	ar7
+	push	ar6
+	push	ar5
+	push	ar4
+	mov	a,#___str_6
 	push	acc
-	mov	a,#(___str_0 >> 8)
+	mov	a,#(___str_6 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -963,14 +1134,14 @@ _seq_read:
 	pop	ar5
 	pop	ar6
 	pop	ar7
-;	eeprom.c:96: printf("%X:",t);
+;	eeprom.c:108: printf("%X:",t);
 	push	ar5
 	push	ar4
-	push	ar7
 	push	ar6
-	mov	a,#___str_3
+	push	ar7
+	mov	a,#___str_9
 	push	acc
-	mov	a,#(___str_3 >> 8)
+	mov	a,#(___str_9 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -981,12 +1152,12 @@ _seq_read:
 	pop	ar4
 	pop	ar5
 00107$:
-;	eeprom.c:98: printf(" %X ",s);
+;	eeprom.c:110: printf(" %X ",s);
 	push	ar4
 	push	ar5
-	mov	a,#___str_2
+	mov	a,#___str_8
 	push	acc
-	mov	a,#(___str_2 >> 8)
+	mov	a,#(___str_8 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -994,10 +1165,10 @@ _seq_read:
 	mov	a,sp
 	add	a,#0xfb
 	mov	sp,a
-;	eeprom.c:99: printf(newl);
-	mov	a,#___str_0
+;	eeprom.c:111: printf(newl);
+	mov	a,#___str_6
 	push	acc
-	mov	a,#(___str_0 >> 8)
+	mov	a,#(___str_6 >> 8)
 	push	acc
 	mov	a,#0x80
 	push	acc
@@ -1005,38 +1176,80 @@ _seq_read:
 	dec	sp
 	dec	sp
 	dec	sp
-;	eeprom.c:100: restart_i2c();
+;	eeprom.c:112: restart_i2c();
 	lcall	_restart_i2c
-;	eeprom.c:101: i2c_write(0xFF);
+;	eeprom.c:113: i2c_write(0xFF);
 	mov	dptr,#0x00ff
 	lcall	_i2c_write
-;	eeprom.c:102: i2c_nack();
+;	eeprom.c:114: i2c_nack();
 	lcall	_i2c_nack
-;	eeprom.c:103: restart_i2c();
+;	eeprom.c:115: restart_i2c();
 	lcall	_restart_i2c
-;	eeprom.c:104: i2c_stop();
-;	eeprom.c:107: }
+;	eeprom.c:116: i2c_stop();
+;	eeprom.c:119: }
 	ljmp	_i2c_stop
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 	.area CONST   (CODE)
 ___str_0:
+	.ascii "Enter first address"
 	.db 0x0a
 	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_1:
-	.ascii "%3X:"
+	.ascii "%address 1d"
+	.db 0x0a
+	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_2:
-	.ascii " %X "
+	.ascii "Enter second address"
+	.db 0x0a
+	.db 0x0d
 	.db 0x00
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
 ___str_3:
+	.ascii "%d %d"
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_4:
+	.ascii "Starter: %d Ender %d"
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_5:
+	.ascii "difference is %d"
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_6:
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_7:
+	.ascii "%3X:"
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_8:
+	.ascii " %X "
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_9:
 	.ascii "%X:"
 	.db 0x00
 	.area CSEG    (CODE)
